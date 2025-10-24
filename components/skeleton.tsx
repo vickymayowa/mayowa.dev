@@ -31,3 +31,7 @@ export function SkeletonGrid({ count = 3 }: { count?: number }) {
     </div>
   )
 }
+
+export function Skeleton({ className = "" }: { className?: string }) {
+  return <div className={`bg-slate-700 rounded animate-pulse ${className}`} />
+}

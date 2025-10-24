@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Trash2, Edit2, Plus } from "lucide-react"
 
 interface Experience {
@@ -13,43 +13,59 @@ interface Experience {
   description: string
 }
 
-const initialExperience: Experience[] = [
-  {
-    id: 1,
-    role: "Senior Full Stack Developer",
-    company: "Tech Innovations Inc.",
-    date: "2022 - Present",
-    description: "Led development of multiple full-stack applications",
-  },
-  {
-    id: 2,
-    role: "Full Stack Developer",
-    company: "Digital Solutions Ltd.",
-    date: "2020 - 2022",
-    description: "Developed and maintained web applications for various clients",
-  },
-]
-
 export default function AdminExperienceTab() {
-  const [experiences, setExperiences] = useState<Experience[]>(initialExperience)
+  const [experiences, setExperiences] = useState<Experience[]>([])
   const [isAdding, setIsAdding] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [formData, setFormData] = useState({ role: "", company: "", date: "", description: "" })
 
-  const handleAdd = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (formData.role && formData.company) {
-      const newExp: Experience = {
-        id: Math.max(...experiences.map((e) => e.id), 0) + 1,
-        ...formData,
-      }
-      setExperiences([...experiences, newExp])
-      setFormData({ role: "", company: "", date: "", description: "" })
-      setIsAdding(false)
+  useEffect(() => {
+    fetchExperience()
+  }, [])
+
+  const fetchExperience = async () => {
+    try {
+      const response = await fetch("/api/experience")
+      const { data } = await response.json()
+      setExperiences(data || [])
+    } catch (error) {
+      console.error("Failed to fetch experience:", error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  const handleDelete = (id: number) => {
-    setExperiences(experiences.filter((e) => e.id !== id))
+  const handleAdd = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (formData.role && formData.company) {
+      try {
+        const response = await fetch("/api/experience", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            highlights: [],
+          }),
+        })
+
+        if (response.ok) {
+          setFormData({ role: "", company: "", date: "", description: "" })
+          setIsAdding(false)
+          fetchExperience()
+        }
+      } catch (error) {
+        console.error("Failed to add experience:", error)
+      }
+    }
+  }
+
+  const handleDelete = async (id: number) => {
+    try {
+      await fetch(`/api/experience?id=${id}`, { method: "DELETE" })
+      fetchExperience()
+    } catch (error) {
+      console.error("Failed to delete experience:", error)
+    }
   }
 
   return (
@@ -121,14 +137,14 @@ export default function AdminExperienceTab() {
 
       <div className="space-y-4">
         {experiences.map((exp) => (
-          <div key={exp.id} className="card flex items-start justify-between">
+          <div key={exp.id} className="card flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div className="flex-1">
               <h3 className="font-semibold">{exp.role}</h3>
               <p className="text-primary text-sm">{exp.company}</p>
               <p className="text-foreground/60 text-sm mb-2">{exp.date}</p>
               <p className="text-foreground/70 text-sm">{exp.description}</p>
             </div>
-            <div className="flex gap-2 ml-4">
+            <div className="flex gap-2 flex-shrink-0">
               <button className="p-2 hover:bg-border rounded-lg transition-colors">
                 <Edit2 size={18} />
               </button>

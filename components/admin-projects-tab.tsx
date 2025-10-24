@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Trash2, Edit2, Plus } from "lucide-react"
 
 interface Project {
@@ -12,44 +12,63 @@ interface Project {
   tags: string[]
 }
 
-const initialProjects: Project[] = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description: "Full-stack e-commerce solution with payment integration",
-    tags: ["Next.js", "React", "Stripe"],
-  },
-  {
-    id: 2,
-    title: "Task Management App",
-    description: "Collaborative task management tool with real-time updates",
-    tags: ["React", "Firebase", "Tailwind"],
-  },
-]
-
 export default function AdminProjectsTab() {
-  const [projects, setProjects] = useState<Project[]>(initialProjects)
+  const [projects, setProjects] = useState<Project[]>([])
   const [isAdding, setIsAdding] = useState(false)
-  const [editingId, setEditingId] = useState<number | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [formData, setFormData] = useState({ title: "", description: "", tags: "" })
 
-  const handleAdd = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (formData.title && formData.description) {
-      const newProject: Project = {
-        id: Math.max(...projects.map((p) => p.id), 0) + 1,
-        title: formData.title,
-        description: formData.description,
-        tags: formData.tags.split(",").map((t) => t.trim()),
-      }
-      setProjects([...projects, newProject])
-      setFormData({ title: "", description: "", tags: "" })
-      setIsAdding(false)
+  useEffect(() => {
+    fetchProjects()
+  }, [])
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch("/api/projects")
+      const { data } = await response.json()
+      setProjects(data || [])
+    } catch (error) {
+      console.error("Failed to fetch projects:", error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  const handleDelete = (id: number) => {
-    setProjects(projects.filter((p) => p.id !== id))
+  const handleAdd = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (formData.title && formData.description) {
+      try {
+        const response = await fetch("/api/projects", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: formData.title,
+            description: formData.description,
+            tags: formData.tags.split(",").map((t) => t.trim()),
+            image: "/project-management-team.png",
+            github: "#",
+            demo: "#",
+          }),
+        })
+
+        if (response.ok) {
+          setFormData({ title: "", description: "", tags: "" })
+          setIsAdding(false)
+          fetchProjects()
+        }
+      } catch (error) {
+        console.error("Failed to add project:", error)
+      }
+    }
+  }
+
+  const handleDelete = async (id: number) => {
+    try {
+      await fetch(`/api/projects?id=${id}`, { method: "DELETE" })
+      fetchProjects()
+    } catch (error) {
+      console.error("Failed to delete project:", error)
+    }
   }
 
   return (
