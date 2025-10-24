@@ -1,7 +1,6 @@
 "use client"
 
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
-import Link from "next/link"
 import {
   SiJavascript,
   SiTypescript,
@@ -12,6 +11,8 @@ import {
   SiMongodb,
   SiPostgresql,
 } from "react-icons/si"
+import HireMeModal from "./hire-me-modal"
+import CVSection from "./cv-section"
 
 export default function Hero() {
   const featuredTechs = [
@@ -112,19 +113,24 @@ export default function Hero() {
           </div>
 
           <div className="flex flex-wrap gap-4 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
-            <Link
+            <a
               href="/projects"
               className="btn-primary flex items-center gap-2 group hover:shadow-lg hover:shadow-primary/50 transition-all duration-200"
             >
               View My Work
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
+            </a>
+            <a
               href="/contact"
               className="btn-secondary flex items-center gap-2 hover:shadow-lg hover:shadow-primary/20 transition-all duration-200"
             >
               Get in Touch
-            </Link>
+            </a>
+            <HireMeModal />
+          </div>
+
+          <div className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-350">
+            <CVSection />
           </div>
 
           <div className="flex gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-400">
