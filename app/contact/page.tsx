@@ -1,0 +1,158 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
+import { Mail, Phone, MapPin, Send } from "lucide-react"
+
+export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  })
+  const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    console.log("Form submitted:", formData)
+    setSubmitted(true)
+    setFormData({ name: "", email: "", message: "" })
+
+    // Reset success message after 5 seconds
+    setTimeout(() => setSubmitted(false), 5000)
+    setIsLoading(false)
+  }
+
+  return (
+    <div className="section-container">
+      <div className="mb-12">
+        <h1 className="mb-4">Get In Touch</h1>
+        <p className="text-foreground/70 max-w-2xl">
+          Have a project in mind or want to collaborate? I'd love to hear from you. Send me a message and I'll get back
+          to you as soon as possible.
+        </p>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-8 mb-12">
+        {/* Contact Info Cards */}
+        <div className="card">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-3 bg-primary/20 rounded-lg">
+              <Mail className="text-primary" size={24} />
+            </div>
+            <div>
+              <p className="text-sm text-foreground/60">Email</p>
+              <p className="font-semibold">hello@example.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="card">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-3 bg-primary/20 rounded-lg">
+              <Phone className="text-primary" size={24} />
+            </div>
+            <div>
+              <p className="text-sm text-foreground/60">Phone</p>
+              <p className="font-semibold">+1 (555) 123-4567</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="card">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-3 bg-primary/20 rounded-lg">
+              <MapPin className="text-primary" size={24} />
+            </div>
+            <div>
+              <p className="text-sm text-foreground/60">Location</p>
+              <p className="font-semibold">San Francisco, CA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Form */}
+      <div className="max-w-2xl">
+        <div className="card">
+          {submitted && (
+            <div className="mb-6 p-4 bg-success/20 border border-success rounded-lg">
+              <p className="text-success font-medium">Thank you! Your message has been sent successfully.</p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium mb-2">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-primary transition-colors"
+                placeholder="Your name"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-primary transition-colors"
+                placeholder="your@email.com"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={6}
+                className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-primary transition-colors resize-none"
+                placeholder="Your message..."
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Send size={18} />
+              {isLoading ? "Sending..." : "Send Message"}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}

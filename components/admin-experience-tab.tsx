@@ -1,0 +1,147 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
+import { Trash2, Edit2, Plus } from "lucide-react"
+
+interface Experience {
+  id: number
+  role: string
+  company: string
+  date: string
+  description: string
+}
+
+const initialExperience: Experience[] = [
+  {
+    id: 1,
+    role: "Senior Full Stack Developer",
+    company: "Tech Innovations Inc.",
+    date: "2022 - Present",
+    description: "Led development of multiple full-stack applications",
+  },
+  {
+    id: 2,
+    role: "Full Stack Developer",
+    company: "Digital Solutions Ltd.",
+    date: "2020 - 2022",
+    description: "Developed and maintained web applications for various clients",
+  },
+]
+
+export default function AdminExperienceTab() {
+  const [experiences, setExperiences] = useState<Experience[]>(initialExperience)
+  const [isAdding, setIsAdding] = useState(false)
+  const [formData, setFormData] = useState({ role: "", company: "", date: "", description: "" })
+
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (formData.role && formData.company) {
+      const newExp: Experience = {
+        id: Math.max(...experiences.map((e) => e.id), 0) + 1,
+        ...formData,
+      }
+      setExperiences([...experiences, newExp])
+      setFormData({ role: "", company: "", date: "", description: "" })
+      setIsAdding(false)
+    }
+  }
+
+  const handleDelete = (id: number) => {
+    setExperiences(experiences.filter((e) => e.id !== id))
+  }
+
+  return (
+    <div>
+      <button
+        onClick={() => setIsAdding(!isAdding)}
+        className="flex items-center gap-2 px-4 py-2 bg-primary hover:opacity-90 text-white rounded-lg transition-colors mb-6"
+      >
+        <Plus size={18} />
+        Add Experience
+      </button>
+
+      {isAdding && (
+        <div className="card mb-6">
+          <form onSubmit={handleAdd} className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Role</label>
+                <input
+                  type="text"
+                  value={formData.role}
+                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
+                  placeholder="Job title"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Company</label>
+                <input
+                  type="text"
+                  value={formData.company}
+                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
+                  placeholder="Company name"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Date Range</label>
+              <input
+                type="text"
+                value={formData.date}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
+                placeholder="2022 - Present"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Description</label>
+              <textarea
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary resize-none"
+                rows={3}
+                placeholder="Job description"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button type="submit" className="btn-primary">
+                Save Experience
+              </button>
+              <button type="button" onClick={() => setIsAdding(false)} className="btn-secondary">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      <div className="space-y-4">
+        {experiences.map((exp) => (
+          <div key={exp.id} className="card flex items-start justify-between">
+            <div className="flex-1">
+              <h3 className="font-semibold">{exp.role}</h3>
+              <p className="text-primary text-sm">{exp.company}</p>
+              <p className="text-foreground/60 text-sm mb-2">{exp.date}</p>
+              <p className="text-foreground/70 text-sm">{exp.description}</p>
+            </div>
+            <div className="flex gap-2 ml-4">
+              <button className="p-2 hover:bg-border rounded-lg transition-colors">
+                <Edit2 size={18} />
+              </button>
+              <button
+                onClick={() => handleDelete(exp.id)}
+                className="p-2 hover:bg-error/20 text-error rounded-lg transition-colors"
+              >
+                <Trash2 size={18} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
