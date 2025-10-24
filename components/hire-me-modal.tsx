@@ -7,8 +7,8 @@ export default function HireMeModal() {
     const [isOpen, setIsOpen] = useState(false)
     const [copied, setCopied] = useState(false)
 
-    const contactNumber = "+234 (123) 456-7890" // Replace with your actual number
-    const contactEmail = "favour@example.com" // Replace with your actual email
+    const contactNumber = "+234 (091) 6763-8933"
+    const contactEmail = "techiedevmayowa@gmail.com"
 
     const handleCopy = (text: string) => {
         navigator.clipboard.writeText(text)
