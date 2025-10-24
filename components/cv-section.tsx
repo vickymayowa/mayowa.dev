@@ -4,18 +4,24 @@ import { Download, Eye } from "lucide-react"
 
 export default function CVSection() {
     const handleDownloadCV = () => {
-        // Replace with your actual CV file path
-        const link = document.createElement("a")
-        link.href = "/Favour_Mayowa_CV.pdf" // Place your CV in the public folder
-        link.download = "Favour_Mayowa_CV.pdf"
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+    
+        fetch("./Mayowa Adebanjo CV.pdf")
+            .then(res => res.blob())
+            .then(blob => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = "Mayowa Adebanjo CV.pdf";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            })
+            .catch(() => alert("Could not download CV. Please try again."));
     }
 
     const handleViewCV = () => {
-        // Replace with your actual CV file path
-        window.open("/Favour_Mayowa_CV.pdf", "_blank")
+        window.open("./Mayowa Adebanjo CV.pdf", "_blank")
     }
 
     return (

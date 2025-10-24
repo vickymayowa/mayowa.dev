@@ -65,7 +65,7 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="text-sm text-foreground/60">Email</p>
-              <p className="font-semibold">hello@example.com</p>
+              <p className="font-semibold">techiedevmayowa@gmail.com</p>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="text-sm text-foreground/60">Phone</p>
-              <p className="font-semibold">+1 (555) 123-4567</p>
+              <p className="font-semibold">+234 (916) 763-8933</p>
             </div>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="text-sm text-foreground/60">Location</p>
-              <p className="font-semibold">San Francisco, CA</p>
+              <p className="font-semibold">Oyo State, Nigeria</p>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function ContactPage() {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-primary transition-colors"
-                placeholder="Your name"
+                placeholder="John Doe"
               />
             </div>
 
@@ -139,7 +139,7 @@ export default function ContactPage() {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-primary transition-colors"
-                placeholder="your@email.com"
+                placeholder="johndoe@gmail.com"
               />
             </div>
 
@@ -155,7 +155,7 @@ export default function ContactPage() {
                 required
                 rows={6}
                 className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-primary transition-colors resize-none"
-                placeholder="Your message..."
+                placeholder="Tell me about your project or just say hello!"
               />
             </div>
 

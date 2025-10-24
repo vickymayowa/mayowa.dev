@@ -11,6 +11,8 @@ import {
   SiNodedotjs,
   SiExpress,
   SiMongodb,
+  SiFirebase,
+  SiMysql,
   SiPostgresql,
   SiAmazon,
   SiGit,
@@ -36,6 +38,10 @@ const techCategories = [
       { name: "Node.js", icon: SiNodedotjs, color: "text-green-500" },
       { name: "Express.js", icon: SiExpress, color: "text-gray-400" },
       { name: "MongoDB", icon: SiMongodb, color: "text-green-600" },
+      { name: "MySQL", icon: SiMysql, color: "text-green-600" },
+      { name: "Supabase", icon: SiSupabase, color: "text-green-400" },
+      { name: "Firebase", icon: SiFirebase, color: "text-yellow-400" },
+
       { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-500" },
     ],
   },
@@ -45,8 +51,20 @@ const techCategories = [
       { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
       { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
       { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
+
       { name: "Git", icon: SiGit, color: "text-orange-600" },
-      { name: "Supabase", icon: SiSupabase, color: "text-green-400" },
+      { name: "Docker", icon: SiDocker, color: "text-blue-600" },
+      { name: "Vercel", icon: SiVercel, color: "text-white" },
+    ],
+  },
+  {
+    title: "CI/CD",
+    skills: [
+      { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
+      { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
+      { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
+
+      { name: "Git", icon: SiGit, color: "text-orange-600" },
       { name: "Docker", icon: SiDocker, color: "text-blue-600" },
       { name: "Vercel", icon: SiVercel, color: "text-white" },
     ],

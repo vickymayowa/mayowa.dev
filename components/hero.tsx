@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
+import Link from "next/link"
 import {
   SiJavascript,
   SiTypescript,
@@ -9,6 +10,7 @@ import {
   SiNextdotjs,
   SiNodedotjs,
   SiMongodb,
+  SiMysql,
   SiPostgresql,
 } from "react-icons/si"
 import HireMeModal from "./hire-me-modal"
@@ -23,6 +25,7 @@ export default function Hero() {
     { name: "Vue.js", icon: SiVuedotjs, color: "text-green-400" },
     { name: "Node.js", icon: SiNodedotjs, color: "text-green-500" },
     { name: "MongoDB", icon: SiMongodb, color: "text-green-600" },
+    { name: "SQL", icon: SiMysql, color: "text-green-600" },
     { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-500" },
   ]
 
@@ -30,6 +33,7 @@ export default function Hero() {
     { icon: SiReact, color: "text-blue-400", top: "10%", left: "5%", delay: "0s" },
     { icon: SiNextdotjs, color: "text-white", top: "15%", right: "8%", delay: "0.2s" },
     { icon: SiNodedotjs, color: "text-green-500", top: "20%", left: "12%", delay: "0.4s" },
+    { icon: SiVuedotjs, color: "text-green-400", top: "25%", right: "10%", delay: "0.6s" },
     { icon: SiTypescript, color: "text-blue-500", top: "12%", right: "15%", delay: "0.6s" },
   ]
 
@@ -113,48 +117,43 @@ export default function Hero() {
           </div>
 
           <div className="flex flex-wrap gap-4 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
-            <a
+            <Link
               href="/projects"
               className="btn-primary flex items-center gap-2 group hover:shadow-lg hover:shadow-primary/50 transition-all duration-200"
             >
               View My Work
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="/contact"
-              className="btn-secondary flex items-center gap-2 hover:shadow-lg hover:shadow-primary/20 transition-all duration-200"
-            >
-              Get in Touch
-            </a>
-            <HireMeModal />
-          </div>
-
-          <div className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-350">
+            </Link>
+            {/* <HireMeModal /> */}
             <CVSection />
           </div>
 
+          <div className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-350">
+            {/* <CVSection /> */}
+          </div>
+
           <div className="flex gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-400">
-            <a
-              href="#"
+            <Link
+              href="https://github.com/vickymayowa"
               className="p-3 bg-card border border-border hover:border-primary hover:bg-primary/10 rounded-lg transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
               aria-label="GitHub"
             >
               <Github size={20} />
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="https://www.linkedin.com/in/favour-adebanjo/"
               className="p-3 bg-card border border-border hover:border-primary hover:bg-primary/10 rounded-lg transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
               aria-label="LinkedIn"
             >
               <Linkedin size={20} />
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="mailto:techiedevmayowa@gmail.com"
               className="p-3 bg-card border border-border hover:border-primary hover:bg-primary/10 rounded-lg transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
               aria-label="Email"
             >
               <Mail size={20} />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
