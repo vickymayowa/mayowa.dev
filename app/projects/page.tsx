@@ -1,73 +1,43 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ProjectCard from "@/components/project-card"
+import { Skeleton } from "@/components/skeleton"
 
-const allProjects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description: "Full-stack e-commerce solution with payment integration and admin dashboard.",
-    image: "/ecommerce-dashboard.png",
-    tags: ["Next.js", "React", "Stripe", "PostgreSQL"],
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 2,
-    title: "Task Management App",
-    description: "Collaborative task management tool with real-time updates and team features.",
-    image: "/task-management-app.png",
-    tags: ["React", "Firebase", "Tailwind", "TypeScript"],
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 3,
-    title: "AI Chat Interface",
-    description: "Modern chat application powered by AI with conversation history and themes.",
-    image: "/ai-chat-interface.png",
-    tags: ["Next.js", "OpenAI", "Vercel", "Prisma"],
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 4,
-    title: "Analytics Dashboard",
-    description: "Real-time analytics dashboard with interactive charts and data visualization.",
-    image: "/analytics-dashboard.png",
-    tags: ["React", "Recharts", "Node.js", "MongoDB"],
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 5,
-    title: "Social Media App",
-    description: "Full-featured social platform with user profiles, posts, and real-time notifications.",
-    image: "/social-media-app-interface.png",
-    tags: ["Next.js", "Supabase", "WebSocket", "React"],
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 6,
-    title: "Weather App",
-    description: "Beautiful weather application with location-based forecasts and interactive maps.",
-    image: "/weather-app-interface.png",
-    tags: ["React", "API", "Tailwind", "Geolocation"],
-    github: "#",
-    demo: "#",
-  },
-]
-
-const allTags = Array.from(new Set(allProjects.flatMap((p) => p.tags)))
+interface Project {
+  id: number
+  title: string
+  description: string
+  image: string
+  tags: string[]
+  github: string
+  demo: string
+}
 
 export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([])
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
-  const filteredProjects = selectedTag
-    ? allProjects.filter((project) => project.tags.includes(selectedTag))
-    : allProjects
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch("/api/projects")
+        const { data } = await response.json()
+        setProjects(data || [])
+      } catch (error) {
+        console.error("Failed to fetch projects:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
+  const allTags = Array.from(new Set(projects.flatMap((p) => p.tags)))
+
+  const filteredProjects = selectedTag ? projects.filter((project) => project.tags.includes(selectedTag)) : projects
 
   return (
     <div className="section-container">
@@ -85,11 +55,10 @@ export default function ProjectsPage() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setSelectedTag(null)}
-            className={`px-4 py-2 rounded-lg transition-all ${
-              selectedTag === null
+            className={`px-4 py-2 rounded-lg transition-all ${selectedTag === null
                 ? "bg-primary text-white"
                 : "bg-card border border-border hover:border-primary text-foreground"
-            }`}
+              }`}
           >
             All
           </button>
@@ -97,11 +66,10 @@ export default function ProjectsPage() {
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`px-4 py-2 rounded-lg transition-all ${
-                selectedTag === tag
+              className={`px-4 py-2 rounded-lg transition-all ${selectedTag === tag
                   ? "bg-primary text-white"
                   : "bg-card border border-border hover:border-primary text-foreground"
-              }`}
+                }`}
             >
               {tag}
             </button>
@@ -110,16 +78,26 @@ export default function ProjectsPage() {
       </div>
 
       {/* Projects Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
-
-      {filteredProjects.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-foreground/70">No projects found with the selected filter.</p>
+      {isLoading ? (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <Skeleton key={i} className="h-80 w-full" />
+          ))}
         </div>
+      ) : (
+        <>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-foreground/70">No projects found with the selected filter.</p>
+            </div>
+          )}
+        </>
       )}
     </div>
   )

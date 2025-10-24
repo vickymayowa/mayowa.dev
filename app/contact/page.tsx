@@ -13,6 +13,7 @@ export default function ContactPage() {
   })
   const [submitted, setSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -22,17 +23,27 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError("")
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const response = await fetch("/api/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
 
-    console.log("Form submitted:", formData)
-    setSubmitted(true)
-    setFormData({ name: "", email: "", message: "" })
-
-    // Reset success message after 5 seconds
-    setTimeout(() => setSubmitted(false), 5000)
-    setIsLoading(false)
+      if (response.ok) {
+        setSubmitted(true)
+        setFormData({ name: "", email: "", message: "" })
+        setTimeout(() => setSubmitted(false), 5000)
+      } else {
+        setError("Failed to send message. Please try again.")
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -90,6 +101,12 @@ export default function ContactPage() {
           {submitted && (
             <div className="mb-6 p-4 bg-success/20 border border-success rounded-lg">
               <p className="text-success font-medium">Thank you! Your message has been sent successfully.</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="mb-6 p-4 bg-error/20 border border-error rounded-lg">
+              <p className="text-error font-medium">{error}</p>
             </div>
           )}
 
