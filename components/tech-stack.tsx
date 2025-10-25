@@ -7,6 +7,7 @@ import {
   SiVuedotjs,
   SiNextdotjs,
   SiAngular,
+  SiVsco,
   SiRedux,
   SiNodedotjs,
   SiExpress,
@@ -27,6 +28,7 @@ const techCategories = [
     skills: [
       { name: "React.js", icon: SiReact, color: "text-blue-400" },
       { name: "Vue.js", icon: SiVuedotjs, color: "text-green-400" },
+      { name: "TailWind", icon: SiVuedotjs, color: "text-green-400" },
       { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
       { name: "Angular", icon: SiAngular, color: "text-red-500" },
       { name: "Redux", icon: SiRedux, color: "text-purple-500" },
@@ -50,20 +52,13 @@ const techCategories = [
     skills: [
       { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
       { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
-      { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
-
-      { name: "Git", icon: SiGit, color: "text-orange-600" },
-      { name: "Docker", icon: SiDocker, color: "text-blue-600" },
-      { name: "Vercel", icon: SiVercel, color: "text-white" },
+      { name: "VsCode", icon: SiVsco, color: "text-blue-500" },
     ],
   },
   {
     title: "CI/CD",
     skills: [
-      { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
-      { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
       { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
-
       { name: "Git", icon: SiGit, color: "text-orange-600" },
       { name: "Docker", icon: SiDocker, color: "text-blue-600" },
       { name: "Vercel", icon: SiVercel, color: "text-white" },
