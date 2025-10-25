@@ -7,7 +7,7 @@ import {
   SiVuedotjs,
   SiNextdotjs,
   SiAngular,
-  SiVsco,
+  // SiVisualstudiocode,
   SiRedux,
   SiNodedotjs,
   SiExpress,
@@ -18,7 +18,7 @@ import {
   SiAmazon,
   SiGit,
   SiSupabase,
-  SiDocker,
+  // SiDocker,
   SiVercel,
   SiTailwindcss,
 } from "react-icons/si"
@@ -56,7 +56,7 @@ const techCategories = [
       { name: "Vercel", icon: SiVercel, color: "text-white" },
       { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
 
-      { name: "VsCode", icon: SiVsco, color: "text-blue-500" },
+      // { name: "VS Code", icon: SiVisualstudiocode, color: "text-blue-500" },
     ],
   },
   // {
