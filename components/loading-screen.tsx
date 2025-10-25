@@ -21,7 +21,7 @@ export default function LoadingScreen() {
     if (displayedText.length < terminalText.length) {
       const timer = setTimeout(() => {
         setDisplayedText(terminalText.slice(0, displayedText.length + 1))
-      }, 100)
+      }, 300)
       return () => clearTimeout(timer)
     }
   }, [displayedText])
@@ -30,7 +30,7 @@ export default function LoadingScreen() {
   useEffect(() => {
     const timer = setInterval(() => {
       setShowCursor((prev) => !prev)
-    }, 500)
+    }, 300)
     return () => clearInterval(timer)
   }, [])
 
@@ -38,7 +38,7 @@ export default function LoadingScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false)
-    }, 3000)
+    }, 4000)
     return () => clearTimeout(timer)
   }, [])
 
@@ -71,7 +71,7 @@ export default function LoadingScreen() {
           {/* Name with typing effect */}
           <div className="space-y-3">
             <div className="text-slate-400">
-              $ <span className="text-cyan-400">echo</span> <span className="text-yellow-400">"Developer"</span>
+              $ <span className="text-cyan-400">echo</span> <span className="text-yellow-400">"Full Stack Developer"</span>
             </div>
             <div className="text-green-400 text-lg font-bold">
               {displayedText}
