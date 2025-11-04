@@ -4,6 +4,8 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { Plus, Trash2 } from "lucide-react"
+import { SkeletonCard } from "./skeleton"
+import { LoadingSpinner } from "./loading-spinner"
 
 interface Blog {
   id: number
@@ -20,6 +22,8 @@ export default function AdminBlogsTab() {
   const [blogs, setBlogs] = useState<Blog[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [deletingId, setDeletingId] = useState<number | null>(null)
   const [formData, setFormData] = useState({
     title: "",
     excerpt: "",
@@ -48,6 +52,7 @@ export default function AdminBlogsTab() {
 
   const handleAddBlog = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
     try {
       const response = await fetch("/api/blogs", {
         method: "POST",
@@ -70,10 +75,13 @@ export default function AdminBlogsTab() {
       }
     } catch (error) {
       console.error("Error adding blog:", error)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
   const handleDeleteBlog = async (id: number) => {
+    setDeletingId(id)
     if (confirm("Are you sure you want to delete this blog?")) {
       try {
         const response = await fetch(`/api/blogs/${id}`, { method: "DELETE" })
@@ -82,7 +90,11 @@ export default function AdminBlogsTab() {
         }
       } catch (error) {
         console.error("Error deleting blog:", error)
+      } finally {
+        setDeletingId(null)
       }
+    } else {
+      setDeletingId(null)
     }
   }
 
@@ -92,14 +104,14 @@ export default function AdminBlogsTab() {
         <h2 className="text-2xl font-bold">Manage Blogs</h2>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+          disabled={isSubmitting}
         >
           <Plus size={18} />
           Add Blog
         </button>
       </div>
 
-      {/* Add Blog Form */}
       {showForm && (
         <form onSubmit={handleAddBlog} className="bg-card border border-border rounded-lg p-6 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -158,14 +170,17 @@ export default function AdminBlogsTab() {
           <div className="flex gap-2">
             <button
               type="submit"
-              className="px-4 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 transition-colors disabled:opacity-50"
+              disabled={isSubmitting}
             >
+              {isSubmitting && <LoadingSpinner size="sm" />}
               Add Blog
             </button>
             <button
               type="button"
               onClick={() => setShowForm(false)}
-              className="px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors"
+              className="px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors disabled:opacity-50"
+              disabled={isSubmitting}
             >
               Cancel
             </button>
@@ -173,9 +188,12 @@ export default function AdminBlogsTab() {
         </form>
       )}
 
-      {/* Blogs List */}
       {loading ? (
-        <div className="text-center py-8">Loading blogs...</div>
+        <div className="space-y-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
       ) : (
         <div className="space-y-4">
           {blogs.map((blog) => (
@@ -191,9 +209,10 @@ export default function AdminBlogsTab() {
               </div>
               <button
                 onClick={() => handleDeleteBlog(blog.id)}
-                className="ml-4 p-2 text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
+                className="ml-4 p-2 text-red-400 hover:bg-red-400/10 rounded-lg transition-colors disabled:opacity-50"
+                disabled={deletingId === blog.id}
               >
-                <Trash2 size={18} />
+                {deletingId === blog.id ? <LoadingSpinner size="sm" /> : <Trash2 size={18} />}
               </button>
             </div>
           ))}

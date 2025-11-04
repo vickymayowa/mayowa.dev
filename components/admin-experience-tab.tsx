@@ -4,6 +4,8 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import { Trash2, Edit2, Plus } from "lucide-react"
+import { SkeletonCard } from "./skeleton"
+import { LoadingSpinner } from "./loading-spinner"
 
 interface Experience {
   id: number
@@ -17,6 +19,8 @@ export default function AdminExperienceTab() {
   const [experiences, setExperiences] = useState<Experience[]>([])
   const [isAdding, setIsAdding] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [deletingId, setDeletingId] = useState<number | null>(null)
   const [formData, setFormData] = useState({ role: "", company: "", date: "", description: "" })
 
   useEffect(() => {
@@ -38,6 +42,7 @@ export default function AdminExperienceTab() {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault()
     if (formData.role && formData.company) {
+      setIsSubmitting(true)
       try {
         const response = await fetch("/api/experience", {
           method: "POST",
@@ -55,16 +60,21 @@ export default function AdminExperienceTab() {
         }
       } catch (error) {
         console.error("Failed to add experience:", error)
+      } finally {
+        setIsSubmitting(false)
       }
     }
   }
 
   const handleDelete = async (id: number) => {
+    setDeletingId(id)
     try {
       await fetch(`/api/experience?id=${id}`, { method: "DELETE" })
       fetchExperience()
     } catch (error) {
       console.error("Failed to delete experience:", error)
+    } finally {
+      setDeletingId(null)
     }
   }
 
@@ -72,7 +82,8 @@ export default function AdminExperienceTab() {
     <div>
       <button
         onClick={() => setIsAdding(!isAdding)}
-        className="flex items-center gap-2 px-4 py-2 bg-primary hover:opacity-90 text-white rounded-lg transition-colors mb-6"
+        className="flex items-center gap-2 px-4 py-2 bg-primary hover:opacity-90 text-white rounded-lg transition-colors mb-6 disabled:opacity-50"
+        disabled={isSubmitting}
       >
         <Plus size={18} />
         Add Experience
@@ -124,10 +135,20 @@ export default function AdminExperienceTab() {
               />
             </div>
             <div className="flex gap-2">
-              <button type="submit" className="btn-primary">
+              <button
+                type="submit"
+                className="btn-primary flex items-center gap-2 disabled:opacity-50"
+                disabled={isSubmitting}
+              >
+                {isSubmitting && <LoadingSpinner size="sm" />}
                 Save Experience
               </button>
-              <button type="button" onClick={() => setIsAdding(false)} className="btn-secondary">
+              <button
+                type="button"
+                onClick={() => setIsAdding(false)}
+                className="btn-secondary"
+                disabled={isSubmitting}
+              >
                 Cancel
               </button>
             </div>
@@ -135,29 +156,38 @@ export default function AdminExperienceTab() {
         </div>
       )}
 
-      <div className="space-y-4">
-        {experiences.map((exp) => (
-          <div key={exp.id} className="card flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-            <div className="flex-1">
-              <h3 className="font-semibold">{exp.role}</h3>
-              <p className="text-primary text-sm">{exp.company}</p>
-              <p className="text-foreground/60 text-sm mb-2">{exp.date}</p>
-              <p className="text-foreground/70 text-sm">{exp.description}</p>
+      {isLoading ? (
+        <div className="space-y-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {experiences.map((exp) => (
+            <div key={exp.id} className="card flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div className="flex-1">
+                <h3 className="font-semibold">{exp.role}</h3>
+                <p className="text-primary text-sm">{exp.company}</p>
+                <p className="text-foreground/60 text-sm mb-2">{exp.date}</p>
+                <p className="text-foreground/70 text-sm">{exp.description}</p>
+              </div>
+              <div className="flex gap-2 flex-shrink-0">
+                <button className="p-2 hover:bg-border rounded-lg transition-colors">
+                  <Edit2 size={18} />
+                </button>
+                <button
+                  onClick={() => handleDelete(exp.id)}
+                  className="p-2 hover:bg-error/20 text-error rounded-lg transition-colors disabled:opacity-50"
+                  disabled={deletingId === exp.id}
+                >
+                  {deletingId === exp.id ? <LoadingSpinner size="sm" /> : <Trash2 size={18} />}
+                </button>
+              </div>
             </div>
-            <div className="flex gap-2 flex-shrink-0">
-              <button className="p-2 hover:bg-border rounded-lg transition-colors">
-                <Edit2 size={18} />
-              </button>
-              <button
-                onClick={() => handleDelete(exp.id)}
-                className="p-2 hover:bg-error/20 text-error rounded-lg transition-colors"
-              >
-                <Trash2 size={18} />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

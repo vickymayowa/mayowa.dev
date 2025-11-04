@@ -1,7 +1,8 @@
 "use client"
 
 import { Trash2, Mail } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { LoadingSpinner } from "./loading-spinner"
 
 interface Message {
   id: number
@@ -11,30 +12,39 @@ interface Message {
   date: string
 }
 
-const initialMessages: Message[] = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john@example.com",
-    message: "Great portfolio! I'd love to discuss a project opportunity.",
-    date: "2025-01-15",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    message: "Your work is impressive. Let's connect on LinkedIn.",
-    date: "2025-01-14",
-  },
-]
-
 export default function AdminMessagesTab() {
-  const [messages, setMessages] = useState<Message[]>(initialMessages)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [loading, setLoading] = useState(true)
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null)
+  const [deletingId, setDeletingId] = useState<number | null>(null)
 
-  const handleDelete = (id: number) => {
-    setMessages(messages.filter((m) => m.id !== id))
-    setSelectedMessage(null)
+  useEffect(() => {
+    fetchMessages()
+  }, [])
+
+  const fetchMessages = async () => {
+    try {
+      const response = await fetch("/api/contacts")
+      const data = await response.json()
+      setMessages(data)
+    } catch (error) {
+      console.error("Error fetching messages:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleDelete = async (id: number) => {
+    setDeletingId(id)
+    try {
+      await fetch(`/api/contacts?id=${id}`, { method: "DELETE" })
+      fetchMessages()
+      setSelectedMessage(null)
+    } catch (error) {
+      console.error("Error deleting message:", error)
+    } finally {
+      setDeletingId(null)
+    }
   }
 
   return (
@@ -42,7 +52,12 @@ export default function AdminMessagesTab() {
       {/* Messages List */}
       <div className="md:col-span-1">
         <div className="space-y-2">
-          {messages.length === 0 ? (
+          {loading ? (
+            <div className="card text-center py-8">
+              <LoadingSpinner size="md" />
+              <p className="text-foreground/70 mt-2">Loading messages...</p>
+            </div>
+          ) : messages.length === 0 ? (
             <div className="card text-center py-8">
               <Mail className="mx-auto mb-2 text-foreground/50" size={32} />
               <p className="text-foreground/70">No messages yet</p>
@@ -52,11 +67,10 @@ export default function AdminMessagesTab() {
               <button
                 key={msg.id}
                 onClick={() => setSelectedMessage(msg)}
-                className={`w-full text-left p-4 rounded-lg border transition-all ${
-                  selectedMessage?.id === msg.id
+                className={`w-full text-left p-4 rounded-lg border transition-all ${selectedMessage?.id === msg.id
                     ? "bg-primary/20 border-primary"
                     : "bg-card border-border hover:border-primary"
-                }`}
+                  }`}
               >
                 <p className="font-semibold text-sm">{msg.name}</p>
                 <p className="text-xs text-foreground/60 truncate">{msg.email}</p>
@@ -79,9 +93,10 @@ export default function AdminMessagesTab() {
               </div>
               <button
                 onClick={() => handleDelete(selectedMessage.id)}
-                className="p-2 hover:bg-error/20 text-error rounded-lg transition-colors"
+                className="p-2 hover:bg-error/20 text-error rounded-lg transition-colors disabled:opacity-50"
+                disabled={deletingId === selectedMessage.id}
               >
-                <Trash2 size={18} />
+                {deletingId === selectedMessage.id ? <LoadingSpinner size="sm" /> : <Trash2 size={18} />}
               </button>
             </div>
             <div className="border-t border-border pt-4">
