@@ -128,9 +128,9 @@ export default function Hero() {
             <CVSection />
           </div>
 
-          <div className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-350">
+          {/* <div className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-350"> */}
             {/* <CVSection /> */}
-          </div>
+          {/* </div> */}
 
           <div className="flex gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-400">
             <Link
