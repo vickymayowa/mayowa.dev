@@ -1,9 +1,9 @@
-import { createServerSupabaseClient } from "../../../lib/supabase-server"
+import { createSupabaseServerClient } from "../../../lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET() {
     try {
-        const supabase = await createServerSupabaseClient()
+        const supabase = await createSupabaseServerClient()
 
         const { data, error } = await supabase.from("projects").select("*").order("created_at", { ascending: false })
 
@@ -19,7 +19,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
     try {
-        const supabase = await createServerSupabaseClient()
+        const supabase = await createSupabaseServerClient()
         const { title, description, image, tags, github, demo } = await request.json()
 
         if (!title || !description) {
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
     try {
-        const supabase = await createServerSupabaseClient()
+        const supabase = await createSupabaseServerClient()
         const { searchParams } = new URL(request.url)
         const id = searchParams.get("id")
 
