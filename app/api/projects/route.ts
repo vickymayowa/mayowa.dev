@@ -13,7 +13,8 @@ export async function GET() {
 
         return NextResponse.json({ data })
     } catch (error) {
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+        console.log(error)
+        return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
 }
 
@@ -21,6 +22,7 @@ export async function POST(request: NextRequest) {
     try {
         const supabase = await createSupabaseServerClient()
         const { title, description, image, tags, github, demo } = await request.json()
+        // console.log(request)
 
         if (!title || !description) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
@@ -37,7 +39,8 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({ data, success: true })
     } catch (error) {
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+        console.log(error)
+        // return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
 }
 
