@@ -3,13 +3,15 @@
 import { Trash2, Mail } from "lucide-react"
 import { useState, useEffect } from "react"
 import { LoadingSpinner } from "./loading-spinner"
+import Pagination from "./pagination"
+
 
 interface Message {
   id: number
   name: string
   email: string
   message: string
-  created_at: string
+  date: string
 }
 
 export default function AdminMessagesTab() {
@@ -17,6 +19,11 @@ export default function AdminMessagesTab() {
   const [loading, setLoading] = useState(true)
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null)
   const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const messagesPerPage = 10
+  const totalPages = Math.ceil(messages.length / messagesPerPage)
+  const startIndex = (currentPage - 1) * messagesPerPage
+  const paginatedMessages = messages.slice(startIndex, startIndex + messagesPerPage)
 
   useEffect(() => {
     fetchMessages()
@@ -63,20 +70,29 @@ export default function AdminMessagesTab() {
               <p className="text-foreground/70">No messages yet</p>
             </div>
           ) : (
-            Array.isArray(messages) && messages.map((msg) => (
-              <button
-                key={msg.id}
-                onClick={() => setSelectedMessage(msg)}
-                className={`w-full text-left p-4 rounded-lg border transition-all ${selectedMessage?.id === msg.id
-                    ? "bg-primary/20 border-primary"
-                    : "bg-card border-border hover:border-primary"
-                  }`}
-              >
-                <p className="font-semibold text-sm">{msg.name}</p>
-                <p className="text-xs text-foreground/60 truncate">{msg.email}</p>
-                <p className="text-xs text-foreground/50 mt-1">{msg.created_at}</p>
-              </button>
-            ))
+            <>
+              <div className="space-y-2">
+                {paginatedMessages.map((msg) => (
+                  <button
+                    key={msg.id}
+                    onClick={() => setSelectedMessage(msg)}
+                    className={`w-full text-left p-4 rounded-lg border transition-all ${selectedMessage?.id === msg.id
+                        ? "bg-primary/20 border-primary"
+                        : "bg-card border-border hover:border-primary"
+                      }`}
+                  >
+                    <p className="font-semibold text-sm">{msg.name}</p>
+                    <p className="text-xs text-foreground/60 truncate">{msg.email}</p>
+                    <p className="text-xs text-foreground/50 mt-1">{msg.date}</p>
+                  </button>
+                ))}
+              </div>
+
+              {/* Pagination Component */}
+              {totalPages > 1 && (
+                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+              )}
+            </>
           )}
         </div>
       </div>
@@ -89,7 +105,7 @@ export default function AdminMessagesTab() {
               <div>
                 <h3 className="font-semibold">{selectedMessage.name}</h3>
                 <p className="text-sm text-foreground/70">{selectedMessage.email}</p>
-                <p className="text-xs text-foreground/50 mt-1">{selectedMessage.created_at}</p>
+                <p className="text-xs text-foreground/50 mt-1">{selectedMessage.date}</p>
               </div>
               <button
                 onClick={() => handleDelete(selectedMessage.id)}

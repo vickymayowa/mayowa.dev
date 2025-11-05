@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import ProjectCard from "@/components/project-card"
 import { Skeleton } from "@/components/skeleton"
+import Pagination from "@/components/pagination"
 
 interface Project {
   id: number
@@ -18,6 +19,11 @@ export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([])
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+  const projectsPerPage = 6
+  const totalPages = Math.ceil(projects.length / projectsPerPage)
+  const startIndex = (currentPage - 1) * projectsPerPage
+  const paginatedProjects = projects.slice(startIndex, startIndex + projectsPerPage)
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -34,6 +40,10 @@ export default function ProjectsPage() {
 
     fetchProjects()
   }, [])
+
+  useEffect(() => {
+    setCurrentPage(1) // Reset to page 1 when filter changes
+  }, [selectedTag])
 
   const allTags = Array.from(new Set(projects.flatMap((p) => p.tags)))
 
@@ -56,8 +66,8 @@ export default function ProjectsPage() {
           <button
             onClick={() => setSelectedTag(null)}
             className={`px-4 py-2 rounded-lg transition-all ${selectedTag === null
-                ? "bg-primary text-white"
-                : "bg-card border border-border hover:border-primary text-foreground"
+              ? "bg-primary text-white"
+              : "bg-card border border-border hover:border-primary text-foreground"
               }`}
           >
             All
@@ -67,8 +77,8 @@ export default function ProjectsPage() {
               key={tag}
               onClick={() => setSelectedTag(tag)}
               className={`px-4 py-2 rounded-lg transition-all ${selectedTag === tag
-                  ? "bg-primary text-white"
-                  : "bg-card border border-border hover:border-primary text-foreground"
+                ? "bg-primary text-white"
+                : "bg-card border border-border hover:border-primary text-foreground"
                 }`}
             >
               {tag}
@@ -87,15 +97,20 @@ export default function ProjectsPage() {
       ) : (
         <>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project) => (
+            {paginatedProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
 
-          {filteredProjects.length === 0 && (
+          {paginatedProjects.length === 0 && (
             <div className="text-center py-12">
               <p className="text-foreground/70">No projects found with the selected filter.</p>
             </div>
+          )}
+
+          {/* Pagination Component */}
+          {totalPages > 1 && (
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
           )}
         </>
       )}

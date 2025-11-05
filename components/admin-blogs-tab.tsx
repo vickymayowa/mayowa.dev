@@ -6,6 +6,9 @@ import { useState, useEffect } from "react"
 import { Plus, Trash2 } from "lucide-react"
 import { SkeletonCard } from "./skeleton"
 import { LoadingSpinner } from "./loading-spinner"
+import Pagination from "./pagination"
+
+
 
 interface Blog {
   id: number
@@ -33,6 +36,11 @@ export default function AdminBlogsTab() {
     readTime: "5 min read",
     image: "",
   })
+  const [currentPage, setCurrentPage] = useState(1)
+  const blogsPerPage = 5
+  const totalPages = Math.ceil(blogs.length / blogsPerPage)
+  const startIndex = (currentPage - 1) * blogsPerPage
+  const paginatedBlogs = blogs.slice(startIndex, startIndex + blogsPerPage)
 
   useEffect(() => {
     fetchBlogs()
@@ -195,29 +203,39 @@ export default function AdminBlogsTab() {
           ))}
         </div>
       ) : (
-        <div className="space-y-4">
-          {blogs.map((blog) => (
-            <div key={blog.id} className="bg-card border border-border rounded-lg p-4 flex justify-between items-start">
-              <div className="flex-1">
-                <h3 className="font-bold text-lg mb-1">{blog.title}</h3>
-                <p className="text-sm text-slate-400 mb-2">{blog.excerpt.substring(0, 100)}...</p>
-                <div className="flex gap-4 text-xs text-slate-500">
-                  <span>{blog.category}</span>
-                  <span>{blog.date}</span>
-                  <span>{blog.readTime}</span>
-                </div>
-              </div>
-              <button
-                onClick={() => handleDeleteBlog(blog.id)}
-                className="ml-4 p-2 text-red-400 hover:bg-red-400/10 rounded-lg transition-colors disabled:opacity-50"
-                disabled={deletingId === blog.id}
+        <>
+          <div className="space-y-4">
+            {paginatedBlogs.map((blog) => (
+              <div
+                key={blog.id}
+                className="bg-card border border-border rounded-lg p-4 flex justify-between items-start"
               >
-                {deletingId === blog.id ? <LoadingSpinner size="sm" /> : <Trash2 size={18} />}
-              </button>
-            </div>
-          ))}
-        </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-lg mb-1">{blog.title}</h3>
+                  <p className="text-sm text-slate-400 mb-2">{blog.excerpt.substring(0, 100)}...</p>
+                  <div className="flex gap-4 text-xs text-slate-500">
+                    <span>{blog.category}</span>
+                    <span>{blog.date}</span>
+                    <span>{blog.readTime}</span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => handleDeleteBlog(blog.id)}
+                  className="ml-4 p-2 text-red-400 hover:bg-red-400/10 rounded-lg transition-colors disabled:opacity-50"
+                  disabled={deletingId === blog.id}
+                >
+                  {deletingId === blog.id ? <LoadingSpinner size="sm" /> : <Trash2 size={18} />}
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          )}
+        </>
       )}
     </div>
   )
 }
+
