@@ -9,7 +9,7 @@ interface Message {
   name: string
   email: string
   message: string
-  date: string
+  created_at: string
 }
 
 export default function AdminMessagesTab() {
@@ -63,7 +63,7 @@ export default function AdminMessagesTab() {
               <p className="text-foreground/70">No messages yet</p>
             </div>
           ) : (
-            messages.map((msg) => (
+            Array.isArray(messages) && messages.map((msg) => (
               <button
                 key={msg.id}
                 onClick={() => setSelectedMessage(msg)}
@@ -74,7 +74,7 @@ export default function AdminMessagesTab() {
               >
                 <p className="font-semibold text-sm">{msg.name}</p>
                 <p className="text-xs text-foreground/60 truncate">{msg.email}</p>
-                <p className="text-xs text-foreground/50 mt-1">{msg.date}</p>
+                <p className="text-xs text-foreground/50 mt-1">{msg.created_at}</p>
               </button>
             ))
           )}
@@ -89,7 +89,7 @@ export default function AdminMessagesTab() {
               <div>
                 <h3 className="font-semibold">{selectedMessage.name}</h3>
                 <p className="text-sm text-foreground/70">{selectedMessage.email}</p>
-                <p className="text-xs text-foreground/50 mt-1">{selectedMessage.date}</p>
+                <p className="text-xs text-foreground/50 mt-1">{selectedMessage.created_at}</p>
               </div>
               <button
                 onClick={() => handleDelete(selectedMessage.id)}

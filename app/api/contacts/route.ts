@@ -67,6 +67,7 @@ export async function POST(request: NextRequest) {
                 subject: `New message from ${name}`,
                 html: emailHtml,
             })
+            
         } catch (emailError) {
             console.error("Email send error:", emailError)
         }
