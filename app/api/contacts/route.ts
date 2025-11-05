@@ -63,18 +63,17 @@ export async function POST(request: NextRequest) {
 
             await resend.emails.send({
                 from: "Portfolio Contact <onboarding@resend.dev>",
-                to: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "favormayowa@example.com",
+                to: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "techiedevmayowa@gmail.com",
                 subject: `New message from ${name}`,
                 html: emailHtml,
             })
         } catch (emailError) {
             console.error("Email send error:", emailError)
-            // Don't fail the API if email doesn't send
         }
 
-        return NextResponse.json({ data, success: true })
+        return NextResponse.json({ data, success: true, message: "Contact information submitted successfully!" })
     } catch (error) {
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+        return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
 }
 
@@ -90,6 +89,6 @@ export async function GET() {
 
         return NextResponse.json({ data })
     } catch (error) {
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+        return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
 }

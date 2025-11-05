@@ -18,7 +18,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
     setError("")
 
     // Simple password check (in production, use proper authentication)
-    if (password === "admin123") {
+    if (password === "techiedev") {
       onLogin()
     } else {
       setError("Invalid password")
