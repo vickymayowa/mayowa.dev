@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { LoadingSpinner } from "./loading-spinner"
 import { Lock } from "lucide-react"
 interface AdminLoginProps {
   onLogin: () => void
@@ -34,7 +35,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
         setError(data.error || "Login failed")
       }
     } catch (error) {
-      console.error("[v0] Login error:", error)
+      console.error("Login error:", error)
       setError("An error occurred during login")
     } finally {
       setIsLoading(false)
@@ -86,7 +87,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                 placeholder="Enter password"
                 disabled={isLoading}
               />
-              <p className="text-xs text-foreground/50 mt-2">Demo: username: admin, password: admin123</p>
+              {/* <p className="text-xs text-foreground/50 mt-2">Demo: username: admin, password: admin123</p> */}
             </div>
 
             <button
