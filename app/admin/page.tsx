@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import AdminDashboard from "./admin-dashboard"
-import AdminLogin from "./admin-login"
+import AdminDashboard from "../../components/admin-dashboard"
+import AdminLogin from "../../components/admin-login"
 import { Loader2 } from "lucide-react"
 
 export default function AdminPage() {
@@ -16,7 +16,7 @@ export default function AdminPage() {
         const data = await response.json()
         setIsLoggedIn(data.authenticated)
       } catch (error) {
-        console.error("[v0] Session check failed:", error)
+        console.error("Session check failed:", error)
         setIsLoggedIn(false)
       } finally {
         setIsLoading(false)
