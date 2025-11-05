@@ -1,34 +1,12 @@
-import { createServerClient } from "@supabase/ssr"
-import { cookies } from "next/headers"
+import { createSupabaseServerClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
-
-// Extract Supabase client creation to avoid duplication
-async function getSupabaseClient() {
-  const cookieStore = await cookies()
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
-          )
-        },
-      },
-    }
-  )
-}
 
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = await getSupabaseClient()
+    const supabase = createSupabaseServerClient()
 
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser()
@@ -36,14 +14,18 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    // Optional: Verify ownership
-    const { data: blog } = await supabase
+    // Verify blog exists and check ownership
+    const { data: blog, error: fetchError } = await supabase
       .from("blogs")
       .select("user_id")
       .eq("id", params.id)
       .single()
 
-    if (blog?.user_id !== user.id) {
+    if (fetchError || !blog) {
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 })
+    }
+
+    if (blog.user_id !== user.id) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
@@ -75,7 +57,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = await getSupabaseClient()
+    const supabase = createSupabaseServerClient()
 
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser()
@@ -85,31 +67,60 @@ export async function PUT(
 
     const body = await request.json()
 
-    // Validate input (basic example - use Zod for better validation)
-    if (!body.title && !body.content && !body.slug) {
+    // Whitelist allowed fields (prevents updating user_id, created_at, etc.)
+    const allowedFields = ['title', 'content', 'slug', 'published', 'excerpt', 'cover_image']
+    const updateData: Record<string, any> = {}
+
+    for (const field of allowedFields) {
+      if (body[field] !== undefined) {
+        updateData[field] = body[field]
+      }
+    }
+
+    if (Object.keys(updateData).length === 0) {
       return NextResponse.json(
         { error: "No valid fields to update" },
         { status: 400 }
       )
     }
 
-    // Optional: Verify ownership before updating
-    const { data: blog } = await supabase
+    // Verify blog exists and check ownership
+    const { data: blog, error: fetchError } = await supabase
       .from("blogs")
-      .select("user_id")
+      .select("user_id, slug")
       .eq("id", params.id)
       .single()
 
-    if (blog?.user_id !== user.id) {
+    if (fetchError || !blog) {
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 })
+    }
+
+    if (blog.user_id !== user.id) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
+
+    // If updating slug, check for uniqueness
+    if (updateData.slug && updateData.slug !== blog.slug) {
+      const { data: existingBlog } = await supabase
+        .from("blogs")
+        .select("id")
+        .eq("slug", updateData.slug)
+        .single()
+
+      if (existingBlog) {
+        return NextResponse.json(
+          { error: "Slug already exists" },
+          { status: 409 }
+        )
+      }
     }
 
     const { data, error } = await supabase
       .from("blogs")
-      .update(body)
+      .update(updateData)
       .eq("id", params.id)
       .select()
-      .single() // Use .single() instead of accessing data[0]
+      .single()
 
     if (error) {
       console.error("Database error:", error)
