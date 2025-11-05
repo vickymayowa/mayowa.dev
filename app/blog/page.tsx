@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ArrowRight, Calendar, User } from "lucide-react"
 import { SkeletonCard } from "@/components/skeleton"
+import Pagination from "@/components/pagination"
 
 interface BlogPost {
   id: number
@@ -19,6 +20,11 @@ interface BlogPost {
 export default function BlogPage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([])
   const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+  const blogsPerPage = 6
+  const totalPages = Math.ceil(blogs.length / blogsPerPage)
+  const startIndex = (currentPage - 1) * blogsPerPage
+  const paginatedBlogs = blogs.slice(startIndex, startIndex + blogsPerPage)
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -60,60 +66,67 @@ export default function BlogPage() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {blogs.map((post) => (
-              <article
-                key={post.id}
-                className="group bg-card border border-border rounded-lg overflow-hidden hover:border-cyan-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-400/10"
-              >
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden bg-slate-700">
-                  <img
-                    src={post.image || "/placeholder.svg"}
-                    alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1 bg-cyan-400/20 text-cyan-300 text-xs font-semibold rounded-full border border-cyan-400/30">
-                      {post.category}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h2 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">{post.title}</h2>
-                  <p className="text-slate-400 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
-
-                  {/* Meta */}
-                  <div className="flex items-center gap-4 text-xs text-slate-500 mb-4 pb-4 border-b border-slate-700">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {new Date(post.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {paginatedBlogs.map((post) => (
+                <article
+                  key={post.id}
+                  className="group bg-card border border-border rounded-lg overflow-hidden hover:border-cyan-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-400/10"
+                >
+                  {/* Image */}
+                  <div className="relative h-48 overflow-hidden bg-slate-700">
+                    <img
+                      src={post.image || "/placeholder.svg"}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-4 right-4">
+                      <span className="px-3 py-1 bg-cyan-400/20 text-cyan-300 text-xs font-semibold rounded-full border border-cyan-400/30">
+                        {post.category}
+                      </span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <User className="w-4 h-4" />
-                      {post.author}
-                    </div>
-                    <span>{post.readTime}</span>
                   </div>
 
-                  {/* Read More Link */}
-                  <Link
-                    href={`/blog/${post.id}`}
-                    className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors group/link"
-                  >
-                    Read Article
-                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+                  {/* Content */}
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">{post.title}</h2>
+                    <p className="text-slate-400 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
+
+                    {/* Meta */}
+                    <div className="flex items-center gap-4 text-xs text-slate-500 mb-4 pb-4 border-b border-slate-700">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {new Date(post.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <User className="w-4 h-4" />
+                        {post.author}
+                      </div>
+                      <span>{post.readTime}</span>
+                    </div>
+
+                    {/* Read More Link */}
+                    <Link
+                      href={`/blog/${post.id}`}
+                      className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors group/link"
+                    >
+                      Read Article
+                      <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            {/* Pagination Component */}
+            {totalPages > 1 && (
+              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+            )}
+          </>
         )}
       </section>
 
