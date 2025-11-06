@@ -3,15 +3,19 @@
 import type React from "react"
 
 import { useEffect, useState } from "react"
-import { Trash2, Edit2, Plus } from "lucide-react"
+import { Trash2, Plus, Upload } from "lucide-react"
 import { SkeletonCard } from "./skeleton"
 import { LoadingSpinner } from "./loading-spinner"
+import { uploadProjectImage } from "../lib/supabase/supabase-storage"
 
 interface Project {
   id: number
   title: string
   description: string
   tags: string[]
+  image: string
+  github_link: string
+  live_url: string
 }
 
 export default function AdminProjectsTab() {
@@ -20,7 +24,15 @@ export default function AdminProjectsTab() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [deletingId, setDeletingId] = useState<number | null>(null)
-  const [formData, setFormData] = useState({ title: "", description: "", tags: "" })
+  const [uploadingImage, setUploadingImage] = useState(false)
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    tags: "",
+    github_link: "",
+    live_url: "",
+    image: "/placeholder.svg",
+  })
 
   useEffect(() => {
     fetchProjects()
@@ -38,6 +50,24 @@ export default function AdminProjectsTab() {
     }
   }
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploadingImage(true)
+    try {
+      // Use a temporary ID for upload preview
+      const tempId = Date.now()
+      const url = await uploadProjectImage(file, tempId)
+      setFormData({ ...formData, image: url })
+    } catch (error) {
+      console.error("Failed to upload image:", error)
+      alert("Failed to upload image. Please try again.")
+    } finally {
+      setUploadingImage(false)
+    }
+  }
+
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault()
     if (formData.title && formData.description) {
@@ -50,14 +80,21 @@ export default function AdminProjectsTab() {
             title: formData.title,
             description: formData.description,
             tags: formData.tags.split(",").map((t) => t.trim()),
-            image: "/project-management-team.png",
-            github: "#",
-            demo: "#",
+            image: formData.image,
+            github_link: formData.github_link || "#",
+            live_url: formData.live_url || "#",
           }),
         })
 
         if (response.ok) {
-          setFormData({ title: "", description: "", tags: "" })
+          setFormData({
+            title: "",
+            description: "",
+            tags: "",
+            github_link: "",
+            live_url: "",
+            image: "/placeholder.svg",
+          })
           setIsAdding(false)
           fetchProjects()
         }
@@ -96,6 +133,29 @@ export default function AdminProjectsTab() {
         <div className="card mb-6">
           <form onSubmit={handleAdd} className="space-y-4">
             <div>
+              <label className="block text-sm font-medium mb-2">Project Image</label>
+              <div className="flex items-center gap-3">
+                {formData.image && formData.image !== "/placeholder.svg" && (
+                  <img
+                    src={formData.image || "/placeholder.svg"}
+                    alt="Preview"
+                    className="w-16 h-16 object-cover rounded"
+                  />
+                )}
+                <label className="flex items-center gap-2 px-4 py-2 bg-border hover:bg-border/80 cursor-pointer rounded-lg transition-colors">
+                  <Upload size={18} />
+                  <span className="text-sm">{uploadingImage ? "Uploading..." : "Upload Image"}</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={uploadingImage}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            </div>
+            <div>
               <label className="block text-sm font-medium mb-2">Title</label>
               <input
                 type="text"
@@ -125,11 +185,31 @@ export default function AdminProjectsTab() {
                 placeholder="React, Next.js, Tailwind"
               />
             </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">GitHub Link</label>
+              <input
+                type="url"
+                value={formData.github_link}
+                onChange={(e) => setFormData({ ...formData, github_link: e.target.value })}
+                className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
+                placeholder="https://github.com/username/repo"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Live URL</label>
+              <input
+                type="url"
+                value={formData.live_url}
+                onChange={(e) => setFormData({ ...formData, live_url: e.target.value })}
+                className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
+                placeholder="https://project-demo.vercel.app"
+              />
+            </div>
             <div className="flex gap-2">
               <button
                 type="submit"
                 className="btn-primary flex items-center gap-2 disabled:opacity-50"
-                disabled={isSubmitting}
+                disabled={isSubmitting || uploadingImage}
               >
                 {isSubmitting && <LoadingSpinner size="sm" />}
                 Save Project
@@ -156,29 +236,59 @@ export default function AdminProjectsTab() {
       ) : (
         <div className="space-y-4">
           {projects.map((project) => (
-            <div key={project.id} className="card flex items-start justify-between">
-              <div className="flex-1">
-                <h3 className="font-semibold mb-1">{project.title}</h3>
-                <p className="text-foreground/70 text-sm mb-3">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="px-2 py-1 text-xs bg-primary/20 text-primary rounded">
-                      {tag}
-                    </span>
-                  ))}
+            <div key={project.id} className="card">
+              <div className="flex flex-col sm:flex-row gap-4 items-start">
+                {project.image && project.image !== "/placeholder.svg" && (
+                  <img
+                    src={project.image || "/placeholder.svg"}
+                    alt={project.title}
+                    className="w-24 h-24 object-cover rounded sm:flex-shrink-0"
+                  />
+                )}
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold mb-1">{project.title}</h3>
+                  <p className="text-foreground/70 text-sm mb-3">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="px-2 py-1 text-xs bg-primary/20 text-primary rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  {(project.github_link || project.live_url) && (
+                    <div className="flex gap-2 text-xs">
+                      {project.github_link && project.github_link !== "#" && (
+                        <a
+                          href={project.github_link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline"
+                        >
+                          GitHub
+                        </a>
+                      )}
+                      {project.live_url && project.live_url !== "#" && (
+                        <a
+                          href={project.live_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline"
+                        >
+                          Live URL
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div className="flex gap-2 ml-4">
-                <button className="p-2 hover:bg-border rounded-lg transition-colors">
-                  <Edit2 size={18} />
-                </button>
-                <button
-                  onClick={() => handleDelete(project.id)}
-                  className="p-2 hover:bg-error/20 text-error rounded-lg transition-colors disabled:opacity-50"
-                  disabled={deletingId === project.id}
-                >
-                  {deletingId === project.id ? <LoadingSpinner size="sm" /> : <Trash2 size={18} />}
-                </button>
+                <div className="flex gap-2 ml-auto">
+                  <button
+                    onClick={() => handleDelete(project.id)}
+                    className="p-2 hover:bg-error/20 text-error rounded-lg transition-colors disabled:opacity-50"
+                    disabled={deletingId === project.id}
+                  >
+                    {deletingId === project.id ? <LoadingSpinner size="sm" /> : <Trash2 size={18} />}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
