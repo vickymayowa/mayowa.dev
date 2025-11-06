@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useEffect, useState } from "react"
-import { Trash2, Plus, Upload } from "lucide-react"
+import { Trash2, Plus, Upload, Edit } from "lucide-react"
 import { SkeletonCard } from "./skeleton"
 import { LoadingSpinner } from "./loading-spinner"
 import { uploadProjectImage } from "../lib/supabase/supabase-storage"
@@ -21,6 +21,7 @@ interface Project {
 export default function AdminProjectsTab() {
   const [projects, setProjects] = useState<Project[]>([])
   const [isAdding, setIsAdding] = useState(false)
+  const [editingId, setEditingId] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [deletingId, setDeletingId] = useState<number | null>(null)
@@ -73,17 +74,30 @@ export default function AdminProjectsTab() {
     if (formData.title && formData.description) {
       setIsSubmitting(true)
       try {
-        const response = await fetch("/api/projects", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
+        const method = editingId ? "PUT" : "POST"
+        const body = editingId
+          ? {
+            id: editingId,
             title: formData.title,
             description: formData.description,
             tags: formData.tags.split(",").map((t) => t.trim()),
             image: formData.image,
             github_link: formData.github_link || "#",
             live_url: formData.live_url || "#",
-          }),
+          }
+          : {
+            title: formData.title,
+            description: formData.description,
+            tags: formData.tags.split(",").map((t) => t.trim()),
+            image: formData.image,
+            github_link: formData.github_link || "#",
+            live_url: formData.live_url || "#",
+          }
+
+        const response = await fetch("/api/projects", {
+          method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
         })
 
         if (response.ok) {
@@ -96,14 +110,28 @@ export default function AdminProjectsTab() {
             image: "/placeholder.svg",
           })
           setIsAdding(false)
+          setEditingId(null)
           fetchProjects()
         }
       } catch (error) {
-        console.error("Failed to add project:", error)
+        console.error("Failed to save project:", error)
       } finally {
         setIsSubmitting(false)
       }
     }
+  }
+
+  const handleEdit = (project: Project) => {
+    setFormData({
+      title: project.title,
+      description: project.description,
+      tags: project.tags.join(", "),
+      image: project.image,
+      github_link: project.github_link,
+      live_url: project.live_url,
+    })
+    setEditingId(project.id)
+    setIsAdding(true)
   }
 
   const handleDelete = async (id: number) => {
@@ -116,6 +144,19 @@ export default function AdminProjectsTab() {
     } finally {
       setDeletingId(null)
     }
+  }
+
+  const handleCancel = () => {
+    setIsAdding(false)
+    setEditingId(null)
+    setFormData({
+      title: "",
+      description: "",
+      tags: "",
+      github_link: "",
+      live_url: "",
+      image: "/placeholder.svg",
+    })
   }
 
   return (
@@ -132,6 +173,7 @@ export default function AdminProjectsTab() {
       {isAdding && (
         <div className="card mb-6">
           <form onSubmit={handleAdd} className="space-y-4">
+            <h3 className="font-semibold">{editingId ? "Edit Project" : "Add New Project"}</h3>
             <div>
               <label className="block text-sm font-medium mb-2">Project Image</label>
               <div className="flex items-center gap-3">
@@ -212,14 +254,9 @@ export default function AdminProjectsTab() {
                 disabled={isSubmitting || uploadingImage}
               >
                 {isSubmitting && <LoadingSpinner size="sm" />}
-                Save Project
+                {editingId ? "Update Project" : "Save Project"}
               </button>
-              <button
-                type="button"
-                onClick={() => setIsAdding(false)}
-                className="btn-secondary"
-                disabled={isSubmitting}
-              >
+              <button type="button" onClick={handleCancel} className="btn-secondary" disabled={isSubmitting}>
                 Cancel
               </button>
             </div>
@@ -281,6 +318,12 @@ export default function AdminProjectsTab() {
                   )}
                 </div>
                 <div className="flex gap-2 ml-auto">
+                  <button
+                    onClick={() => handleEdit(project)}
+                    className="p-2 hover:bg-primary/20 text-primary rounded-lg transition-colors"
+                  >
+                    <Edit size={18} />
+                  </button>
                   <button
                     onClick={() => handleDelete(project.id)}
                     className="p-2 hover:bg-error/20 text-error rounded-lg transition-colors disabled:opacity-50"
