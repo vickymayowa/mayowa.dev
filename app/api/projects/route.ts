@@ -43,6 +43,31 @@ export async function POST(request: NextRequest) {
     }
 }
 
+export async function PUT(request: NextRequest) {
+  try {
+    const supabase = await createServerSupabaseClient()
+    const { id, title, description, image, tags, github_link, live_url } = await request.json()
+
+    if (!id || !title || !description) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    const { data, error } = await supabase
+      .from("projects")
+      .update({ title, description, image, tags, github_link, live_url })
+      .eq("id", id)
+      .select()
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json({ data, success: true })
+  } catch (error) {
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+  }
+}
+
 export async function DELETE(request: NextRequest) {
     try {
         const supabase = await createSupabaseServerClient()
