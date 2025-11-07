@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const supabase = await createServerSupabaseClient()
+      const supabase = await createSupabaseServerClient()
     const { id, title, description, image, tags, github_link, live_url } = await request.json()
 
     if (!id || !title || !description) {
@@ -64,6 +64,7 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json({ data, success: true })
   } catch (error) {
+    console.log(error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
