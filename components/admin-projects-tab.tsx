@@ -52,22 +52,41 @@ export default function AdminProjectsTab() {
   }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+    const file = e.target.files?.[0];
+    console.log(file)
+    if (!file) return;
 
-    setUploadingImage(true)
+    setUploadingImage(true);
     try {
-      // Use a temporary ID for upload preview
-      const tempId = Date.now()
-      const url = await uploadProjectImage(file, tempId)
-      setFormData({ ...formData, image: url })
+      // Use a temporary ID for preview or project reference
+      const tempId = Date.now();
+
+      // Upload via server-side endpoint
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("projectId", tempId.toString());
+
+      const res = await fetch("/api/upload-image", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Upload failed");
+      }
+
+      // Set the uploaded image URL in your form
+      setFormData({ ...formData, image: data.publicUrl });
     } catch (error) {
-      console.error("Failed to upload image:", error)
-      alert("Failed to upload image. Please try again.")
+      console.error("Failed to upload image:", error);
+      alert("Failed to upload image. Please try again.");
     } finally {
-      setUploadingImage(false)
+      setUploadingImage(false);
     }
-  }
+  };
+
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault()
