@@ -72,6 +72,7 @@ export default function AdminProjectsTab() {
       });
 
       const data = await res.json();
+      console.log(data)
 
       if (!res.ok) {
         throw new Error(data.error || "Upload failed");
@@ -79,6 +80,7 @@ export default function AdminProjectsTab() {
 
       // Set the uploaded image URL in your form
       setFormData({ ...formData, image: data.publicUrl });
+      console.log(data.publicUrl)
     } catch (error) {
       console.error("Failed to upload image:", error);
       alert("Failed to upload image. Please try again.");

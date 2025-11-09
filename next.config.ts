@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     // ✅ Skip ESLint during production builds
     ignoreDuringBuilds: true,
   },
-  // other config options here...
+  domains: ["zuyzoxkdnyentxxydkvp.supabase.co"],
 };
 
 export default nextConfig;
