@@ -3,15 +3,8 @@
 import { useEffect, useState } from "react"
 import ExperienceTimeline from "@/components/experience-timeline"
 import { SkeletonGrid } from "@/components/skeleton"
+import { Experience } from "@/types/experience"
 
-interface Experience {
-  id: number
-  role: string
-  company: string
-  date: string
-  description: string
-  highlights: string[]
-}
 
 export default function ExperiencePage() {
   const [experiences, setExperiences] = useState<Experience[]>([])

@@ -3,10 +3,11 @@ import { type NextRequest, NextResponse } from "next/server"
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createSupabaseServerClient()
+    const { id } = await context.params
+    const supabase = await createSupabaseServerClient()
 
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser()
@@ -18,7 +19,7 @@ export async function DELETE(
     const { data: blog, error: fetchError } = await supabase
       .from("blogs")
       .select("user_id")
-      .eq("id", params.id)
+      .eq("id", id)
       .single()
 
     if (fetchError || !blog) {
@@ -29,35 +30,27 @@ export async function DELETE(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
-    const { error } = await supabase
-      .from("blogs")
-      .delete()
-      .eq("id", params.id)
+    const { error } = await supabase.from("blogs").delete().eq("id", id)
 
     if (error) {
       console.error("Database error:", error)
-      return NextResponse.json(
-        { error: "Failed to delete blog" },
-        { status: 500 }
-      )
+      return NextResponse.json({ error: "Failed to delete blog" }, { status: 500 })
     }
 
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error("Error deleting blog:", error)
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createSupabaseServerClient()
+    const { id } = await context.params
+    const supabase = await createSupabaseServerClient()
 
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser()
@@ -78,17 +71,14 @@ export async function PUT(
     }
 
     if (Object.keys(updateData).length === 0) {
-      return NextResponse.json(
-        { error: "No valid fields to update" },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: "No valid fields to update" }, { status: 400 })
     }
 
     // Verify blog exists and check ownership
     const { data: blog, error: fetchError } = await supabase
       .from("blogs")
       .select("user_id, slug")
-      .eq("id", params.id)
+      .eq("id", id)
       .single()
 
     if (fetchError || !blog) {
@@ -108,34 +98,25 @@ export async function PUT(
         .single()
 
       if (existingBlog) {
-        return NextResponse.json(
-          { error: "Slug already exists" },
-          { status: 409 }
-        )
+        return NextResponse.json({ error: "Slug already exists" }, { status: 409 })
       }
     }
 
     const { data, error } = await supabase
       .from("blogs")
       .update(updateData)
-      .eq("id", params.id)
+      .eq("id", id)
       .select()
       .single()
 
     if (error) {
       console.error("Database error:", error)
-      return NextResponse.json(
-        { error: "Failed to update blog" },
-        { status: 500 }
-      )
+      return NextResponse.json({ error: "Failed to update blog" }, { status: 500 })
     }
 
     return NextResponse.json(data)
   } catch (error) {
     console.error("Error updating blog:", error)
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
