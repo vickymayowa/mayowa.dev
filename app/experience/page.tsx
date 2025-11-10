@@ -14,7 +14,8 @@ export default function ExperiencePage() {
     const fetchExperience = async () => {
       try {
         const response = await fetch("/api/experience")
-        const { data } = await response.json()
+        const json = await response.json()
+        const data: Experience[] = json.data
         setExperiences(data || [])
       } catch (error) {
         console.error("Failed to fetch experience:", error)
@@ -25,6 +26,7 @@ export default function ExperiencePage() {
 
     fetchExperience()
   }, [])
+
 
   return (
     <div className="section-container">
