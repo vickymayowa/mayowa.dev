@@ -1,17 +1,8 @@
 "use client"
 
 import { CheckCircle2 } from "lucide-react"
+import { Experience } from "@/types/experience"
 
-interface Experience {
-  id: number
-  role: string
-  company: string
-  date: string
-  description: string
-  location: string
-  skills: string[]
-  highlights: string[]
-}
 
 interface ExperienceTimelineProps {
   experiences: Experience[]

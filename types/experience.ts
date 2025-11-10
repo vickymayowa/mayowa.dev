@@ -2,10 +2,11 @@
 export interface Experience {
     id: string
     title: string
+    role: string
     company: string
-    startDate: string
-    endDate?: string
+    date: string
     location: string
+    highlights: string[]
     skills: string[]
     description?: string
 }
