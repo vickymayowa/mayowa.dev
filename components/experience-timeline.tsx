@@ -8,6 +8,8 @@ interface Experience {
   company: string
   date: string
   description: string
+  location: string
+  skills: string[]
   highlights: string[]
 }
 
@@ -42,22 +44,36 @@ export default function ExperienceTimeline({ experiences }: ExperienceTimelinePr
                 <div className="flex-1">
                   <h3 className="text-lg sm:text-xl font-bold">{exp.role}</h3>
                   <p className="text-primary font-medium text-sm sm:text-base">{exp.company}</p>
+                  <p className="text-foreground/60 text-xs sm:text-sm">{exp.location}</p>
                 </div>
                 <span className="text-xs sm:text-sm text-foreground/60 whitespace-nowrap">{exp.date}</span>
               </div>
 
               <p className="text-foreground/70 mb-4 text-sm sm:text-base">{exp.description}</p>
 
-              <div className="flex flex-wrap gap-2">
-                {exp.highlights.map((highlight) => (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {exp.skills.map((skill) => (
                   <div
-                    key={highlight}
-                    className="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors duration-200"
+                    key={skill}
+                    className="px-3 py-1 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors duration-200"
                   >
-                    <CheckCircle2 size={14} className="text-primary flex-shrink-0" />
-                    <span className="text-xs sm:text-sm text-primary">{highlight}</span>
+                    <span className="text-xs sm:text-sm text-primary">{skill}</span>
                   </div>
                 ))}
+              </div>
+
+              {/* Highlights */}
+              <div className="flex flex-wrap gap-2">
+                {exp.highlights &&
+                  exp.highlights.map((highlight) => (
+                    <div
+                      key={highlight}
+                      className="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors duration-200"
+                    >
+                      <CheckCircle2 size={14} className="text-primary flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-primary">{highlight}</span>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

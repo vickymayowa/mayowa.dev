@@ -13,6 +13,8 @@ interface Experience {
   company: string
   date: string
   description: string
+  location: string
+  skills: string[]
 }
 
 export default function AdminExperienceTab() {
@@ -21,7 +23,15 @@ export default function AdminExperienceTab() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [deletingId, setDeletingId] = useState<number | null>(null)
-  const [formData, setFormData] = useState({ role: "", company: "", date: "", description: "" })
+  const [editingId, setEditingId] = useState<number | null>(null)
+  const [formData, setFormData] = useState({
+    role: "",
+    company: "",
+    date: "",
+    description: "",
+    location: "",
+    skills: "",
+  })
 
   useEffect(() => {
     fetchExperience()
@@ -39,27 +49,48 @@ export default function AdminExperienceTab() {
     }
   }
 
+  const handleEdit = (exp: Experience) => {
+    setEditingId(exp.id)
+    setFormData({
+      role: exp.role,
+      company: exp.company,
+      date: exp.date,
+      description: exp.description,
+      location: exp.location,
+      skills: exp.skills.join(", "),
+    })
+    setIsAdding(true)
+  }
+
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault()
     if (formData.role && formData.company) {
       setIsSubmitting(true)
       try {
+        const method = editingId ? "PUT" : "POST"
+        const body = editingId ? { id: editingId, ...formData } : formData
+
         const response = await fetch("/api/experience", {
-          method: "POST",
+          method,
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...formData,
-            highlights: [],
-          }),
+          body: JSON.stringify(body),
         })
 
         if (response.ok) {
-          setFormData({ role: "", company: "", date: "", description: "" })
+          setFormData({
+            role: "",
+            company: "",
+            date: "",
+            description: "",
+            location: "",
+            skills: "",
+          })
           setIsAdding(false)
+          setEditingId(null)
           fetchExperience()
         }
       } catch (error) {
-        console.error("Failed to add experience:", error)
+        console.error("Failed to save experience:", error)
       } finally {
         setIsSubmitting(false)
       }
@@ -81,7 +112,20 @@ export default function AdminExperienceTab() {
   return (
     <div>
       <button
-        onClick={() => setIsAdding(!isAdding)}
+        onClick={() => {
+          setIsAdding(!isAdding)
+          if (isAdding) {
+            setEditingId(null)
+            setFormData({
+              role: "",
+              company: "",
+              date: "",
+              description: "",
+              location: "",
+              skills: "",
+            })
+          }
+        }}
         className="flex items-center gap-2 px-4 py-2 bg-primary hover:opacity-90 text-white rounded-lg transition-colors mb-6 disabled:opacity-50"
         disabled={isSubmitting}
       >
@@ -92,6 +136,8 @@ export default function AdminExperienceTab() {
       {isAdding && (
         <div className="card mb-6">
           <form onSubmit={handleAdd} className="space-y-4">
+            <h3 className="text-lg font-semibold">{editingId ? "Edit Experience" : "Add New Experience"}</h3>
+
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Role</label>
@@ -114,16 +160,30 @@ export default function AdminExperienceTab() {
                 />
               </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">Date Range</label>
-              <input
-                type="text"
-                value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
-                placeholder="2022 - Present"
-              />
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Date Range</label>
+                <input
+                  type="text"
+                  value={formData.date}
+                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
+                  placeholder="2022 - Present"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Location</label>
+                <input
+                  type="text"
+                  value={formData.location}
+                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
+                  placeholder="Remote, New York, etc."
+                />
+              </div>
             </div>
+
             <div>
               <label className="block text-sm font-medium mb-2">Description</label>
               <textarea
@@ -134,6 +194,18 @@ export default function AdminExperienceTab() {
                 placeholder="Job description"
               />
             </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Skills (comma-separated)</label>
+              <input
+                type="text"
+                value={formData.skills}
+                onChange={(e) => setFormData({ ...formData, skills: e.target.value })}
+                className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
+                placeholder="React, Node.js, TypeScript, PostgreSQL"
+              />
+            </div>
+
             <div className="flex gap-2">
               <button
                 type="submit"
@@ -141,11 +213,22 @@ export default function AdminExperienceTab() {
                 disabled={isSubmitting}
               >
                 {isSubmitting && <LoadingSpinner size="sm" />}
-                Save Experience
+                {editingId ? "Update Experience" : "Save Experience"}
               </button>
               <button
                 type="button"
-                onClick={() => setIsAdding(false)}
+                onClick={() => {
+                  setIsAdding(false)
+                  setEditingId(null)
+                  setFormData({
+                    role: "",
+                    company: "",
+                    date: "",
+                    description: "",
+                    location: "",
+                    skills: "",
+                  })
+                }}
                 className="btn-secondary"
                 disabled={isSubmitting}
               >
@@ -169,11 +252,23 @@ export default function AdminExperienceTab() {
               <div className="flex-1">
                 <h3 className="font-semibold">{exp.role}</h3>
                 <p className="text-primary text-sm">{exp.company}</p>
+                <p className="text-foreground/60 text-sm">{exp.location}</p>
                 <p className="text-foreground/60 text-sm mb-2">{exp.date}</p>
-                <p className="text-foreground/70 text-sm">{exp.description}</p>
+                <p className="text-foreground/70 text-sm mb-3">{exp.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {exp.skills.map((skill) => (
+                    <span key={skill} className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
               <div className="flex gap-2 flex-shrink-0">
-                <button className="p-2 hover:bg-border rounded-lg transition-colors">
+                <button
+                  onClick={() => handleEdit(exp)}
+                  className="p-2 hover:bg-border rounded-lg transition-colors"
+                  disabled={isSubmitting}
+                >
                   <Edit2 size={18} />
                 </button>
                 <button
