@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { Trash2, Plus, Upload, Edit } from "lucide-react"
 import { SkeletonCard } from "./skeleton"
 import { LoadingSpinner } from "./loading-spinner"
-import { uploadProjectImage } from "../lib/supabase/supabase-storage"
+// import { uploadProjectImage } from "../lib/supabase/supabase-storage"
 
 interface Project {
   id: number
@@ -155,15 +155,24 @@ export default function AdminProjectsTab() {
     setIsAdding(true)
   }
 
-  const handleDelete = async (id: number) => {
-    setDeletingId(id)
+  async function handleDeleteImage(fileName: string) {
+    if (!confirm("Delete this image?")) return;
+
     try {
-      await fetch(`/api/projects?id=${id}`, { method: "DELETE" })
-      fetchProjects()
-    } catch (error) {
-      console.error("Failed to delete project:", error)
-    } finally {
-      setDeletingId(null)
+      const res = await fetch("/api/upload-image", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileName }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      setFormData({ ...formData, image: "", fileName: "" });
+      alert("Image deleted successfully");
+    } catch (err) {
+      console.error("Delete failed:", err);
+      alert("Error deleting image");
     }
   }
 
@@ -199,12 +208,23 @@ export default function AdminProjectsTab() {
               <label className="block text-sm font-medium mb-2">Project Image</label>
               <div className="flex items-center gap-3">
                 {formData.image && formData.image !== "/placeholder.svg" && (
-                  <img
-                    src={formData.image || "/placeholder.svg"}
-                    alt="Preview"
-                    className="w-16 h-16 object-cover rounded"
-                  />
+                  <div className="relative group w-16 h-16">
+                    <img
+                      src={formData.image}
+                      alt="Preview"
+                      className="w-50 h-15 object-cover rounded-lg shadow-md"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteImage(formData.image.split("/").pop()!)} // extract file name
+                      className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition"
+                      title="Delete image"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
                 )}
+
                 <label className="flex items-center gap-2 px-4 py-2 bg-border hover:bg-border/80 cursor-pointer rounded-lg transition-colors">
                   <Upload size={18} />
                   <span className="text-sm">{uploadingImage ? "Uploading..." : "Upload Image"}</span>
@@ -217,6 +237,7 @@ export default function AdminProjectsTab() {
                   />
                 </label>
               </div>
+
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Title</label>
