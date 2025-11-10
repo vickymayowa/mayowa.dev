@@ -13,22 +13,24 @@ export async function GET() {
 
         return NextResponse.json({ data })
     } catch (error) {
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+        return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
 }
 
 export async function POST(request: NextRequest) {
     try {
         const supabase = await createSupabaseServerClient()
-        const { role, company, date, description, highlights } = await request.json()
+        const { role, company, date, description, location, skills, highlights } = await request.json()
 
         if (!role || !company) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
         }
 
+        const skillsArray = skills ? skills.split(",").map((s: string) => s.trim()) : []
+
         const { data, error } = await supabase
             .from("experience")
-            .insert([{ role, company, date, description, highlights }])
+            .insert([{ role, company, date, description, location, skills: skillsArray, highlights }])
             .select()
 
         if (error) {
@@ -37,13 +39,40 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({ data, success: true })
     } catch (error) {
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+        return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
+    }
+}
+
+export async function PUT(request: NextRequest) {
+    try {
+        const supabase = await createSupabaseServerClient()
+        const { id, role, company, date, description, location, skills, highlights } = await request.json()
+
+        if (!id || !role || !company) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+        }
+
+        const skillsArray = skills ? skills.split(",").map((s: string) => s.trim()) : []
+
+        const { data, error } = await supabase
+            .from("experience")
+            .update({ role, company, date, description, location, skills: skillsArray, highlights })
+            .eq("id", id)
+            .select()
+
+        if (error) {
+            return NextResponse.json({ error: error.message }, { status: 500 })
+        }
+
+        return NextResponse.json({ data, success: true })
+    } catch (error) {
+        return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
 }
 
 export async function DELETE(request: NextRequest) {
     try {
-        const supabase = await createSupabaseServerClient() 
+        const supabase = await createSupabaseServerClient()
         const { searchParams } = new URL(request.url)
         const id = searchParams.get("id")
 
@@ -59,6 +88,6 @@ export async function DELETE(request: NextRequest) {
 
         return NextResponse.json({ success: true })
     } catch (error) {
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+        return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
 }
