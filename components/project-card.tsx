@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { Github, ExternalLink } from "lucide-react"
+// import { Project } from "@/types/project"
 
 interface ProjectCardProps {
   project: {

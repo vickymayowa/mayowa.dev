@@ -4,16 +4,7 @@ import { useEffect, useState } from "react"
 import ProjectCard from "@/components/project-card"
 import { Skeleton } from "@/components/skeleton"
 import Pagination from "@/components/pagination"
-
-interface Project {
-  id: number
-  title: string
-  description: string
-  image: string
-  tags: string[]
-  github: string
-  demo: string
-}
+import { Project } from "@/types/project"
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([])

@@ -7,15 +7,15 @@ import { Trash2, Plus, Upload, Edit } from "lucide-react"
 import { SkeletonCard } from "./skeleton"
 import { LoadingSpinner } from "./loading-spinner"
 // import { uploadProjectImage } from "../lib/supabase/supabase-storage"
+import { Project } from "@/types/project"
 
-interface Project {
-  id: number
-  title: string
-  description: string
-  tags: string[]
-  image: string
-  github_link: string
-  live_url: string
+interface ProjectForm {
+  title: string;
+  description: string;
+  tags: [];
+  github_link: string;
+  live_url: string;
+  image: string;
 }
 
 export default function AdminProjectsTab() {
@@ -26,13 +26,13 @@ export default function AdminProjectsTab() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [deletingId, setDeletingId] = useState<number | null>(null)
   const [uploadingImage, setUploadingImage] = useState(false)
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ProjectForm>({
     title: "",
     description: "",
-    tags: "",
+    tags: [],
     github_link: "",
     live_url: "",
-    image: "/placeholder.svg",
+    image: "",
   })
 
   useEffect(() => {
@@ -79,7 +79,8 @@ export default function AdminProjectsTab() {
       }
 
       // Set the uploaded image URL in your form
-      setFormData({ ...formData, image: data.publicUrl });
+      setFormData({ ...formData, image: data.publicUrl })
+
       console.log(data.publicUrl)
     } catch (error) {
       console.error("Failed to upload image:", error);
