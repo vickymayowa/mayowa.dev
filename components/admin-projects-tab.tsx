@@ -79,7 +79,7 @@ export default function AdminProjectsTab() {
       }
 
       // Set the uploaded image URL in your form
-      setFormData({ ...formData, image: data.publicUrl })
+      // setFormData({ ...formData, image: data.publicUrl })
 
       console.log(data.publicUrl)
     } catch (error) {
@@ -102,7 +102,7 @@ export default function AdminProjectsTab() {
             id: editingId,
             title: formData.title,
             description: formData.description,
-            tags: formData.tags.split(",").map((t) => t.trim()),
+            tags: typeof formData.tags === "string" ? formData.tags.split(",").map((t) => t.trim()) : formData.tags,
             image: formData.image,
             github_link: formData.github_link || "#",
             live_url: formData.live_url || "#",
@@ -110,7 +110,8 @@ export default function AdminProjectsTab() {
           : {
             title: formData.title,
             description: formData.description,
-            tags: formData.tags.split(",").map((t) => t.trim()),
+            // tags: formData.tags.split(",").map((t) => t.trim()),
+            tags: typeof formData.tags === "string" ? formData.tags.split(",").map((t) => t.trim()) : formData.tags,
             image: formData.image,
             github_link: formData.github_link || "#",
             live_url: formData.live_url || "#",
@@ -126,7 +127,7 @@ export default function AdminProjectsTab() {
           setFormData({
             title: "",
             description: "",
-            tags: "",
+              tags: "",
             github_link: "",
             live_url: "",
             image: "/placeholder.svg",
