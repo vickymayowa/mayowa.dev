@@ -29,16 +29,16 @@ export async function POST(request: NextRequest) {
 
         const { data, error } = await supabase
             .from("projects")
-            .insert([{ title, description, image, tags, github, demo }])
+            .insert([{ title, description, image, tags, github_link, live_url }])
             .select()
 
         if (error) {
             return NextResponse.json({ error: "Could not create project. Please check your input and try again." }, { status: 500 })
         }
-        console.log(error)
 
         return NextResponse.json({ data, message: "Project created successfully!" })
     } catch (error) {
+        ``
         console.error("POST /api/projects error:", error)
         return NextResponse.json({ error: "An unexpected error occurred while creating the project." }, { status: 500 })
     }
@@ -49,7 +49,7 @@ export async function PUT(request: NextRequest) {
         const supabase = await createSupabaseServerClient()
         const { id, title, description, image, tags, github_link, live_url } = await request.json()
 
-        if (!id || !title || !description) {
+        if (!id || !title || !description || !image || !tags || !github_link || !live_url) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
         }
 
