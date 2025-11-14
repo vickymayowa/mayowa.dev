@@ -1,12 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
-    domains: ["zuyzoxkdnyentxxydkvp.supabase.co"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "zuyzoxkdnyentxxydkvp.supabase.co",
+        pathname: "/**",
+      },
+    ],
   },
+
   compiler: {
     removeConsole: true,
   },
