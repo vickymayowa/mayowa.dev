@@ -21,7 +21,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
     try {
         const supabase = await createSupabaseServerClient()
-        const { title, description, image, tags, github, demo } = await request.json()
+        const { title, description, image, tags, github_link, live_url } = await request.json()
 
         if (!title || !description) {
             return NextResponse.json({ error: "Title and description are required to create a project." }, { status: 400 })
@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
         if (error) {
             return NextResponse.json({ error: "Could not create project. Please check your input and try again." }, { status: 500 })
         }
+        console.log(error)
 
         return NextResponse.json({ data, message: "Project created successfully!" })
     } catch (error) {
@@ -44,29 +45,29 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  try {
-      const supabase = await createSupabaseServerClient()
-    const { id, title, description, image, tags, github_link, live_url } = await request.json()
+    try {
+        const supabase = await createSupabaseServerClient()
+        const { id, title, description, image, tags, github_link, live_url } = await request.json()
 
-    if (!id || !title || !description) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+        if (!id || !title || !description) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+        }
+
+        const { data, error } = await supabase
+            .from("projects")
+            .update({ title, description, image, tags, github_link, live_url })
+            .eq("id", id)
+            .select()
+
+        if (error) {
+            return NextResponse.json({ error: error.message }, { status: 500 })
+        }
+
+        return NextResponse.json({ data, success: true })
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 })
     }
-
-    const { data, error } = await supabase
-      .from("projects")
-      .update({ title, description, image, tags, github_link, live_url })
-      .eq("id", id)
-      .select()
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
-
-    return NextResponse.json({ data, success: true })
-  } catch (error) {
-    console.log(error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
-  }
 }
 
 export async function DELETE(request: NextRequest) {
