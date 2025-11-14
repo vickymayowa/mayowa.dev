@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
+import { Toaster } from "@/components/ui/sonner"
 import Sidebar from "@/components/sidebar"
 import LoadingScreen from "@/components/loading-screen"
 import { ThemeProvider } from "@/app/providers"
@@ -44,6 +45,7 @@ export default function RootLayout({
           <div className="flex h-screen overflow-hidden">
             <Sidebar />
             <main className="flex-1 overflow-y-auto">{children}</main>
+            <Toaster />
           </div>
         </ThemeProvider>
       </body>

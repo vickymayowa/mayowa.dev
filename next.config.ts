@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["zuyzoxkdnyentxxydkvp.supabase.co"],
   },
+  compiler: {
+    removeConsole: true,
+  },
 };
 
 export default nextConfig;

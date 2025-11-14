@@ -14,6 +14,7 @@ import {
   DialogTrigger,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { toast } from "sonner"
 
 interface ProjectForm {
   title: string;
@@ -220,11 +221,12 @@ export default function AdminProjectsTab() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
-
+      toast.success("Project Deleted Successfuly")
       if (response.ok) {
         fetchProjects();
+
       } else {
-        alert("Failed to delete project");
+        toast.error("Failed to delete project");
       }
     } catch (error) {
       console.error("Failed to delete project:", error);
