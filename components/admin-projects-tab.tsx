@@ -19,7 +19,7 @@ import { toast } from "sonner"
 interface ProjectForm {
   title: string;
   description: string;
-  tags: [];
+  tags: string[];
   github_link: string;
   live_url: string;
   image: string;
