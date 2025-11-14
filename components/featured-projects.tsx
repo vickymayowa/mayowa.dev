@@ -3,38 +3,69 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import ProjectCard from "./project-card"
-
-const featuredProjects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description: "Full-stack e-commerce solution with payment integration and admin dashboard.",
-    image: "/ecommerce-dashboard.png",
-    tags: ["Next.js", "React", "Stripe", "PostgreSQL"],
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 2,
-    title: "Task Management App",
-    description: "Collaborative task management tool with real-time updates and team features.",
-    image: "/task-management-app.png",
-    tags: ["React", "Firebase", "Tailwind", "TypeScript"],
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 3,
-    title: "AI Chat Interface",
-    description: "Modern chat application powered by AI with conversation history and themes.",
-    image: "/ai-chat-interface.png",
-    tags: ["Next.js", "OpenAI", "Vercel", "Prisma"],
-    github: "#",
-    demo: "#",
-  },
-]
+import { Project } from "@/types/project"
+import { useEffect, useState } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
+import { useToast } from "@/hooks/use-toast"
 
 export default function FeaturedProjects() {
+  const [featuredProjects, setFeaturedProjects] = useState<Project[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const { toast } = useToast()
+
+  useEffect(() => {
+    async function fetchFeaturedProjects() {
+      try {
+        const res = await fetch("/api/projects")
+        if (!res.ok) throw new Error("Failed to fetch projects")
+        const data = await res.json()
+        setFeaturedProjects(data.slice(0, 3))
+        toast({
+          title: "Sooner",
+          description: "Featured projects loaded successfully.",
+        })
+      } catch (err) {
+        setError((err as Error).message)
+        toast({
+          title: "Sooner",
+          description: "Failed to load featured projects.",
+          variant: "destructive",
+        })
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchFeaturedProjects()
+  }, [])
+
+  if (loading)
+    return (
+      <section className="section-container">
+        <div className="mb-12">
+          <Skeleton className="h-8 w-48 mb-4" />
+          <Skeleton className="h-5 w-full max-w-2xl" />
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="space-y-3">
+              <Skeleton className="h-48 w-full rounded-lg" />
+              <Skeleton className="h-6 w-3/4" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-5/6" />
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+
+  if (error)
+    return (
+      <section className="section-container">
+        <p className="text-destructive">Error: {error}</p>
+      </section>
+    )
+
   return (
     <section className="section-container">
       <div className="mb-12">
