@@ -365,11 +365,26 @@ export default function AdminProjectsTab() {
             <div key={project.id} className="card">
               <div className="flex flex-col sm:flex-row gap-4 items-start">
                 {project.image && project.image !== "/placeholder.svg" && (
-                  <img
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    className="w-24 h-24 object-cover rounded sm:flex-shrink-0"
-                  />
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <img
+                        src={project.image || "/placeholder.svg"}
+                        alt={project.title}
+                        className="w-24 h-24 object-cover rounded sm:flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => setSelectedImage({ url: project.image, title: project.title })}
+                      />
+                    </DialogTrigger>
+                    {selectedImage?.url === project.image && (
+                      <DialogContent className="max-w-2xl p-0 border-0">
+                        <DialogTitle className="sr-only">{project.title}</DialogTitle>
+                        <img
+                          src={selectedImage.url || "/placeholder.svg"}
+                          alt={selectedImage.title}
+                          className="w-full h-auto rounded-lg"
+                        />
+                      </DialogContent>
+                    )}
+                  </Dialog>
                 )}
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold mb-1">{project.title}</h3>
