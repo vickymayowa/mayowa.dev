@@ -8,6 +8,12 @@ import { SkeletonCard } from "./skeleton"
 import { LoadingSpinner } from "./loading-spinner"
 // import { uploadProjectImage } from "../lib/supabase/supabase-storage"
 import { Project } from "@/types/project"
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 interface ProjectForm {
   title: string;
