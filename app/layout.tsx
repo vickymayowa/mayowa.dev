@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import Sidebar from "@/components/sidebar"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import LoadingScreen from "@/components/loading-screen"
 import { ThemeProvider } from "@/app/providers"
 
@@ -46,6 +47,7 @@ export default function RootLayout({
             <Sidebar />
             <main className="flex-1 overflow-y-auto">{children}</main>
             <Toaster />
+            <SpeedInsights />
           </div>
         </ThemeProvider>
       </body>
