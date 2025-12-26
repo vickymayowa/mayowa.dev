@@ -1,41 +1,23 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
+import { readDB, writeDB, getCurrentTimestamp } from "@/lib/db"
 
-export async function DELETE(
-  request: NextRequest,
-  context: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await context.params
-    const supabase = await createSupabaseServerClient()
+    const db = await readDB()
 
-    // Check authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    if (authError || !user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
+    // Find blog index
+    const blogIndex = db.blogs.findIndex((blog) => blog.id === id)
 
-    // Verify blog exists and check ownership
-    const { data: blog, error: fetchError } = await supabase
-      .from("blogs")
-      .select("user_id")
-      .eq("id", id)
-      .single()
-
-    if (fetchError || !blog) {
+    if (blogIndex === -1) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }
 
-    if (blog.user_id !== user.id) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
-    }
+    // Remove blog
+    db.blogs.splice(blogIndex, 1)
 
-    const { error } = await supabase.from("blogs").delete().eq("id", id)
-
-    if (error) {
-      console.error("Database error:", error)
-      return NextResponse.json({ error: "Failed to delete blog" }, { status: 500 })
-    }
+    // Write to database
+    await writeDB(db)
 
     return NextResponse.json({ success: true })
   } catch (error) {
@@ -44,77 +26,31 @@ export async function DELETE(
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  context: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await context.params
-    const supabase = await createSupabaseServerClient()
-
-    // Check authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    if (authError || !user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
     const body = await request.json()
+    const db = await readDB()
 
-    // Whitelist allowed fields (prevents updating user_id, created_at, etc.)
-    const allowedFields = ['title', 'content', 'slug', 'published', 'excerpt', 'cover_image']
-    const updateData: Record<string, any> = {}
+    // Find blog index
+    const blogIndex = db.blogs.findIndex((blog) => blog.id === id)
 
-    for (const field of allowedFields) {
-      if (body[field] !== undefined) {
-        updateData[field] = body[field]
-      }
-    }
-
-    if (Object.keys(updateData).length === 0) {
-      return NextResponse.json({ error: "No valid fields to update" }, { status: 400 })
-    }
-
-    // Verify blog exists and check ownership
-    const { data: blog, error: fetchError } = await supabase
-      .from("blogs")
-      .select("user_id, slug")
-      .eq("id", id)
-      .single()
-
-    if (fetchError || !blog) {
+    if (blogIndex === -1) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }
 
-    if (blog.user_id !== user.id) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    // Update blog
+    db.blogs[blogIndex] = {
+      ...db.blogs[blogIndex],
+      ...body,
+      id, // Ensure ID doesn't change
+      updated_at: getCurrentTimestamp(),
     }
 
-    // If updating slug, check for uniqueness
-    if (updateData.slug && updateData.slug !== blog.slug) {
-      const { data: existingBlog } = await supabase
-        .from("blogs")
-        .select("id")
-        .eq("slug", updateData.slug)
-        .single()
+    // Write to database
+    await writeDB(db)
 
-      if (existingBlog) {
-        return NextResponse.json({ error: "Slug already exists" }, { status: 409 })
-      }
-    }
-
-    const { data, error } = await supabase
-      .from("blogs")
-      .update(updateData)
-      .eq("id", id)
-      .select()
-      .single()
-
-    if (error) {
-      console.error("Database error:", error)
-      return NextResponse.json({ error: "Failed to update blog" }, { status: 500 })
-    }
-
-    return NextResponse.json(data)
+    return NextResponse.json(db.blogs[blogIndex])
   } catch (error) {
     console.error("Error updating blog:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

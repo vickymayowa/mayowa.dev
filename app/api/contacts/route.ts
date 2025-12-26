@@ -1,27 +1,37 @@
-import { createSupabaseServerClient } from "../../../lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
-
+import { readDB, writeDB, generateId, getCurrentTimestamp } from "../../../lib/db"
 import { Resend } from "resend"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
+  try {
+    const { name, email, message } = await request.json()
+
+    if (!name || !email || !message) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    // Read the database
+    const db = await readDB()
+
+    // Create new contact
+    const newContact = {
+      id: generateId(db.contacts),
+      name,
+      email,
+      message,
+      created_at: getCurrentTimestamp(),
+    }
+
+    // Add to database
+    db.contacts.push(newContact)
+
+    // Write to database
+    await writeDB(db)
+
     try {
-        const supabase = await createSupabaseServerClient()
-        const { name, email, message } = await request.json()
-
-        if (!name || !email || !message) {
-            return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
-        }
-
-        const { data, error } = await supabase.from("contacts").insert([{ name, email, message }]).select()
-
-        if (error) {
-            return NextResponse.json({ error: error.message }, { status: 500 })
-        }
-
-        try {
-            const emailHtml = `
+      const emailHtml = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,35 +71,37 @@ export async function POST(request: NextRequest) {
 </html>
             `.trim()
 
-            await resend.emails.send({
-                from: "Portfolio Contact <onboarding@resend.dev>",
-                to: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "techiedevmayowa@gmail.com",
-                subject: `New message from ${name}`,
-                html: emailHtml,
-            })
-            
-        } catch (emailError) {
-            console.error("Email send error:", emailError)
-        }
-
-        return NextResponse.json({ data, success: true, message: "Contact information submitted successfully!" })
-    } catch (error) {
-        return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
+      await resend.emails.send({
+        from: "Portfolio Contact <onboarding@resend.dev>",
+        to: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "techiedevmayowa@gmail.com",
+        subject: `New message from ${name}`,
+        html: emailHtml,
+      })
+    } catch (emailError) {
+      console.error("Email send error:", emailError)
     }
+
+    return NextResponse.json({
+      data: [newContact],
+      success: true,
+      message: "Contact information submitted successfully!",
+    })
+  } catch (error) {
+    return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
+  }
 }
 
 export async function GET() {
-    try {
-        const supabase = await createSupabaseServerClient()
+  try {
+    const db = await readDB()
 
-        const { data, error } = await supabase.from("contacts").select("*").order("created_at", { ascending: false })
+    // Sort by created_at descending
+    const sortedContacts = [...db.contacts].sort((a, b) => {
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    })
 
-        if (error) {
-            return NextResponse.json({ error: error.message }, { status: 500 })
-        }
-
-        return NextResponse.json({ data })
-    } catch (error) {
-        return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
-    }
+    return NextResponse.json({ data: sortedContacts })
+  } catch (error) {
+    return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
+  }
 }

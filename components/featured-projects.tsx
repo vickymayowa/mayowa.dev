@@ -19,8 +19,8 @@ export default function FeaturedProjects() {
       try {
         const res = await fetch("/api/projects")
         if (!res.ok) throw new Error("Failed to fetch projects")
-        const data = await res.json()
-        setFeaturedProjects(data.slice(0, 3))
+        const response = await res.json()
+        setFeaturedProjects(response.data.slice(0, 3))
         toast({
           title: "Sooner",
           description: "Featured projects loaded successfully.",

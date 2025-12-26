@@ -1,0 +1,281 @@
+{
+    "contacts": [
+        {
+            "id": "1",
+            "name": "jjjj",
+            "email": "jj@gmail.comn",
+            "message": "9uifiuvuigi uiivigi",
+            "created_at": "2025-11-04 22:51:36.984448"
+        },
+        {
+            "id": "2",
+            "name": "Adebanjo Favour Mayowa",
+            "email": "lightningvault01@gmail.com",
+            "message": "uiwweuiweuiweuiweui",
+            "created_at": "2025-11-05 09:03:21.855622"
+        },
+        {
+            "id": "3",
+            "name": "Inventory-Backend",
+            "email": "member@abujaworkers.com",
+            "message": "weuegwygwugyuw rweyrgwey gweuirgwuerweuir ",
+            "created_at": "2025-11-05 09:05:30.024948"
+        }
+    ],
+    "admin_credentials": [
+        {
+            "id": "1",
+            "username": "techie",
+            "password": "techiedev",
+            "created_at": "2025-11-05 09:20:50.809711",
+            "updated_at": "2025-11-05 09:20:50.809711"
+        }
+    ],
+    "blogs": [
+        {
+            "id": "1",
+            "title": "Building Scalable Full-Stack Applications with MERN",
+            "excerpt": "Learn how to architect and build scalable full-stack applications using MongoDB, Express, React, and Node.js. We'll cover best practices, performance optimization, and deployment strategies.",
+            "date": "2024-10-15",
+            "author": "Favour Mayowa",
+            "category": "Full-Stack",
+            "readtime": "8 min read",
+            "image": "/mern-stack-development.jpg",
+            "content": "Full article content here...",
+            "created_at": "2025-11-04 22:19:03.453998",
+            "updated_at": "2025-11-04 22:19:03.453998"
+        },
+        {
+            "id": "2",
+            "title": "Next.js 15: New Features and Performance Improvements",
+            "excerpt": "Explore the latest features in Next.js 15 including improved server components, enhanced caching, and performance optimizations. Perfect for building modern web applications.",
+            "date": "2024-10-10",
+            "author": "Favour Mayowa",
+            "category": "Next.js",
+            "readtime": "6 min read",
+            "image": "/nextjs-15-features.jpg",
+            "content": "Full article content here...",
+            "created_at": "2025-11-04 22:19:03.453998",
+            "updated_at": "2025-11-04 22:19:03.453998"
+        },
+        {
+            "id": "3",
+            "title": "TypeScript Best Practices for Large-Scale Projects",
+            "excerpt": "Master TypeScript with advanced patterns and best practices for building maintainable, type-safe applications. Includes real-world examples and common pitfalls to avoid.",
+            "date": "2024-10-05",
+            "author": "Favour Mayowa",
+            "category": "TypeScript",
+            "readtime": "10 min read",
+            "image": "/typescript-best-practices.jpg",
+            "content": "Full article content here...",
+            "created_at": "2025-11-04 22:19:03.453998",
+            "updated_at": "2025-11-04 22:19:03.453998"
+        },
+        {
+            "id": "4",
+            "title": "React Performance Optimization Techniques",
+            "excerpt": "Discover proven techniques to optimize React applications for better performance. Learn about memoization, code splitting, lazy loading, and more.",
+            "date": "2024-09-28",
+            "author": "Favour Mayowa",
+            "category": "React",
+            "readtime": "7 min read",
+            "image": "/react-performance-optimization.jpg",
+            "content": "Full article content here...",
+            "created_at": "2025-11-04 22:19:03.453998",
+            "updated_at": "2025-11-04 22:19:03.453998"
+        },
+        {
+            "id": "5",
+            "title": "Deploying Applications to AWS: A Complete Guide",
+            "excerpt": "Step-by-step guide to deploying your applications on AWS. Covers EC2, S3, RDS, and best practices for production deployments.",
+            "date": "2024-09-20",
+            "author": "Favour Mayowa",
+            "category": "DevOps",
+            "readtime": "12 min read",
+            "image": "/aws-deployment-guide.jpg",
+            "content": "Full article content here...",
+            "created_at": "2025-11-04 22:19:03.453998",
+            "updated_at": "2025-11-04 22:19:03.453998"
+        },
+        {
+            "id": "6",
+            "title": "Database Design Patterns for Modern Applications",
+            "excerpt": "Learn essential database design patterns including normalization, indexing, and optimization strategies for both SQL and NoSQL databases.",
+            "date": "2024-09-15",
+            "author": "Favour Mayowa",
+            "category": "Database",
+            "readtime": "9 min read",
+            "image": "/database-design-patterns.jpg",
+            "content": "Full article content here...",
+            "created_at": "2025-11-04 22:19:03.453998",
+            "updated_at": "2025-11-04 22:19:03.453998"
+        }
+    ],
+    "experience": [
+        {
+            "id": "4",
+            "role": "Frontend Developer",
+            "company": "Alusoft Technologies Ltd",
+            "date": "Jun 2023 - Oct 2023",
+            "description": "Taught foundational web development technologies, including HTML, CSS, and JavaScript, to aspiring frontend developers.\n\nDesigned and delivered interactive lessons, ensuring students grasped key concepts through hands-on projects and real-world examples.\n\nProvided mentorship and guidance to students, helping them build strong technical skills and confidence in web development.",
+            "highlights": [],
+            "created_at": "2025-11-05 09:57:44.992886",
+            "location": "Remote",
+            "skills": [
+                "HTML",
+                "CSS",
+                "JAVASCRIPT"
+            ]
+        },
+        {
+            "id": "5",
+            "role": "Full Stack Developer",
+            "company": "SQI COLLEGE OF ICT",
+            "date": "SEPT 2022 - AUG 2024",
+            "description": "I enrolled in a tech school to advance my skills as a Full-Stack Web Developer. During my studies, I gained hands-on experience with diverse tech stacks, including Angular, MongoDB, Node.js, Express.js, React, Vue.js, SQL, and PHP. Alongside technical skills, I developed strong communication abilities, learning to present and pitch ideas effectively. This experience has equipped me with a well-rounded foundation for success in the tech industry.",
+            "highlights": [],
+            "created_at": "2025-11-05 09:59:09.953045",
+            "location": "Old Ilorin Road, Opposite Yoaco Filling Station, Yoaco, Ogbomoso.",
+            "skills": [
+                "React",
+                "Nodejs",
+                "Php",
+                "Nextjs",
+                "SQl",
+                "Mongodb",
+                "Laravel",
+                "Vue"
+            ]
+        },
+        {
+            "id": "6",
+            "role": "Frontend Developer",
+            "company": "Tripflex",
+            "date": "May 2024 - Dec 2024",
+            "description": "Developed a seamless car tour booking platform for city tours, akin to ride-hailing services like Uber.\n\nBuilt an intuitive user interface to simplify navigation, destination selection, and booking management.\n\nDesigned and implemented the admin dashboard, including key features such as the Transactions page, Payments, Settings, Driver Verification, and Driver Management.\n\nImplemented responsive designs, ensuring consistent user experiences across devices.",
+            "highlights": [],
+            "created_at": "2025-11-05 10:00:09.792735",
+            "location": "Remote",
+            "skills": [
+                "Reactjs",
+                "NextJS",
+                "Typescript",
+                "Tailwind Css"
+            ]
+        },
+        {
+            "id": "7",
+            "role": "Frontend Developer",
+            "company": "Cargomax Services Ltd",
+            "date": "May 2024 - Feb 2025",
+            "description": "Developed the user-side interface to manage orders and products using Next.js and Tailwind CSS.\n\nCreated responsive designs and interactive features to enhance usability.\n\nDelivered clean, efficient code to ensure optimal performance and scalability.",
+            "highlights": [],
+            "created_at": "2025-11-05 10:02:16.518287",
+            "location": "Remote",
+            "skills": [
+                "Nextjs",
+                "Tailwind"
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "id": "10",
+            "title": "FinFlow Web",
+            "description": "A modern fintech web application built with Next.js 16, Supabase, TailwindCSS, and ShadCN UI, Typescript. Inspired by Cowrywise, FinFlow helps users automate their savings, invest in diverse portfolios, and achieve their financial goals.",
+            "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763126099305-1763126100720.png",
+            "tags": [
+                "TypeScript",
+                "TailwindCSS",
+                "Supabase",
+                "Next.js",
+                "ShadCN"
+            ],
+            "demo": null,
+            "created_at": "2025-11-06 21:12:57.309692",
+            "github_link": "https://github.com/vickymayowa/FinFlow-Web",
+            "live_url": "https://fin-flow-web-gules.vercel.app/"
+        },
+        {
+            "id": "11",
+            "title": "Code Arena",
+            "description": "Full-stack, class-based web application that turns coding practice into an interactive terminal experience. Built with Next.js, TypeScript, TailwindCSS, and ShadCN/UI, Supabase, it lets developers solve LeetCode-style problems directly inside a sleek, hacker-themed interface — solo or collaboratively in real-time.",
+            "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763126085968-1763126087727.png",
+            "tags": [
+                "TypeScript",
+                "TailwindCSS",
+                "ShadCN",
+                "Next.js",
+                "Supabase"
+            ],
+            "demo": null,
+            "created_at": "2025-11-14 11:13:07.006007",
+            "github_link": "https://github.com/vickymayowa/leet-code-web",
+            "live_url": "https://github.com/vickymayowa/leet-code-web"
+        },
+        {
+            "id": "12",
+            "title": "Travel Website",
+            "description": "Travel Website",
+            "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763203149862-1763203202477.png",
+            "tags": [
+                "Next.js",
+                "TailwindCSS",
+                "TypeScript",
+                "Figma"
+            ],
+            "demo": null,
+            "created_at": "2025-11-15 07:35:25.505264",
+            "github_link": "https://travel-web-app-fawn.vercel.app/",
+            "live_url": "https://travel-web-app-fawn.vercel.app/"
+        },
+        {
+            "id": "13",
+            "title": "Ticket Event Web Hub",
+            "description": "Ticket Event Web Hub",
+            "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763242108233-1763242113974.png",
+            "tags": [
+                "Nextjs",
+                "TailwindCSS"
+            ],
+            "demo": null,
+            "created_at": "2025-11-15 21:28:59.133655",
+            "github_link": "https://github.com/vickymayowa/ticket-web",
+            "live_url": "https://github.com/vickymayowa/ticket-web"
+        },
+        {
+            "id": "14",
+            "title": "Trade Vault Web",
+            "description": "Access institutional-grade trading tools, real-time market analysis, and portfolio optimization designed for wealth accumulation and risk management.",
+            "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763581006810-1763581020437.png",
+            "tags": [
+                "Nextjs",
+                "TailwindCSS",
+                "ShadCN",
+                "Supabase",
+                "Typescript"
+            ],
+            "demo": null,
+            "created_at": "2025-11-19 19:38:40.610706",
+            "github_link": "https://github.com/vickymayowa/broker-web",
+            "live_url": "https://github.com/vickymayowa/broker-web"
+        },
+        {
+            "id": "15",
+            "title": "Facial-Web Attendance System",
+            "description": "A modern, full-featured attendance management system for colleges using facial recognition technology. Built with Next.js, TypeScript, TailwindCSS, ShadCN UI, and Appwrite.",
+            "image": "",
+            "tags": [
+                "TypeScript",
+                "Next.js",
+                "TailwindCSS",
+                "ShadCN",
+                "Appwrite"
+            ],
+            "demo": null,
+            "created_at": "2025-11-26 20:15:59.509307",
+            "github_link": "https://github.com/vickymayowa/facial-web",
+            "live_url": "https://github.com/vickymayowa/facial-web"
+        }
+    ]
+}

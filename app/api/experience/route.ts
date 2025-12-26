@@ -1,17 +1,16 @@
-import { createSupabaseServerClient } from "../../../lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
+import { readDB, writeDB, generateId, getCurrentTimestamp } from "../../../lib/db"
 
 export async function GET() {
     try {
-        const supabase = await createSupabaseServerClient()
+        const db = await readDB()
 
-        const { data, error } = await supabase.from("experience").select("*").order("created_at", { ascending: false })
+        // Sort by created_at descending
+        const sortedExperience = [...db.experience].sort((a, b) => {
+            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        })
 
-        if (error) {
-            return NextResponse.json({ error: error.message }, { status: 500 })
-        }
-
-        return NextResponse.json({ data })
+        return NextResponse.json({ data: sortedExperience })
     } catch (error) {
         return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
@@ -19,25 +18,32 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
     try {
-        const supabase = await createSupabaseServerClient()
         const { role, company, date, description, location, skills, highlights } = await request.json()
 
         if (!role || !company) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
         }
 
+        const db = await readDB()
+
         const skillsArray = skills ? skills.split(",").map((s: string) => s.trim()) : []
 
-        const { data, error } = await supabase
-            .from("experience")
-            .insert([{ role, company, date, description, location, skills: skillsArray, highlights }])
-            .select()
-
-        if (error) {
-            return NextResponse.json({ error: error.message }, { status: 500 })
+        const newExperience = {
+            id: generateId(db.experience),
+            role,
+            company,
+            date,
+            description,
+            location,
+            skills: skillsArray,
+            highlights: highlights || [],
+            created_at: getCurrentTimestamp(),
         }
 
-        return NextResponse.json({ data, success: true })
+        db.experience.push(newExperience)
+        await writeDB(db)
+
+        return NextResponse.json({ data: [newExperience], success: true })
     } catch (error) {
         return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
@@ -45,26 +51,36 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
     try {
-        const supabase = await createSupabaseServerClient()
         const { id, role, company, date, description, location, skills, highlights } = await request.json()
 
         if (!id || !role || !company) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
         }
 
-        const skillsArray = skills ? skills.split(",").map((s: string) => s.trim()) : []
+        const db = await readDB()
 
-        const { data, error } = await supabase
-            .from("experience")
-            .update({ role, company, date, description, location, skills: skillsArray, highlights })
-            .eq("id", id)
-            .select()
+        const experienceIndex = db.experience.findIndex((exp) => exp.id === id)
 
-        if (error) {
-            return NextResponse.json({ error: error.message }, { status: 500 })
+        if (experienceIndex === -1) {
+            return NextResponse.json({ error: "Experience not found" }, { status: 404 })
         }
 
-        return NextResponse.json({ data, success: true })
+        const skillsArray = skills ? skills.split(",").map((s: string) => s.trim()) : []
+
+        db.experience[experienceIndex] = {
+            ...db.experience[experienceIndex],
+            role,
+            company,
+            date,
+            description,
+            location,
+            skills: skillsArray,
+            highlights: highlights || [],
+        }
+
+        await writeDB(db)
+
+        return NextResponse.json({ data: [db.experience[experienceIndex]], success: true })
     } catch (error) {
         return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
     }
@@ -72,7 +88,6 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
     try {
-        const supabase = await createSupabaseServerClient()
         const { searchParams } = new URL(request.url)
         const id = searchParams.get("id")
 
@@ -80,11 +95,16 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: "Missing id parameter" }, { status: 400 })
         }
 
-        const { error } = await supabase.from("experience").delete().eq("id", id)
+        const db = await readDB()
 
-        if (error) {
-            return NextResponse.json({ error: error.message }, { status: 500 })
+        const experienceIndex = db.experience.findIndex((exp) => exp.id === id)
+
+        if (experienceIndex === -1) {
+            return NextResponse.json({ error: "Experience not found" }, { status: 404 })
         }
+
+        db.experience.splice(experienceIndex, 1)
+        await writeDB(db)
 
         return NextResponse.json({ success: true })
     } catch (error) {

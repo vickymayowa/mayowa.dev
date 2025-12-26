@@ -23,16 +23,15 @@ export default function Sidebar() {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 md:hidden p-2 hover:bg-card rounded-lg transition-all duration-200"
+        className="fixed top-4 right-4 z-50 md:hidden p-2 hover:bg-card rounded-lg transition-all duration-200"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:relative w-64 h-screen bg-card border-r border-border flex flex-col transition-all duration-300 z-40 ${
-          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-        }`}
+        className={`fixed md:relative w-64 h-screen bg-card border-r border-border flex flex-col transition-all duration-300 z-40 ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          }`}
       >
         {/* Logo/Brand */}
         <div className="p-6 border-b border-border">
@@ -52,11 +51,10 @@ export default function Sidebar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group ${
-                  isActive
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group ${isActive
                     ? "bg-primary text-white shadow-lg shadow-primary/50"
                     : "text-foreground/70 hover:bg-border hover:text-foreground"
-                }`}
+                  }`}
                 style={{
                   animation: isOpen ? `slideIn 0.3s ease-out ${index * 0.05}s both` : "none",
                 }}
