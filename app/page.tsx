@@ -1,5 +1,6 @@
 import Hero from "@/components/hero"
 import TechStack from "@/components/tech-stack"
+import Services from "@/components/services"
 import FeaturedProjects from "@/components/featured-projects"
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <>
       <Hero />
       <TechStack />
+      <Services />
       <FeaturedProjects />
     </>
   )
