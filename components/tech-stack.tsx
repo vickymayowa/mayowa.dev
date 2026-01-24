@@ -74,7 +74,7 @@ export default function TechStack() {
       <div className="mb-20">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <h2 className="mb-6 leading-tight">Expertise & <br /><span className="text-primary italic">Technical Arsenal</span></h2>
+            <h2 className="mb-6 leading-tight">Expertise & <span className="text-primary italic">Technical Arsenal</span></h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
               I leverage a modern, battle-tested stack to deliver high-performance solutions that scale with your business needs.
             </p>

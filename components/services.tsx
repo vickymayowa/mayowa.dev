@@ -52,7 +52,7 @@ export default function Services() {
                             <Sparkles size={12} />
                             Core Expertise
                         </div>
-                        <h2 className="mb-6 leading-tight">Services I <br /><span className="text-primary italic">Deliver with Excellence</span></h2>
+                        <h2 className="mb-6 leading-tight">Services <br /><span className="text-primary italic"> I Deliver with Excellence</span></h2>
                         <p className="text-muted-foreground text-lg leading-relaxed">
                             I provide specialized technical services tailored for businesses and startups that demand high-performance digital products and scalable architecture.
                         </p>

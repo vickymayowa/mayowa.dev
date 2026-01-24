@@ -6,21 +6,9 @@ import { Sparkles } from "lucide-react"
 export default function ServicesPage() {
     return (
         <div className="section-container min-h-screen">
-            <div className="mb-20">
-                <div className="inline-flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-[0.2em] mb-4">
-                    <Sparkles size={12} />
-                    Solutions
-                </div>
-                <h1 className="mb-6 leading-tight">Expert Services</h1>
-                <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-                    Specialized technical solutions designed to scale high-performance digital products and optimize architectural efficiency.
-                </p>
-            </div>
-
             <Services />
-
             {/* Additional CTA */}
-            <div className="mt-32 p-12 rounded-[3rem] bg-primary text-primary-foreground text-center relative overflow-hidden group">
+            <div className="mt-20 p-8 rounded-[3rem] bg-primary text-primary-foreground text-center relative overflow-hidden group">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.1)_0%,transparent_70%)]" />
                 <div className="relative z-10">
                     <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight text-white">Have a specific project?</h2>
