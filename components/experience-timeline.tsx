@@ -1,8 +1,7 @@
 "use client"
 
-import { CheckCircle2 } from "lucide-react"
+import { CheckCircle2, Briefcase, Calendar, MapPin } from "lucide-react"
 import { Experience } from "@/types/experience"
-
 
 interface ExperienceTimelineProps {
   experiences: Experience[]
@@ -10,66 +9,101 @@ interface ExperienceTimelineProps {
 
 export default function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
   return (
-    <div className="relative">
-      {/* Timeline line - hidden on mobile */}
-      <div className="hidden sm:block absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-primary" />
+    <div className="relative mt-8">
+      {/* Central line */}
+      <div className="absolute left-0 sm:left-4 top-0 bottom-0 w-px bg-border/50" />
 
       {/* Timeline items */}
-      <div className="space-y-8">
+      <div className="space-y-16">
         {experiences.map((exp, index) => (
           <div
             key={exp.id}
-            className="relative sm:pl-24 animate-in fade-in slide-in-from-left-4 duration-500"
-            style={{ animationDelay: `${index * 100}ms` }}
+            className="relative pl-8 sm:pl-16 group"
+            style={{
+              animation: `fadeInUp 0.6s ease-out ${index * 0.15}s both`
+            }}
           >
-            {/* Timeline dot - hidden on mobile */}
-            <div className="hidden sm:flex absolute left-0 top-2 w-16 h-16 items-center justify-center">
-              <div className="w-16 h-16 bg-card border-4 border-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
-                <div className="w-8 h-8 bg-primary rounded-full animate-pulse" />
-              </div>
+            {/* Timeline Indicator */}
+            <div className="absolute left-[-4px] sm:left-2.5 top-1.5 w-2 h-2 rounded-full bg-background border-2 border-primary group-hover:scale-150 transition-transform duration-500 z-10" />
+            <div className="absolute left-[-8px] sm:left-1.5 top-0.5 w-4 h-4 rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            {/* Date Tag - Mobile shows above, Desktop shows right or left (kept it simple for now) */}
+            <div className="flex items-center gap-2 mb-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/10">
+                <Calendar size={12} />
+                {exp.date}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-muted text-muted-foreground text-[10px] font-bold uppercase tracking-wider border border-border/50">
+                <MapPin size={12} />
+                {exp.location}
+              </span>
             </div>
 
-            {/* Content card */}
-            <div className="card hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-1">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-2">
-                <div className="flex-1">
-                  <h3 className="text-lg sm:text-xl font-bold">{exp.role}</h3>
-                  <p className="text-primary font-medium text-sm sm:text-base">{exp.company}</p>
-                  <p className="text-foreground/60 text-xs sm:text-sm">{exp.location}</p>
+            {/* Content Card */}
+            <div className="max-w-4xl bg-card border border-border/50 rounded-2xl p-6 sm:p-8 transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5">
+              <div className="mb-6">
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors duration-300">
+                  {exp.role}
+                </h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-lg font-semibold text-muted-foreground">at</span>
+                  <span className="text-lg font-bold text-foreground">{exp.company}</span>
                 </div>
-                <span className="text-xs sm:text-sm text-foreground/60 whitespace-nowrap">{exp.date}</span>
               </div>
 
-              <p className="text-foreground/70 mb-4 text-sm sm:text-base">{exp.description}</p>
+              <p className="text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+                {exp.description}
+              </p>
 
-              <div className="flex flex-wrap gap-2 mb-4">
-                {exp.skills.map((skill) => (
-                  <div
-                    key={skill}
-                    className="px-3 py-1 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors duration-200"
-                  >
-                    <span className="text-xs sm:text-sm text-primary">{skill}</span>
+              {/* Grid of details */}
+              <div className="grid sm:grid-cols-2 gap-8">
+                {/* Highlights */}
+                {exp.highlights && exp.highlights.length > 0 && (
+                  <div>
+                    <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4">Key Achievements</h4>
+                    <ul className="space-y-3">
+                      {exp.highlights.map((highlight) => (
+                        <li key={highlight} className="flex items-start gap-3 text-sm text-foreground/80 leading-relaxed">
+                          <CheckCircle2 size={16} className="text-primary mt-0.5 shrink-0" />
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                ))}
-              </div>
+                )}
 
-              {/* Highlights */}
-              <div className="flex flex-wrap gap-2">
-                {exp.highlights &&
-                  exp.highlights.map((highlight) => (
-                    <div
-                      key={highlight}
-                      className="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors duration-200"
-                    >
-                      <CheckCircle2 size={14} className="text-primary flex-shrink-0" />
-                      <span className="text-xs sm:text-sm text-primary">{highlight}</span>
-                    </div>
-                  ))}
+                {/* Skills used */}
+                <div>
+                  <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4">Technologies</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {exp.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-3 py-1 bg-muted/50 border border-border/50 rounded-lg text-xs font-medium text-foreground/70 hover:border-primary/30 hover:text-primary transition-all duration-300 cursor-default"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   )
 }

@@ -7,7 +7,6 @@ import {
   SiVuedotjs,
   SiNextdotjs,
   SiAngular,
-  // SiVisualstudiocode,
   SiRedux,
   SiNodedotjs,
   SiExpress,
@@ -18,93 +17,99 @@ import {
   SiAmazon,
   SiGit,
   SiSupabase,
-  // SiDocker,
   SiVercel,
   SiTailwindcss,
+  SiDocker,
+  SiKubernetes,
+  SiGraphql,
+  SiPrisma,
 } from "react-icons/si"
+import { Layout, Server, Wrench, Database } from "lucide-react"
 
 const techCategories = [
   {
-    title: "Frontend",
+    title: "Frontend Development",
+    icon: Layout,
+    description: "Architecting responsive and interactive user interfaces.",
     skills: [
-      { name: "React.js", icon: SiReact, color: "text-blue-400" },
-      { name: "Vue.js", icon: SiVuedotjs, color: "text-green-400" },
-      { name: "TailWind", icon: SiTailwindcss, color: "text-blue-400" },
-      { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
-      { name: "Angular", icon: SiAngular, color: "text-red-500" },
-      { name: "Redux", icon: SiRedux, color: "text-purple-500" },
-    ],
-  },
-  {
-    title: "Backend",
-    skills: [
-      { name: "Node.js", icon: SiNodedotjs, color: "text-green-500" },
-      { name: "Express.js", icon: SiExpress, color: "text-gray-400" },
-      { name: "MongoDB", icon: SiMongodb, color: "text-green-600" },
-      { name: "MySQL", icon: SiMysql, color: "text-green-600" },
-      { name: "Supabase", icon: SiSupabase, color: "text-green-400" },
-      { name: "Firebase", icon: SiFirebase, color: "text-yellow-400" },
-      { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-500" },
-    ],
-  },
-  {
-    title: "Languages & Tools",
-    skills: [
-      { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
+      { name: "React", icon: SiReact, color: "text-sky-400" },
+      { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
       { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
-      { name: "Git", icon: SiGit, color: "text-orange-600" },
-      { name: "Vercel", icon: SiVercel, color: "text-white" },
-      { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
-
-      // { name: "VS Code", icon: SiVisualstudiocode, color: "text-blue-500" },
+      { name: "Vue.js", icon: SiVuedotjs, color: "text-emerald-400" },
+      { name: "Tailwind", icon: SiTailwindcss, color: "text-sky-500" },
+      { name: "Redux", icon: SiRedux, color: "text-violet-500" },
     ],
   },
-  // {
-  //   title: "Hosting",
-  //   skills: [
-  //     { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
-  //     { name: "Git", icon: SiGit, color: "text-orange-600" },
-  //     { name: "Docker", icon: SiDocker, color: "text-blue-600" },
-  //     { name: "Vercel", icon: SiVercel, color: "text-white" },
-  //   ],
-  // },
+  {
+    title: "Backend & Systems",
+    icon: Server,
+    description: "Building robust, scalable server-side architectures.",
+    skills: [
+      { name: "Node.js", icon: SiNodedotjs, color: "text-emerald-500" },
+      { name: "Express", icon: SiExpress, color: "text-muted-foreground" },
+      { name: "PostgreSQL", icon: SiPostgresql, color: "text-indigo-400" },
+      { name: "MongoDB", icon: SiMongodb, color: "text-emerald-600" },
+      { name: "Supabase", icon: SiSupabase, color: "text-emerald-500" },
+      { name: "GraphQL", icon: SiGraphql, color: "text-pink-500" },
+    ],
+  },
+  {
+    title: "DevOps & Cloud",
+    icon: Database,
+    description: "Containerization, deployment, and cloud infrastructure.",
+    skills: [
+      { name: "Docker", icon: SiDocker, color: "text-blue-600" },
+      { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
+      { name: "Vercel", icon: SiVercel, color: "text-foreground" },
+      { name: "Git", icon: SiGit, color: "text-orange-600" },
+      { name: "Prisma", icon: SiPrisma, color: "text-indigo-500" },
+      { name: "Firebase", icon: SiFirebase, color: "text-amber-500" },
+    ],
+  },
 ]
 
 export default function TechStack() {
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-card/30">
-      <div className="section-container">
-        <div className="mb-16 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Tech Stack & Skills</h2>
-          <p className="text-foreground/70 max-w-2xl mx-auto">
-            A comprehensive toolkit of technologies I use to build scalable, performant applications
-          </p>
+    <section className="section-container border-t border-border/50">
+      <div className="mb-20">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="max-w-2xl">
+            <h2 className="mb-6 leading-tight">Expertise & <br /><span className="text-primary italic">Technical Arsenal</span></h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              I leverage a modern, battle-tested stack to deliver high-performance solutions that scale with your business needs.
+            </p>
+          </div>
         </div>
+      </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {techCategories.map((category) => (
-            <div
-              key={category.title}
-              className="p-6 bg-card border border-border rounded-xl hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
-            >
-              <h3 className="text-xl font-semibold mb-6 text-primary">{category.title}</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {category.skills.map((skill) => {
-                  const IconComponent = skill.icon
-                  return (
-                    <div
-                      key={skill.name}
-                      className="flex flex-col items-center gap-2 p-3 rounded-lg bg-background/50 hover:bg-primary/10 transition-all duration-200 hover:scale-105"
-                    >
-                      <IconComponent className={`text-2xl ${skill.color}`} />
-                      <span className="text-sm font-medium text-center text-foreground/80">{skill.name}</span>
-                    </div>
-                  )
-                })}
-              </div>
+      <div className="grid lg:grid-cols-3 gap-8">
+        {techCategories.map((category) => (
+          <div
+            key={category.title}
+            className="group flex flex-col p-8 rounded-3xl bg-card border border-border/50 transition-all duration-500 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
+              <category.icon className="text-primary" size={24} />
             </div>
-          ))}
-        </div>
+
+            <h3 className="text-xl font-bold mb-3 tracking-tight">{category.title}</h3>
+            <p className="text-sm text-muted-foreground mb-8 leading-relaxed italic">
+              {category.description}
+            </p>
+
+            <div className="mt-auto grid grid-cols-2 gap-3">
+              {category.skills.map((skill) => (
+                <div
+                  key={skill.name}
+                  className="flex items-center gap-2.5 p-2.5 rounded-xl bg-muted/50 border border-transparent hover:border-primary/10 hover:bg-background transition-all duration-300 group/skill"
+                >
+                  <skill.icon className={`text-lg ${skill.color} opacity-70 group-hover/skill:opacity-100 transition-opacity`} />
+                  <span className="text-xs font-semibold text-muted-foreground group-hover/skill:text-foreground transition-colors uppercase tracking-tight">{skill.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   )

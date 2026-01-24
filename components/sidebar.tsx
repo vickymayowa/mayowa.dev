@@ -3,14 +3,26 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Briefcase, Brain, Mail, BookOpen, Menu, X } from "lucide-react"
+import {
+  Home,
+  Briefcase,
+  Brain,
+  Mail,
+  BookOpen,
+  Menu,
+  X,
+  Sparkles,
+  User,
+  LayoutGrid
+} from "lucide-react"
 import ThemeToggle from "./theme-toggle"
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
+  { href: "/services", label: "Services", icon: LayoutGrid },
   { href: "/projects", label: "Projects", icon: Briefcase },
-  { href: "/experience", label: "Experience", icon: Brain },
-  { href: "/blog", label: "Blog", icon: BookOpen },
+  { href: "/experience", label: "Timeline", icon: Brain },
+  { href: "/blog", label: "Articles", icon: BookOpen },
   { href: "/contact", label: "Contact", icon: Mail },
 ]
 
@@ -20,30 +32,37 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile menu button */}
+      {/* Mobile Toggle (Floating) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 right-4 z-50 md:hidden p-2 hover:bg-card rounded-lg transition-all duration-200"
+        className="md:hidden fixed bottom-6 right-6 z-[100] w-14 h-14 bg-primary text-white rounded-2xl shadow-2xl flex items-center justify-center transition-transform active:scale-90"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      {/* Sidebar */}
+      {/* Sidebar Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[80] md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Compact Column Sidebar */}
       <aside
-        className={`fixed md:relative w-64 h-screen bg-card border-r border-border flex flex-col transition-all duration-300 z-40 ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        className={`fixed md:relative h-[calc(100vh-2rem)] my-4 ml-4 w-20 md:w-24 bg-card/80 backdrop-blur-xl border border-border/50 rounded-[2.5rem] flex flex-col items-center py-8 gap-6 transition-all duration-500 z-[90] overflow-y-auto overflow-x-hidden scrollbar-none ${isOpen ? "translate-x-0" : "-translate-x-[120%] md:translate-x-0"
           }`}
       >
-        {/* Logo/Brand */}
-        <div className="p-6 border-b border-border">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            FM
-          </h1>
-          <p className="text-sm text-foreground/60 mt-1">Favour Mayowa</p>
-        </div>
+        {/* Brand/Top Icon */}
+        <Link href="/" className="shrink-0 mb-2">
+          <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20">
+            <Sparkles size={20} className="text-primary" />
+          </div>
+        </Link>
 
-        {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2">
-          {navItems.map((item, index) => {
+        {/* Navigation Items */}
+        <nav className="flex flex-col gap-4 w-full items-center">
+          {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
             return (
@@ -51,47 +70,43 @@ export default function Sidebar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group ${isActive
-                    ? "bg-primary text-white shadow-lg shadow-primary/50"
-                    : "text-foreground/70 hover:bg-border hover:text-foreground"
-                  }`}
-                style={{
-                  animation: isOpen ? `slideIn 0.3s ease-out ${index * 0.05}s both` : "none",
-                }}
+                className="group relative flex items-center justify-center shrink-0"
               >
-                <Icon size={20} className="group-hover:scale-110 transition-transform duration-200" />
-                <span className="font-medium">{item.label}</span>
+                {/* Square Container */}
+                <div
+                  className={`w-14 h-14 rounded-[1.25rem] flex items-center justify-center transition-all duration-300 ${isActive
+                    ? "bg-primary/10 border-2 border-primary"
+                    : "bg-muted/50 hover:bg-muted border border-transparent"
+                    }`}
+                >
+                  <Icon
+                    size={22}
+                    className={`transition-all duration-300 ${isActive ? "text-primary scale-110" : "text-muted-foreground group-hover:text-foreground"
+                      }`}
+                  />
+                </div>
+
+                {/* Tooltip (Desktop Only) */}
+                <div className="absolute left-[calc(100%+1rem)] px-3 py-1.5 bg-foreground text-background text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-[100]">
+                  {item.label}
+                  <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-foreground rotate-45" />
+                </div>
               </Link>
             )
           })}
         </nav>
 
-        <div className="p-4 border-t border-border flex items-center justify-between">
-          <p className="text-xs text-foreground/50">© 2025 Favour</p>
+        {/* Bottom Actions */}
+        <div className="mt-auto flex flex-col gap-4 items-center shrink-0">
+          <div className="w-12 h-px bg-border/50" />
           <ThemeToggle />
+          <Link href="/contact" className="group relative">
+            <div className="w-14 h-14 rounded-[1.25rem] bg-foreground text-background flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl shadow-black/10">
+              <User size={20} />
+            </div>
+          </Link>
         </div>
       </aside>
-
-      {/* Mobile overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-30 md:hidden animate-in fade-in duration-200"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-
-      <style jsx>{`
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-      `}</style>
     </>
   )
 }
