@@ -1,16 +1,15 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { readDB, writeDB, generateId, getCurrentTimestamp } from "../../../lib/db"
+import prisma from "@/lib/prisma"
 
 export async function GET() {
     try {
-        const db = await readDB()
-
-        // Sort by created_at descending
-        const sortedProjects = [...db.projects].sort((a, b) => {
-            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        const projects = await prisma.project.findMany({
+            orderBy: {
+                createdAt: "desc",
+            },
         })
 
-        return NextResponse.json({ data: sortedProjects, message: "Projects retrieved successfully." })
+        return NextResponse.json({ data: projects, message: "Projects retrieved successfully." })
     } catch (error) {
         console.error("GET /api/projects error:", error)
         return NextResponse.json({ error: "Unable to retrieve projects at this time." }, { status: 500 })
@@ -28,22 +27,16 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        const db = await readDB()
-
-        const newProject = {
-            id: generateId(db.projects),
-            title,
-            description,
-            image,
-            tags,
-            github_link,
-            live_url,
-            demo: null,
-            created_at: getCurrentTimestamp(),
-        }
-
-        db.projects.push(newProject)
-        await writeDB(db)
+        const newProject = await prisma.project.create({
+            data: {
+                title,
+                description,
+                image,
+                tags,
+                githubLink: github_link,
+                liveUrl: live_url,
+            },
+        })
 
         return NextResponse.json({ data: [newProject], message: "Project created successfully!" })
     } catch (error) {
@@ -59,33 +52,25 @@ export async function PUT(request: NextRequest) {
     try {
         const { id, title, description, image, tags, github_link, live_url } = await request.json()
 
-        if (!id || !title || !description || !image || !tags || !github_link || !live_url) {
-            return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+        if (!id) {
+            return NextResponse.json({ error: "Project ID is required" }, { status: 400 })
         }
 
-        const db = await readDB()
+        const updatedProject = await prisma.project.update({
+            where: { id },
+            data: {
+                title,
+                description,
+                image,
+                tags,
+                githubLink: github_link,
+                liveUrl: live_url,
+            },
+        })
 
-        const projectIndex = db.projects.findIndex((proj) => proj.id === id)
-
-        if (projectIndex === -1) {
-            return NextResponse.json({ error: "Project not found" }, { status: 404 })
-        }
-
-        db.projects[projectIndex] = {
-            ...db.projects[projectIndex],
-            title,
-            description,
-            image,
-            tags,
-            github_link,
-            live_url,
-        }
-
-        await writeDB(db)
-
-        return NextResponse.json({ data: [db.projects[projectIndex]], success: true })
+        return NextResponse.json({ data: [updatedProject], success: true })
     } catch (error) {
-        console.log(error)
+        console.error("PUT /api/projects error:", error)
         return NextResponse.json({ error: "Internal server error" }, { status: 500 })
     }
 }
@@ -99,16 +84,9 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: "Project ID is required to delete a project." }, { status: 400 })
         }
 
-        const db = await readDB()
-
-        const projectIndex = db.projects.findIndex((proj) => proj.id === id)
-
-        if (projectIndex === -1) {
-            return NextResponse.json({ error: "Project not found" }, { status: 404 })
-        }
-
-        db.projects.splice(projectIndex, 1)
-        await writeDB(db)
+        await prisma.project.delete({
+            where: { id },
+        })
 
         return NextResponse.json({ message: "Project deleted successfully." })
     } catch (error) {
