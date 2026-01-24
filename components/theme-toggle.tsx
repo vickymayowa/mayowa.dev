@@ -12,23 +12,24 @@ export default function ThemeToggle() {
     setMounted(true)
   }, [])
 
-  // Don't render until mounted to prevent hydration mismatch
   if (!mounted) {
-    return <div className="p-2 rounded-lg w-10 h-10" />
+    return <div className="w-10 h-10" />
   }
 
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-lg hover:bg-border transition-all duration-200 group"
+      className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-background border border-border/50 hover:border-primary/30 hover:bg-muted transition-all duration-300 active:scale-90 group"
       aria-label="Toggle theme"
-      title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >
-      {theme === "dark" ? (
-        <Sun size={20} className="text-yellow-400 group-hover:scale-110 transition-transform duration-200" />
-      ) : (
-        <Moon size={20} className="text-slate-600 group-hover:scale-110 transition-transform duration-200" />
-      )}
+      <div className="relative overflow-hidden w-5 h-5">
+        <div className={`absolute inset-0 transition-transform duration-500 ${theme === 'dark' ? 'translate-y-0' : 'translate-y-10'}`}>
+          <Sun size={20} className="text-amber-400" />
+        </div>
+        <div className={`absolute inset-0 transition-transform duration-500 ${theme === 'dark' ? '-translate-y-10' : 'translate-y-0'}`}>
+          <Moon size={20} className="text-primary" />
+        </div>
+      </div>
     </button>
   )
 }

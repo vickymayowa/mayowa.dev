@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
+import { ArrowRight, Github, Linkedin, Mail, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import {
   SiJavascript,
@@ -10,174 +10,88 @@ import {
   SiNextdotjs,
   SiNodedotjs,
   SiMongodb,
-  SiMysql,
   SiPostgresql,
+  SiDocker,
 } from "react-icons/si"
-import HireMeModal from "./hire-me-modal"
 import CVSection from "./cv-section"
 
 export default function Hero() {
   const featuredTechs = [
-    { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
     { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
-    { name: "React", icon: SiReact, color: "text-blue-400" },
-    { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
-    { name: "Vue.js", icon: SiVuedotjs, color: "text-green-400" },
-    { name: "Node.js", icon: SiNodedotjs, color: "text-green-500" },
-    { name: "MongoDB", icon: SiMongodb, color: "text-green-600" },
-    { name: "SQL", icon: SiMysql, color: "text-green-600" },
-    { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-500" },
-  ]
-
-  const floatingIcons = [
-    { icon: SiReact, color: "text-blue-400", top: "10%", left: "5%", delay: "0s" },
-    { icon: SiNextdotjs, color: "text-white", top: "15%", right: "8%", delay: "0.2s" },
-    { icon: SiNodedotjs, color: "text-green-500", top: "20%", left: "12%", delay: "0.4s" },
-    { icon: SiVuedotjs, color: "text-green-400", top: "25%", right: "10%", delay: "0.6s" },
-    { icon: SiTypescript, color: "text-blue-500", top: "12%", right: "15%", delay: "0.6s" },
+    { name: "React", icon: SiReact, color: "text-sky-400" },
+    { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
+    { name: "Node.js", icon: SiNodedotjs, color: "text-emerald-500" },
+    { name: "PostgreSQL", icon: SiPostgresql, color: "text-indigo-400" },
+    { name: "Docker", icon: SiDocker, color: "text-blue-600" },
   ]
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-card/50 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {floatingIcons.map((item, index) => {
-          const IconComponent = item.icon
-          return (
-            <div
-              key={index}
-              className="absolute opacity-20 hover:opacity-40 transition-opacity duration-300"
-              style={{
-                top: item.top,
-                left: item.left,
-                right: item.right,
-                animation: `float 6s ease-in-out infinite`,
-                animationDelay: item.delay,
-              }}
-            >
-              <IconComponent className={`text-6xl ${item.color}`} />
-            </div>
-          )
-        })}
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background px-6">
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_-20%,var(--color-primary)_0%,transparent_50%)] opacity-[0.03]" />
+        <div
+          className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.1]"
+        />
       </div>
 
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-pulse" />
-      </div>
-
-      <div className="section-container relative z-10">
-        <div className="max-w-4xl">
-          <div className="mb-6 inline-block animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <span className="px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium">
-              Full-Stack Developer • 3+ Years Experience
+      <div className="max-w-5xl w-full relative z-10 py-20">
+        <div className="space-y-8">
+          {/* Status Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-semibold tracking-wide uppercase animate-in fade-in slide-in-from-bottom-2 duration-700">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
+            Available for new opportunities
           </div>
 
-          <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
-            <span className="block text-foreground mb-2">Hi, I'm</span>
-            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Favour Mayowa
-            </span>
-          </h1>
+          <div className="space-y-4">
+            <h1 className="text-5xl md:text-8xl font-bold leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 italic">
+              Building <span className="text-primary not-italic">Premium</span> <br />
+              Digital Experiences.
+            </h1>
 
-          <p className="text-lg text-foreground/80 mb-6 leading-relaxed max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-200">
-            Full-stack developer with 3+ years of experience in JavaScript and TypeScript. I specialize in building
-            scalable, responsive web applications using the MERN stack, with expertise in modern frontend frameworks and
-            robust backend solutions.
-          </p>
-
-          <p className="text-base text-foreground/70 mb-10 leading-relaxed max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-500 delay-200">
-            Proficient in React.js, Vue.js, Next.js, Angular, Node.js, Express.js, MongoDB, Supabase, and SQL.
-            Experienced with VPS server management, AWS deployment, and application security best practices. Dedicated
-            to delivering reliable, user-focused web applications.
-          </p>
-
-          <div className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-250">
-            <p className="text-sm font-semibold text-foreground/70 mb-4 uppercase tracking-wider">Tech Stack</p>
-            <div className="flex flex-wrap gap-3">
-              {featuredTechs.map((tech, index) => {
-                const IconComponent = tech.icon
-                return (
-                  <div
-                    key={tech.name}
-                    className="group relative"
-                    style={{
-                      animation: `fadeInUp 0.5s ease-out ${0.3 + index * 0.05}s both`,
-                    }}
-                  >
-                    <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg hover:border-primary hover:bg-primary/10 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/30">
-                      <IconComponent className={`text-xl ${tech.color}`} />
-                      <span className="text-sm font-medium text-foreground/80">{tech.name}</span>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+              I'm <span className="text-foreground font-semibold">Favour Mayowa</span>, a Full-Stack Engineer specializing in architectural excellence and high-performance web applications. Turning complex problems into elegant, scalable solutions.
+            </p>
           </div>
 
-          <div className="flex flex-wrap gap-4 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
-            <Link
-              href="/projects"
-              className="btn-primary flex items-center gap-2 group hover:shadow-lg hover:shadow-primary/50 transition-all duration-200"
-            >
-              View My Work
+          <div className="flex flex-wrap gap-4 items-center pt-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+            <Link href="/projects" className="btn-premium group">
+              Explore Projects
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            {/* <HireMeModal /> */}
             <CVSection />
           </div>
 
-          {/* <div className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-350"> */}
-            {/* <CVSection /> */}
-          {/* </div> */}
+          {/* Tech Stack Subtle Row */}
+          <div className="pt-12 border-t border-border/50 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
+            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-6">Expertise in</p>
+            <div className="flex flex-wrap gap-x-8 gap-y-6">
+              {featuredTechs.map((tech) => (
+                <div key={tech.name} className="flex items-center gap-2.5 group cursor-default">
+                  <tech.icon className={`text-xl ${tech.color} opacity-70 group-hover:opacity-100 transition-opacity`} />
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">{tech.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-          <div className="flex gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-400">
-            <Link
-              href="https://github.com/vickymayowa"
-              className="p-3 bg-card border border-border hover:border-primary hover:bg-primary/10 rounded-lg transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
-              aria-label="GitHub"
-            >
+          {/* Social Links */}
+          <div className="pt-8 flex gap-5 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
+            <Link href="https://github.com/vickymayowa" className="text-muted-foreground hover:text-primary transition-colors">
               <Github size={20} />
             </Link>
-            <Link
-              href="https://www.linkedin.com/in/favour-adebanjo/"
-              className="p-3 bg-card border border-border hover:border-primary hover:bg-primary/10 rounded-lg transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
-              aria-label="LinkedIn"
-            >
+            <Link href="https://www.linkedin.com/in/favour-adebanjo/" className="text-muted-foreground hover:text-primary transition-colors">
               <Linkedin size={20} />
             </Link>
-            <Link
-              href="mailto:techiedevmayowa@gmail.com"
-              className="p-3 bg-card border border-border hover:border-primary hover:bg-primary/10 rounded-lg transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-primary/20"
-              aria-label="Email"
-            >
+            <Link href="mailto:techiedevmayowa@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
               <Mail size={20} />
             </Link>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
-        }
-      `}</style>
     </section>
   )
 }
