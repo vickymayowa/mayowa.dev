@@ -50,7 +50,7 @@ export default function Sidebar() {
 
       {/* Compact Column Sidebar */}
       <aside
-        className={`fixed md:relative h-[calc(100vh-2rem)] my-4 ml-4 w-20 md:w-24 bg-card/80 backdrop-blur-xl border border-border/50 rounded-[2.5rem] flex flex-col items-center py-8 gap-6 transition-all duration-500 z-[90] overflow-y-auto scrollbar-none ${isOpen ? "translate-x-0" : "-translate-x-[120%] md:translate-x-0"
+        className={`fixed md:relative h-[calc(100vh-2rem)] my-4 ml-4 w-20 md:w-24 bg-card/80 backdrop-blur-xl border border-border/50 rounded-[2.5rem] flex flex-col items-center py-8 gap-6 transition-all duration-500 z-[90] overflow-y-auto overflow-x-hidden scrollbar-none ${isOpen ? "translate-x-0" : "-translate-x-[120%] md:translate-x-0"
           }`}
       >
         {/* Brand/Top Icon */}
