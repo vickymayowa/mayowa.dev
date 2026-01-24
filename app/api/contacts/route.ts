@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { readDB, writeDB, generateId, getCurrentTimestamp } from "../../../lib/db"
+import prisma from "@/lib/prisma"
 import { Resend } from "resend"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -12,23 +12,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Read the database
-    const db = await readDB()
-
-    // Create new contact
-    const newContact = {
-      id: generateId(db.contacts),
-      name,
-      email,
-      message,
-      created_at: getCurrentTimestamp(),
-    }
-
-    // Add to database
-    db.contacts.push(newContact)
-
-    // Write to database
-    await writeDB(db)
+    // Create new contact in Prisma
+    const newContact = await prisma.contact.create({
+      data: {
+        name,
+        email,
+        message,
+      },
+    })
 
     try {
       const emailHtml = `
@@ -87,21 +78,22 @@ export async function POST(request: NextRequest) {
       message: "Contact information submitted successfully!",
     })
   } catch (error) {
+    console.error("POST /api/contacts error:", error)
     return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
   }
 }
 
 export async function GET() {
   try {
-    const db = await readDB()
-
-    // Sort by created_at descending
-    const sortedContacts = [...db.contacts].sort((a, b) => {
-      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    const contacts = await prisma.contact.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
     })
 
-    return NextResponse.json({ data: sortedContacts })
+    return NextResponse.json({ data: contacts })
   } catch (error) {
+    console.error("GET /api/contacts error:", error)
     return NextResponse.json({ error: "Something Went Wrong" }, { status: 500 })
   }
 }
