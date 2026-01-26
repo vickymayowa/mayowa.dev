@@ -74,7 +74,70 @@
     ],
     "experience": [
         {
+            "id": "5",
+            "role": "Frontend Developer",
+            "company": "Whatspodcasting · Plluggg",
+            "date": "Feb 2025 - Apr 2025",
+            "description": "",
+            "highlights": [],
+            "created_at": "2025-11-05 10:00:09.792735",
+            "location": "Abuja, Federal Capital Territory, Nigeria · Remote",
+            "skills": [
+                "NextJS",
+                "Prisma",
+                "Typescript",
+                "Tailwind Css"
+            ]
+        },
+        {
+            "id": "5",
+            "role": "Frontend Engineer",
+            "company": "The New Story Foundation",
+            "date": "Feb 2025 - Mar 2025",
+            "description": "Built the foundation's NGO website from scratch using React.js, creating interactive and dynamic user interfaces that showcased their humanitarian program",
+            "highlights": [],
+            "created_at": "2025-11-05 10:00:09.792735",
+            "location": "No 11 Victory Close, Ota -Eesan Community, 340106 Akure, Ondo· Remote",
+            "skills": [
+                "Reactjs",
+                "Typescript",
+                "Tailwind Css"
+            ]
+        },
+        {
+            "id": "3",
+            "role": "Frontend Developer",
+            "company": "Cargomax Services Ltd",
+            "date": "May 2024 - Feb 2025",
+            "description": "Developed the user-side interface to manage orders and products using Next.js and Tailwind CSS. Created responsive designs and interactive features to enhance usability. Delivered clean, efficient code to ensure optimal performance and scalability.",
+            "highlights": [],
+            "created_at": "2025-11-05 10:00:09.792735",
+            "location": "Littleton Road, Salford, Manchester · Remote",
+            "skills": [
+                "Reactjs",
+                "NextJS",
+                "Typescript",
+                "Tailwind Css"
+            ]
+        },
+        {
             "id": "4",
+            "role": "Frontend Developer",
+            "company": "Tripflex",
+            "date": "May 2024 - Dec 2024",
+            "description": "Developed a seamless car tour booking platform for city tours, akin to ride-hailing services like Uber.\n\nBuilt an intuitive user interface to simplify navigation, destination selection, and booking management.\n\nDesigned and implemented the admin dashboard, including key features such as the Transactions page, Payments, Settings, Driver Verification, and Driver Management.\n\nImplemented responsive designs, ensuring consistent user experiences across devices.",
+            "highlights": [],
+            "created_at": "2025-11-05 10:00:09.792735",
+            "location": "Abuja, Federal Capital Territory, Nigeria · Remote",
+            "skills": [
+                "Reactjs",
+                "NextJS",
+                "Typescript",
+                "Tailwind Css"
+            ]
+        },
+        {
+            "id": "5",
             "role": "Frontend Developer",
             "company": "Alusoft Technologies Ltd",
             "date": "Jun 2023 - Oct 2023",
@@ -89,7 +152,7 @@
             ]
         },
         {
-            "id": "5",
+            "id": "6",
             "role": "Full Stack Developer",
             "company": "SQI COLLEGE OF ICT",
             "date": "SEPT 2022 - AUG 2024",
@@ -105,37 +168,8 @@
                 "SQl",
                 "Mongodb",
                 "Laravel",
-                "Vue"
-            ]
-        },
-        {
-            "id": "6",
-            "role": "Frontend Developer",
-            "company": "Tripflex",
-            "date": "May 2024 - Dec 2024",
-            "description": "Developed a seamless car tour booking platform for city tours, akin to ride-hailing services like Uber.\n\nBuilt an intuitive user interface to simplify navigation, destination selection, and booking management.\n\nDesigned and implemented the admin dashboard, including key features such as the Transactions page, Payments, Settings, Driver Verification, and Driver Management.\n\nImplemented responsive designs, ensuring consistent user experiences across devices.",
-            "highlights": [],
-            "created_at": "2025-11-05 10:00:09.792735",
-            "location": "Remote",
-            "skills": [
-                "Reactjs",
-                "NextJS",
-                "Typescript",
-                "Tailwind Css"
-            ]
-        },
-        {
-            "id": "7",
-            "role": "Frontend Developer",
-            "company": "Cargomax Services Ltd",
-            "date": "May 2024 - Feb 2025",
-            "description": "Developed the user-side interface to manage orders and products using Next.js and Tailwind CSS.\n\nCreated responsive designs and interactive features to enhance usability.\n\nDelivered clean, efficient code to ensure optimal performance and scalability.",
-            "highlights": [],
-            "created_at": "2025-11-05 10:02:16.518287",
-            "location": "Remote",
-            "skills": [
-                "Nextjs",
-                "Tailwind"
+                "Vue",
+                "Communcation Skills"
             ]
         }
     ],
@@ -192,12 +226,13 @@
         },
         {
             "id": "13",
-            "title": "Ticket Event Web Hub",
-            "description": "Ticket Event Web Hub",
+            "title": "Event Ticketing Hub",
+            "description": "Event Ticketing Hub",
             "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763242108233-1763242113974.png",
             "tags": [
                 "Nextjs",
-                "TailwindCSS"
+                "TailwindCSS",
+                "TypeScript"
             ],
             "demo": null,
             "created_at": "2025-11-15 21:28:59.133655",
@@ -225,7 +260,7 @@
             "id": "15",
             "title": "Facial-Web Attendance System",
             "description": "A modern, full-featured attendance management system for colleges using facial recognition technology. Built with Next.js, TypeScript, TailwindCSS, ShadCN UI, and Appwrite.",
-            "image": "",
+            "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1764143759509-1764143765196.png",
             "tags": [
                 "TypeScript",
                 "Next.js",
