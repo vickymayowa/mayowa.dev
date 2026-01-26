@@ -83,32 +83,6 @@
             "content": "Full article content here...",
             "created_at": "2025-11-04 22:19:03.453998",
             "updated_at": "2025-11-04 22:19:03.453998"
-        },
-        {
-            "id": "5",
-            "title": "Deploying Applications to AWS: A Complete Guide",
-            "excerpt": "Step-by-step guide to deploying your applications on AWS. Covers EC2, S3, RDS, and best practices for production deployments.",
-            "date": "2024-09-20",
-            "author": "Favour Mayowa",
-            "category": "DevOps",
-            "readtime": "12 min read",
-            "image": "/aws-deployment-guide.jpg",
-            "content": "Full article content here...",
-            "created_at": "2025-11-04 22:19:03.453998",
-            "updated_at": "2025-11-04 22:19:03.453998"
-        },
-        {
-            "id": "6",
-            "title": "Database Design Patterns for Modern Applications",
-            "excerpt": "Learn essential database design patterns including normalization, indexing, and optimization strategies for both SQL and NoSQL databases.",
-            "date": "2024-09-15",
-            "author": "Favour Mayowa",
-            "category": "Database",
-            "readtime": "9 min read",
-            "image": "/database-design-patterns.jpg",
-            "content": "Full article content here...",
-            "created_at": "2025-11-04 22:19:03.453998",
-            "updated_at": "2025-11-04 22:19:03.453998"
         }
     ],
     "experience": [

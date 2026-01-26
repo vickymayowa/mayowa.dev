@@ -1,17 +1,14 @@
 "use client"
 
-import { ArrowRight, Github, Linkedin, Mail, ChevronRight } from "lucide-react"
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 import {
-  SiJavascript,
   SiTypescript,
   SiReact,
-  SiVuedotjs,
   SiNextdotjs,
   SiNodedotjs,
   SiMongodb,
   SiPostgresql,
-  SiDocker,
 } from "react-icons/si"
 import CVSection from "./cv-section"
 
@@ -22,7 +19,7 @@ export default function Hero() {
     { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
     { name: "Node.js", icon: SiNodedotjs, color: "text-emerald-500" },
     { name: "PostgreSQL", icon: SiPostgresql, color: "text-indigo-400" },
-    { name: "Docker", icon: SiDocker, color: "text-blue-600" },
+    { name: "Mongodb", icon: SiMongodb, color: "text-blue-600" },
   ]
 
   return (

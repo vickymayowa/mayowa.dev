@@ -38,6 +38,7 @@ const techCategories = [
       { name: "Vue.js", icon: SiVuedotjs, color: "text-emerald-400" },
       { name: "Tailwind", icon: SiTailwindcss, color: "text-sky-500" },
       { name: "Redux", icon: SiRedux, color: "text-violet-500" },
+      // { name: "Tanstack", icon: S, color: "text-violet-500" },
     ],
   },
   {
@@ -50,7 +51,9 @@ const techCategories = [
       { name: "PostgreSQL", icon: SiPostgresql, color: "text-indigo-400" },
       { name: "MongoDB", icon: SiMongodb, color: "text-emerald-600" },
       { name: "Supabase", icon: SiSupabase, color: "text-emerald-500" },
-      { name: "GraphQL", icon: SiGraphql, color: "text-pink-500" },
+      { name: "MySQL", icon: SiMysql, color: "text-emerald-500" },
+      { name: "FIrebase", icon: SiFirebase, color: "text-emerald-500" },
+      // { name: "GraphQL", icon: SiGraphql, color: "text-pink-500" },
     ],
   },
   {
@@ -58,12 +61,11 @@ const techCategories = [
     icon: Database,
     description: "Containerization, deployment, and cloud infrastructure.",
     skills: [
-      { name: "Docker", icon: SiDocker, color: "text-blue-600" },
+      // { name: "Docker", icon: SiDocker, color: "text-blue-600" },
       { name: "AWS", icon: SiAmazon, color: "text-orange-500" },
       { name: "Vercel", icon: SiVercel, color: "text-foreground" },
       { name: "Git", icon: SiGit, color: "text-orange-600" },
-      { name: "Prisma", icon: SiPrisma, color: "text-indigo-500" },
-      { name: "Firebase", icon: SiFirebase, color: "text-amber-500" },
+      // { name: "VPS", icon: , color: "text-orange-600" },
     ],
   },
 ]

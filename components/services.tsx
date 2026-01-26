@@ -44,8 +44,8 @@ const services = [
 
 export default function Services() {
     return (
-        <section className="section-container border-t border-border/50">
-            <div className="mb-20">
+        <section id="services" className="section-container border-t border-border/50 !pt-8 md:!pt-12">
+            <div className="mb-12">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="max-w-2xl">
                         <div className="inline-flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-[0.2em] mb-4">
