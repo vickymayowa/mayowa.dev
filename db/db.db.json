@@ -105,8 +105,7 @@
                 "SQl",
                 "Mongodb",
                 "Laravel",
-                "Vue",
-                "Communcation Skills"
+                "Vue"
             ]
         },
         {
@@ -136,9 +135,7 @@
             "location": "Remote",
             "skills": [
                 "Nextjs",
-                "Tailwind",
-                "Typescript",
-                "Redux"
+                "Tailwind"
             ]
         }
     ],
@@ -195,13 +192,12 @@
         },
         {
             "id": "13",
-            "title": "Event Ticketing Hub",
-            "description": "Event Ticketing Hub",
+            "title": "Ticket Event Web Hub",
+            "description": "Ticket Event Web Hub",
             "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763242108233-1763242113974.png",
             "tags": [
                 "Nextjs",
-                "TailwindCSS",
-                "TypeScript"
+                "TailwindCSS"
             ],
             "demo": null,
             "created_at": "2025-11-15 21:28:59.133655",
