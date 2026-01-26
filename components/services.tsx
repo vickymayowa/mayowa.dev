@@ -6,37 +6,37 @@ import { Sparkles } from "lucide-react"
 const services = [
     {
         title: "Frontend Development",
-        description: "Building highly interactive, responsive, and performance-driven user interfaces using modern frameworks like React and Next.js.",
+        description: "I build the part of the website you see and interact with. I make sure it works well on phones and computers.",
         icon: Layout,
         tags: ["React", "Next.js", "Tailwind CSS", "TypeScript"],
     },
     {
         title: "Backend Engineering",
-        description: "Architecting scalable server-side systems, secure APIs, and efficient database schemas for high-traffic applications.",
+        description: "I build the hidden part of websites that handles data and keep things running smoothly and safely.",
         icon: Server,
         tags: ["Node.js", "Express", "PostgreSQL", "MongoDB"],
     },
     {
         title: "Full-Stack Development",
-        description: "End-to-end product development from initial architecture to final deployment, ensuring a cohesive and seamless user experience.",
+        description: "I build the whole website from start to finish, making sure everything works together perfectly.",
         icon: Layers,
         tags: ["MERN", "T3 Stack", "Serverless"],
     },
     {
-        title: "Performance Optimization",
-        description: "Deep audits and technical optimizations to improve Core Web Vitals, reduce load times, and maximize conversion rates.",
+        title: "Performance & SEO",
+        description: "I make websites load faster and help them show up better on search engines like Google.",
         icon: Zap,
         tags: ["SEO", "Web Vitals", "Caching", "Optimization"],
     },
     {
-        title: "UI/UX Design",
-        description: "Crafting intuitive, minimalist, and high-impact digital designs that prioritize user experience and brand identity.",
+        title: "Website Maintenance",
+        description: "I keep your website updated, secure, and working perfectly after it goes live.",
         icon: Palette,
-        tags: ["Figma", "Design Systems", "Prototyping"],
+        tags: ["Updates", "Security", "Regular Maintenance"],
     },
     {
         title: "Cloud & Deployment",
-        description: "Managing robust cloud infrastructure, CI/CD pipelines, and secure automated deployments for modern web apps.",
+        description: "I put your website online so anyone in the world can visit it anytime.",
         icon: Globe,
         tags: ["AWS", "Vercel", "Docker", "CI/CD"],
     },
@@ -50,11 +50,11 @@ export default function Services() {
                     <div className="max-w-2xl">
                         <div className="inline-flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-[0.2em] mb-4">
                             <Sparkles size={12} />
-                            Core Expertise
+                            How I can help
                         </div>
-                        <h2 className="mb-6 leading-tight">Services <br /><span className="text-primary italic"> I Deliver with Excellence</span></h2>
+                        <h2 className="mb-6 leading-tight">My Main <br /><span className="text-primary italic"> Services</span></h2>
                         <p className="text-muted-foreground text-lg leading-relaxed">
-                            I provide specialized technical services tailored for businesses and startups that demand high-performance digital products and scalable architecture.
+                            I build websites and apps that work great and help your business or startup reach more people.
                         </p>
                     </div>
                 </div>

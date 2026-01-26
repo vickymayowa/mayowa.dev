@@ -51,7 +51,7 @@ export default function ProjectsPage() {
         </div>
         <h1 className="mb-6 leading-tight">My Projects</h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          A comprehensive showcase of my technical expertise, from full-stack applications to architectural deep-dives.
+          Here are some of the websites and web applications I have built. I focus on making things that work well and are easy to use.
         </p>
       </div>
 
@@ -65,8 +65,8 @@ export default function ProjectsPage() {
           <button
             onClick={() => setSelectedTag(null)}
             className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${selectedTag === null
-                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                : "bg-card border border-border/50 text-muted-foreground hover:border-primary/30 hover:text-foreground hover:bg-muted"
+              ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+              : "bg-card border border-border/50 text-muted-foreground hover:border-primary/30 hover:text-foreground hover:bg-muted"
               }`}
           >
             All Projects
@@ -76,8 +76,8 @@ export default function ProjectsPage() {
               key={tag}
               onClick={() => setSelectedTag(tag)}
               className={`px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${selectedTag === tag
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                  : "bg-card border border-border/50 text-muted-foreground hover:border-primary/30 hover:text-foreground hover:bg-muted"
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                : "bg-card border border-border/50 text-muted-foreground hover:border-primary/30 hover:text-foreground hover:bg-muted"
                 }`}
             >
               {tag}

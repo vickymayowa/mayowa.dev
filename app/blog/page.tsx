@@ -51,9 +51,9 @@ export default function BlogPage() {
           <Sparkles size={12} />
           Knowledge Base
         </div>
-        <h1 className="mb-6 leading-tight">Insights & Articles</h1>
+        <h1 className="mb-6 leading-tight">Articles & Guides</h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Deep dives into full-stack architecture, performance optimization, and refined software engineering principles.
+          I write about how I build websites, solve coding problems, and use new tools to make better web applications.
         </p>
       </div>
 
@@ -155,9 +155,9 @@ export default function BlogPage() {
           <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-8">
             <Mail className="text-primary" size={28} />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">Stay ahead of the curve</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">Stay Updated</h2>
           <p className="text-muted-foreground text-lg mb-10 leading-relaxed italic">
-            Get technical deep-dives and architectural insights delivered directly to your inbox.
+            Get my latest articles about building websites and web applications sent to your email.
           </p>
           <form className="flex flex-col sm:flex-row gap-3">
             <input

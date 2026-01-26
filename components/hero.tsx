@@ -61,12 +61,12 @@ export default function Hero() {
 
           <div className="space-y-4">
             <h1 className="text-5xl md:text-8xl font-bold leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 italic">
-              Building <span className="text-primary not-italic">Premium</span> <br />
-              Digital Experiences.
+              Making <span className="text-primary not-italic">Great</span> <br />
+              Websites & Web Apps.
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-              I'm <span className="text-foreground font-semibold">Favour Mayowa</span>, a Full-Stack Engineer specializing in architectural excellence and high-performance web applications. Turning complex problems into elegant, scalable solutions.
+              I'm <span className="text-foreground font-semibold">Favour Mayowa</span>, a Full-Stack Developer. I build and maintain fast, reliable websites and web applications. I turn hard problems into simple solutions.
             </p>
           </div>
 

@@ -33,9 +33,9 @@ import { Layout, Server, Database, Cloud, Code2 } from "lucide-react"
 
 const techCategories = [
   {
-    title: "Frontend Engineering",
+    title: "Frontend Development",
     icon: Layout,
-    description: "Architecting responsive, performant, and visually stunning user interfaces.",
+    description: "Making websites look good and work smoothly on any screen.",
     skills: [
       { name: "React", icon: SiReact, color: "text-sky-400" },
       { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
@@ -48,9 +48,9 @@ const techCategories = [
     ],
   },
   {
-    title: "Backend & Systems",
+    title: "Backend & Servers",
     icon: Server,
-    description: "Building robust, scalable server-side architectures and complex business logic.",
+    description: "Building the parts of the website that handle data and logic.",
     skills: [
       { name: "Node.js", icon: SiNodedotjs, color: "text-emerald-500" },
       { name: "PHP", icon: SiPhp, color: "text-indigo-400" },
@@ -63,9 +63,9 @@ const techCategories = [
     ],
   },
   {
-    title: "Cloud & Infrastructure",
+    title: "Cloud & Databases",
     icon: Cloud,
-    description: "Managing data persistence, containerization, and automated deployment pipelines.",
+    description: "Keeping your data safe and putting your website online.",
     skills: [
       { name: "PostgreSQL", icon: SiPostgresql, color: "text-indigo-400" },
       { name: "MongoDB", icon: SiMongodb, color: "text-emerald-600" },
@@ -85,9 +85,9 @@ export default function TechStack() {
       <div className="mb-20">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <h2 className="mb-6 leading-tight">Expertise & <span className="text-primary italic">Technical Arsenal</span></h2>
+            <h2 className="mb-6 leading-tight">My Skills & <span className="text-primary italic">Tools</span></h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              I leverage a modern, battle-tested stack to deliver high-performance solutions that scale with your business needs.
+              I use the best modern tools to build websites that can grow with your business.
             </p>
           </div>
         </div>
