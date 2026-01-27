@@ -12,12 +12,8 @@ import {
   Menu,
   X,
   Sparkles,
-  User,
-  LayoutGrid,
-  Github,
-  Linkedin
+  LayoutGrid
 } from "lucide-react"
-import ThemeToggle from "./theme-toggle"
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -97,25 +93,6 @@ export default function Sidebar() {
             )
           })}
         </nav>
-
-        {/* Bottom Actions */}
-        <div className="mt-auto flex flex-col gap-6 items-center shrink-0">
-          <div className="flex flex-col gap-4 items-center">
-            <Link href="https://github.com/vickymayowa" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
-              <Github size={18} />
-            </Link>
-            <Link href="https://linkedin.com/in/favour-adebanjo" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
-              <Linkedin size={18} />
-            </Link>
-          </div>
-          <div className="w-12 h-px bg-border/50" />
-          <ThemeToggle />
-          <Link href="/contact" className="group relative">
-            <div className="w-14 h-14 rounded-[1.25rem] bg-foreground text-background flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl shadow-black/10">
-              <User size={20} />
-            </div>
-          </Link>
-        </div>
       </aside>
     </>
   )
