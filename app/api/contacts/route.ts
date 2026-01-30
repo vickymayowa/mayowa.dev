@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 <html>
 <head>
   <meta charset="utf-8" />
-  <style>
+  <style>r
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f5f7fa; margin: 0; padding: 0; }
     .container { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
     .header { background: #0d6efd; color: #fff; padding: 24px 32px; font-size: 20px; font-weight: 600; }
