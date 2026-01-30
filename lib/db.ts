@@ -1,7 +1,7 @@
 import fs from "fs/promises"
 import path from "path"
 
-const DB_PATH = path.join(process.cwd(), "db", "data.json")
+const DB_PATH = path.join(process.cwd(), "db", "db.db.json")
 
 export interface Contact {
     id: string

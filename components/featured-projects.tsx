@@ -74,11 +74,11 @@ export default function FeaturedProjects() {
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-[0.2em] mb-4">
             <Sparkles size={12} />
-            Showcase
+            My Work
           </div>
-          <h2 className="mb-6 leading-tight">Featured Projects</h2>
+          <h2 className="mb-6 leading-tight">Selected Projects</h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            A curated selection of my recent work, spanning architectural design, full-stack implementation, and performance optimization.
+            I build and maintain websites and web applications. Here are some of my favorite projects.
           </p>
         </div>
         <Link href="/projects" className="btn-outline-premium group shrink-0">

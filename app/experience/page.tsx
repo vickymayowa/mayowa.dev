@@ -33,9 +33,9 @@ export default function ExperiencePage() {
           <Sparkles size={12} />
           Career Path
         </div>
-        <h1 className="mb-6 leading-tight">Work Experience</h1>
+        <h1 className="mb-6 leading-tight">My Experience</h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          A definitive timeline of my professional journey, highlighting key roles, technical challenges, and architectural contributions.
+          Here is a list of the places I have worked and the websites and web applications I have built and maintained.
         </p>
       </div>
 

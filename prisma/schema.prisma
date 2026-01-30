@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -50,8 +50,8 @@ model Experience {
   date        String
   description String
   location    String
-  highlights  String[]
-  skills      String[]
+  highlights  Json
+  skills      Json
   createdAt   DateTime @default(now()) @map("created_at")
 
   @@map("experience")
@@ -62,7 +62,7 @@ model Project {
   title       String
   description String
   image       String
-  tags        String[]
+  tags        Json
   demo        String?
   githubLink  String   @map("github_link")
   liveUrl     String   @map("live_url")
@@ -70,3 +70,4 @@ model Project {
 
   @@map("projects")
 }
+

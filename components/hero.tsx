@@ -1,17 +1,16 @@
 "use client"
 
-import { ArrowRight, Github, Linkedin, Mail, ChevronRight } from "lucide-react"
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 import {
-  SiJavascript,
   SiTypescript,
   SiReact,
-  SiVuedotjs,
   SiNextdotjs,
   SiNodedotjs,
   SiMongodb,
   SiPostgresql,
-  SiDocker,
+  SiTailwindcss,
+  SiVuedotjs,
 } from "react-icons/si"
 import CVSection from "./cv-section"
 
@@ -22,17 +21,31 @@ export default function Hero() {
     { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
     { name: "Node.js", icon: SiNodedotjs, color: "text-emerald-500" },
     { name: "PostgreSQL", icon: SiPostgresql, color: "text-indigo-400" },
-    { name: "Docker", icon: SiDocker, color: "text-blue-600" },
+    { name: "Mongodb", icon: SiMongodb, color: "text-blue-600" },
   ]
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background px-6">
       {/* Background Elements */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_-20%,var(--color-primary)_0%,transparent_50%)] opacity-[0.03]" />
         <div
           className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.1]"
         />
+
+        {/* Floating Icons */}
+        <div className="absolute top-[10%] left-[5%] md:left-[10%] p-4 animate-float opacity-20 dark:opacity-10 rotate-12 hidden md:block">
+          <SiNextdotjs size={80} className="text-foreground" />
+        </div>
+        <div className="absolute top-[20%] right-[5%] md:right-[15%] p-4 animate-float opacity-20 dark:opacity-10 -rotate-12 hidden md:block" style={{ animationDelay: "1.5s" }}>
+          <SiTailwindcss size={60} className="text-sky-400" />
+        </div>
+        <div className="absolute bottom-[15%] left-[8%] md:left-[15%] p-4 animate-float opacity-20 dark:opacity-10 -rotate-6 hidden md:block" style={{ animationDelay: "2s" }}>
+          <SiNodedotjs size={70} className="text-emerald-500" />
+        </div>
+        <div className="absolute bottom-[10%] right-[10%] md:right-[20%] p-4 animate-float opacity-20 dark:opacity-10 rotate-6 hidden md:block" style={{ animationDelay: "3.5s" }}>
+          <SiVuedotjs size={50} className="text-emerald-400" />
+        </div>
       </div>
 
       <div className="max-w-5xl w-full relative z-10 py-20">
@@ -48,12 +61,12 @@ export default function Hero() {
 
           <div className="space-y-4">
             <h1 className="text-5xl md:text-8xl font-bold leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 italic">
-              Building <span className="text-primary not-italic">Premium</span> <br />
-              Digital Experiences.
+              Making <span className="text-primary not-italic">Great</span> <br />
+              Websites & Web Apps.
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-              I'm <span className="text-foreground font-semibold">Favour Mayowa</span>, a Full-Stack Engineer specializing in architectural excellence and high-performance web applications. Turning complex problems into elegant, scalable solutions.
+              I'm <span className="text-foreground font-semibold">Favour Mayowa</span>, a Full-Stack Developer. I build and maintain fast, reliable websites and web applications. I turn hard problems into simple solutions.
             </p>
           </div>
 

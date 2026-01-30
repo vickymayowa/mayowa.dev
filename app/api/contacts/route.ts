@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import prisma from "@/lib/prisma"
+import { readDB, writeDB, generateId, getCurrentTimestamp } from "@/lib/db"
 import { Resend } from "resend"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -12,14 +12,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Create new contact in Prisma
-    const newContact = await prisma.contact.create({
-      data: {
-        name,
-        email,
-        message,
-      },
-    })
+    const db = await readDB()
+
+    // Create new contact in JSON DB
+    const newContact = {
+      id: generateId(db.contacts),
+      name,
+      email,
+      message,
+      created_at: getCurrentTimestamp(),
+    }
+
+    db.contacts.push(newContact)
+    await writeDB(db)
 
     try {
       const emailHtml = `
@@ -27,7 +32,7 @@ export async function POST(request: NextRequest) {
 <html>
 <head>
   <meta charset="utf-8" />
-  <style>
+  <style>r
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f5f7fa; margin: 0; padding: 0; }
     .container { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
     .header { background: #0d6efd; color: #fff; padding: 24px 32px; font-size: 20px; font-weight: 600; }
@@ -85,10 +90,9 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const contacts = await prisma.contact.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
+    const db = await readDB()
+    const contacts = [...db.contacts].sort((a, b) => {
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     })
 
     return NextResponse.json({ data: contacts })

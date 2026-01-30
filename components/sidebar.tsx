@@ -12,16 +12,14 @@ import {
   Menu,
   X,
   Sparkles,
-  User,
   LayoutGrid
 } from "lucide-react"
-import ThemeToggle from "./theme-toggle"
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/services", label: "Services", icon: LayoutGrid },
   { href: "/projects", label: "Projects", icon: Briefcase },
-  { href: "/experience", label: "Timeline", icon: Brain },
+  { href: "/experience", label: "Skills", icon: Brain },
   { href: "/blog", label: "Articles", icon: BookOpen },
   { href: "/contact", label: "Contact", icon: Mail },
 ]
@@ -50,18 +48,18 @@ export default function Sidebar() {
 
       {/* Compact Column Sidebar */}
       <aside
-        className={`fixed md:relative h-[calc(100vh-2rem)] my-4 ml-4 w-20 md:w-24 bg-card/80 backdrop-blur-xl border border-border/50 rounded-[2.5rem] flex flex-col items-center py-8 gap-6 transition-all duration-500 z-[90] overflow-y-auto overflow-x-hidden scrollbar-none ${isOpen ? "translate-x-0" : "-translate-x-[120%] md:translate-x-0"
+        className={`fixed md:relative h-[calc(100vh-2rem)] my-4 ml-4 w-20 md:w-24 bg-card/80 backdrop-blur-xl border border-border/50 rounded-[2.5rem] flex flex-col items-center py-10 gap-8 transition-all duration-500 z-[90] overflow-y-auto overflow-x-hidden scrollbar-none ${isOpen ? "translate-x-0" : "-translate-x-[120%] md:translate-x-0"
           }`}
       >
         {/* Brand/Top Icon */}
         <Link href="/" className="shrink-0 mb-2">
-          <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20">
+          <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 hover:scale-110 transition-transform">
             <Sparkles size={20} className="text-primary" />
           </div>
         </Link>
 
         {/* Navigation Items */}
-        <nav className="flex flex-col gap-4 w-full items-center">
+        <nav className="flex flex-col gap-6 w-full items-center">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
@@ -95,17 +93,6 @@ export default function Sidebar() {
             )
           })}
         </nav>
-
-        {/* Bottom Actions */}
-        <div className="mt-auto flex flex-col gap-4 items-center shrink-0">
-          <div className="w-12 h-px bg-border/50" />
-          <ThemeToggle />
-          <Link href="/contact" className="group relative">
-            <div className="w-14 h-14 rounded-[1.25rem] bg-foreground text-background flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl shadow-black/10">
-              <User size={20} />
-            </div>
-          </Link>
-        </div>
       </aside>
     </>
   )

@@ -34,8 +34,8 @@
     "blogs": [
         {
             "id": "1",
-            "title": "Building Scalable Full-Stack Applications with MERN",
-            "excerpt": "Learn how to architect and build scalable full-stack applications using MongoDB, Express, React, and Node.js. We'll cover best practices, performance optimization, and deployment strategies.",
+            "title": "Building Websites with MERN",
+            "excerpt": "Learn how to build full-stack websites using MongoDB, Express, React, and Node.js. We cover the basics and how to put your site online.",
             "date": "2024-10-15",
             "author": "Favour Mayowa",
             "category": "Full-Stack",
@@ -47,8 +47,8 @@
         },
         {
             "id": "2",
-            "title": "Next.js 15: New Features and Performance Improvements",
-            "excerpt": "Explore the latest features in Next.js 15 including improved server components, enhanced caching, and performance optimizations. Perfect for building modern web applications.",
+            "title": "Next.js 15: What's New?",
+            "excerpt": "Check out the newest features in Next.js 15. It makes building websites faster and easier than before.",
             "date": "2024-10-10",
             "author": "Favour Mayowa",
             "category": "Next.js",
@@ -60,8 +60,8 @@
         },
         {
             "id": "3",
-            "title": "TypeScript Best Practices for Large-Scale Projects",
-            "excerpt": "Master TypeScript with advanced patterns and best practices for building maintainable, type-safe applications. Includes real-world examples and common pitfalls to avoid.",
+            "title": "Simple TypeScript Tips",
+            "excerpt": "How to use TypeScript correctly in your projects. We look at easy ways to keep your code clean and avoid common mistakes.",
             "date": "2024-10-05",
             "author": "Favour Mayowa",
             "category": "TypeScript",
@@ -75,15 +75,16 @@
     "experience": [
         {
             "id": "5",
-            "role": "Frontend Engineer",
-            "company": "The New Story Foundation",
-            "date": "Feb 2025 - Mar 2025",
-            "description": "Built the foundation's NGO website from scratch using React.js, creating interactive and dynamic user interfaces that showcased their humanitarian program",
+            "role": "Frontend Developer",
+            "company": "Whatspodcasting · Plluggg",
+            "date": "Feb 2025 - Apr 2025",
+            "description": "I worked on the frontend of their website, making it fast and easy to use.",
             "highlights": [],
             "created_at": "2025-11-05 10:00:09.792735",
-            "location": "No 11 Victory Close, Ota -Eesan Community, 340106 Akure, Ondo· Remote",
+            "location": "Abuja, Nigeria · Remote",
             "skills": [
-                "Reactjs",
+                "NextJS",
+                "Prisma",
                 "Typescript",
                 "Tailwind Css"
             ]
@@ -93,10 +94,10 @@
             "role": "Frontend Engineer",
             "company": "The New Story Foundation",
             "date": "Feb 2025 - Mar 2025",
-            "description": "Built the foundation's NGO website from scratch using React.js, creating interactive and dynamic user interfaces that showcased their humanitarian program",
+            "description": "I built an NGO website from scratch. I created a dynamic site to show their humanitarian work to the world.",
             "highlights": [],
             "created_at": "2025-11-05 10:00:09.792735",
-            "location": "No 11 Victory Close, Ota -Eesan Community, 340106 Akure, Ondo· Remote",
+            "location": "Akure, Nigeria · Remote",
             "skills": [
                 "Reactjs",
                 "Typescript",
@@ -108,10 +109,10 @@
             "role": "Frontend Developer",
             "company": "Cargomax Services Ltd",
             "date": "May 2024 - Feb 2025",
-            "description": "Developed the user-side interface to manage orders and products using Next.js and Tailwind CSS. Created responsive designs and interactive features to enhance usability. Delivered clean, efficient code to ensure optimal performance and scalability.",
+            "description": "I built the user interface for managing orders and products using Next.js. I made the site responsive and easy for customers to use.",
             "highlights": [],
             "created_at": "2025-11-05 10:00:09.792735",
-            "location": "Littleton Road, Salford, Manchester · Remote",
+            "location": "Manchester, UK · Remote",
             "skills": [
                 "Reactjs",
                 "NextJS",
@@ -124,10 +125,10 @@
             "role": "Frontend Developer",
             "company": "Tripflex",
             "date": "May 2024 - Dec 2024",
-            "description": "Developed a seamless car tour booking platform for city tours, akin to ride-hailing services like Uber.\n\nBuilt an intuitive user interface to simplify navigation, destination selection, and booking management.\n\nDesigned and implemented the admin dashboard, including key features such as the Transactions page, Payments, Settings, Driver Verification, and Driver Management.\n\nImplemented responsive designs, ensuring consistent user experiences across devices.",
+            "description": "I built a website for booking car tours. I also made an admin dashboard for managing drivers, payments, and settings.",
             "highlights": [],
             "created_at": "2025-11-05 10:00:09.792735",
-            "location": "Abuja, Federal Capital Territory, Nigeria · Remote",
+            "location": "Abuja, Nigeria · Remote",
             "skills": [
                 "Reactjs",
                 "NextJS",
@@ -140,10 +141,10 @@
             "role": "Frontend Developer",
             "company": "Alusoft Technologies Ltd",
             "date": "Jun 2023 - Oct 2023",
-            "description": "Taught foundational web development technologies, including HTML, CSS, and JavaScript, to aspiring frontend developers.\n\nDesigned and delivered interactive lessons, ensuring students grasped key concepts through hands-on projects and real-world examples.\n\nProvided mentorship and guidance to students, helping them build strong technical skills and confidence in web development.",
+            "description": "I taught other people how to build websites. I explained HTML, CSS, and JavaScript and helped them with their first projects.",
             "highlights": [],
             "created_at": "2025-11-05 09:57:44.992886",
-            "location": "Elem Building, Opposite IDC Primary School, Olopomeji, Akobo, Ibadan, Oyo State, Nigeria.",
+            "location": "Ibadan, Nigeria.",
             "skills": [
                 "HTML",
                 "CSS",
@@ -155,10 +156,10 @@
             "role": "Full Stack Developer",
             "company": "SQI COLLEGE OF ICT",
             "date": "SEPT 2022 - AUG 2024",
-            "description": "I enrolled in a tech school to advance my skills as a Full-Stack Web Developer. During my studies, I gained hands-on experience with diverse tech stacks, including Angular, MongoDB, Node.js, Express.js, React, Vue.js, SQL, and PHP. Alongside technical skills, I developed strong communication abilities, learning to present and pitch ideas effectively. This experience has equipped me with a well-rounded foundation for success in the tech industry.",
+            "description": "I studied full-stack development and learned how to use many different tools like React, Node.js, and SQL. I practiced building both the front and back parts of websites.",
             "highlights": [],
             "created_at": "2025-11-05 09:59:09.953045",
-            "location": "Old Ilorin Road, Opposite Yoaco Filling Station, Yoaco, Ogbomoso.",
+            "location": "Ogbomoso, Nigeria.",
             "skills": [
                 "React",
                 "Nodejs",
@@ -168,7 +169,7 @@
                 "Mongodb",
                 "Laravel",
                 "Vue",
-                "Communcation Skills"
+                "Communication Skills"
             ]
         }
     ],
@@ -176,7 +177,7 @@
         {
             "id": "10",
             "title": "FinFlow Web",
-            "description": "A modern fintech web application built with Next.js 16, Supabase, TailwindCSS, and ShadCN UI, Typescript. Inspired by Cowrywise, FinFlow helps users automate their savings, invest in diverse portfolios, and achieve their financial goals.",
+            "description": "A modern money management website. It helps people save money, track their portfolio, and reach their financial goals.",
             "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763126099305-1763126100720.png",
             "tags": [
                 "TypeScript",
@@ -193,7 +194,7 @@
         {
             "id": "11",
             "title": "Code Arena",
-            "description": "Full-stack, class-based web application that turns coding practice into an interactive terminal experience. Built with Next.js, TypeScript, TailwindCSS, and ShadCN/UI, Supabase, it lets developers solve LeetCode-style problems directly inside a sleek, hacker-themed interface — solo or collaboratively in real-time.",
+            "description": "A coding practice website where developers can solve problems in a terminal-like design, alone or with others.",
             "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763126085968-1763126087727.png",
             "tags": [
                 "TypeScript",
@@ -210,7 +211,7 @@
         {
             "id": "12",
             "title": "Travel Website",
-            "description": "Travel Website",
+            "description": "A beautiful website for a travel agency to show their trips and booking options.",
             "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763203149862-1763203202477.png",
             "tags": [
                 "Next.js",
@@ -226,7 +227,7 @@
         {
             "id": "13",
             "title": "Event Ticketing Hub",
-            "description": "Event Ticketing Hub",
+            "description": "A simple website to find and buy tickets for local events and shows.",
             "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763242108233-1763242113974.png",
             "tags": [
                 "Nextjs",
@@ -241,7 +242,7 @@
         {
             "id": "14",
             "title": "Trade Vault Web",
-            "description": "Access institutional-grade trading tools, real-time market analysis, and portfolio optimization designed for wealth accumulation and risk management.",
+            "description": "A professional website for trading and market analysis, designed for easy use.",
             "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763581006810-1763581020437.png",
             "tags": [
                 "Nextjs",
@@ -258,8 +259,8 @@
         {
             "id": "15",
             "title": "Facial-Web Attendance System",
-            "description": "A modern, full-featured attendance management system for colleges using facial recognition technology. Built with Next.js, TypeScript, TailwindCSS, ShadCN UI, and Appwrite.",
-            "image": "",
+            "description": "A modern attendance system that uses facial recognition to track students or workers automatically.",
+            "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1764143759509-1764143765196.png",
             "tags": [
                 "TypeScript",
                 "Next.js",

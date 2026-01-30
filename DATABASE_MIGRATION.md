@@ -9,7 +9,7 @@ Successfully migrated the portfolio application from Supabase to a local JSON fi
 - **Purpose**: Centralized module for reading/writing to the local JSON database
 - **Features**:
   - TypeScript interfaces for all data models (Contact, Blog, Experience, Project, AdminCredential)
-  - `readDB()` - Reads the entire database from `db/data.json`
+  - `readDB()` - Reads the entire database from `db/db.db.json`
   - `writeDB()` - Writes data back to the JSON file
   - `generateId()` - Auto-generates sequential IDs for new records
   - `getCurrentTimestamp()` - Creates consistent timestamp format
@@ -49,7 +49,7 @@ Successfully migrated the portfolio application from Supabase to a local JSON fi
 - **POST**: Authenticates admin users
 - **Changes**: Validates credentials against local JSON database instead of Supabase
 
-## Database Structure (`db/data.json`)
+## Database Structure (`db/db.db.json`)
 
 ```json
 {

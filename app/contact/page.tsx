@@ -75,7 +75,7 @@ export default function ContactPage() {
         </div>
         <h1 className="mb-6 leading-tight">Get In <span className="text-primary italic">Touch</span></h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Whether you have a complex architectural challenge or a visionary project, I'm ready to bring it to life with precision and excellence.
+          If you want to build or maintain a website or web application, I'm here to help. Send me a message and I'll get back to you.
         </p>
       </div>
 
@@ -142,7 +142,7 @@ export default function ContactPage() {
               </div>
             ) : (
               <>
-                <h3 className="text-xl font-bold mb-8 tracking-tight">Express Inquiry</h3>
+                <h3 className="text-xl font-bold mb-8 tracking-tight">Send a Message</h3>
 
                 {error && (
                   <div className="mb-8 p-4 bg-destructive/5 border border-destructive/20 rounded-2xl flex items-center gap-3 text-destructive animate-in slide-in-from-top-2">
@@ -187,7 +187,7 @@ export default function ContactPage() {
 
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground ml-1">
-                      Project Details / Message
+                      Message
                     </label>
                     <textarea
                       id="message"
@@ -197,7 +197,7 @@ export default function ContactPage() {
                       required
                       rows={6}
                       className="w-full px-6 py-4 bg-muted/30 border border-border/50 rounded-2xl focus:outline-none focus:border-primary/40 focus:bg-background transition-all font-medium resize-none"
-                      placeholder="Tell me about your vision..."
+                      placeholder="Tell me what you need help with..."
                     />
                   </div>
 
@@ -207,11 +207,11 @@ export default function ContactPage() {
                     className="w-full btn-premium py-5 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed group"
                   >
                     {isLoading ? (
-                      "Engaging Engines..."
+                      "Sending..."
                     ) : (
                       <>
                         <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        Initialize Message
+                        Send Message
                       </>
                     )}
                   </button>
