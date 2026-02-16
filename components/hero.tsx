@@ -14,7 +14,19 @@ import {
 } from "react-icons/si"
 import CVSection from "./cv-section"
 
+import { useState, useEffect } from "react"
+
 export default function Hero() {
+  const [wordIndex, setWordIndex] = useState(0)
+  const words = ["Great", "Fast", "Secure", "Modern", "Scalable"]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % words.length)
+    }, 1500)
+    return () => clearInterval(interval)
+  }, [])
+
   const featuredTechs = [
     { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
     { name: "React", icon: SiReact, color: "text-sky-400" },
@@ -61,7 +73,9 @@ export default function Hero() {
 
           <div className="space-y-4">
             <h1 className="text-5xl md:text-8xl font-bold leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 italic">
-              Making <span className="text-primary not-italic">Great</span> <br />
+              Building <span key={wordIndex} className="text-primary not-italic inline-block min-w-[2ch] animate-in fade-in zoom-in duration-300">
+                {words[wordIndex]}
+              </span> <br />
               Websites & Web Apps.
             </h1>
 
