@@ -12,11 +12,13 @@ import {
   Menu,
   X,
   Sparkles,
-  LayoutGrid
+  LayoutGrid,
+  User
 } from "lucide-react"
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
+  { href: "/about", label: "About", icon: User },
   { href: "/services", label: "Services", icon: LayoutGrid },
   { href: "/projects", label: "Projects", icon: Briefcase },
   { href: "/experience", label: "Skills", icon: Brain },

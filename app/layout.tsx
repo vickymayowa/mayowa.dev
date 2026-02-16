@@ -4,6 +4,7 @@ import { Inter, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import Sidebar from "@/components/sidebar"
+import Cursor from "@/components/cursor"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import LoadingScreen from "@/components/loading-screen"
 import { ThemeProvider } from "@/app/providers"
@@ -56,6 +57,7 @@ export default function RootLayout({
               {children}
             </main>
             <Toaster />
+            <Cursor />
             <SpeedInsights />
           </div>
         </ThemeProvider>
