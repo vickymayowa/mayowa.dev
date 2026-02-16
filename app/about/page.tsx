@@ -1,6 +1,6 @@
 "use client"
 
-import { Code2, Globe, Cpu, Quote } from "lucide-react"
+import { Code2, Globe, Cpu, Quote, Briefcase } from "lucide-react"
 
 export default function AboutPage() {
     return (
@@ -42,7 +42,7 @@ export default function AboutPage() {
                             </div>
                         </div>
 
-                        {/* Quote Section (Placeholder) */}
+                        {/* Quote Section */}
                         <div className="card-premium border-primary/20 bg-primary/5 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                                 <Quote size={120} />
@@ -55,6 +55,64 @@ export default function AboutPage() {
                                     — René Descartes
                                 </footer>
                             </blockquote>
+                        </div>
+
+                        {/* Experience Section */}
+                        <div className="card-premium">
+                            <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
+                                <Briefcase className="text-primary" />
+                                The Journey
+                            </h2>
+
+                            <div className="relative border-l-2 border-primary/20 ml-3 space-y-12 pl-8 py-2">
+                                {/* Experience Item 1 */}
+                                <div className="relative group">
+                                    <div className="absolute -left-[43px] top-1.5 h-6 w-6 rounded-full border-4 border-background bg-primary transition-all duration-300 group-hover:scale-125 shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
+
+                                    <div className="space-y-2">
+                                        <div className="flex flex-wrap items-center justify-between gap-x-2">
+                                            <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Full-Stack Engineer</h3>
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">2023 - Present</span>
+                                        </div>
+                                        <div className="text-base font-semibold text-muted-foreground">MoonJoin Technologies.</div>
+                                        <p className="text-sm leading-relaxed text-muted-foreground/80 mt-2">
+                                            Engineered the vendor cart management system, enabling real-time edits, automated refunds, and item substitutions. Integrated the 9PSB Payment Gateway to generate dedicated virtual accounts for user wallet funding. Built secure withdrawal workflows allowing vendors and delivery partners to transfer earnings directly to verified bank accounts.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Experience Item 2 */}
+                                <div className="relative group">
+                                    <div className="absolute -left-[43px] top-1.5 h-6 w-6 rounded-full border-4 border-background bg-muted-foreground/30 transition-all duration-300 group-hover:bg-primary group-hover:scale-125" />
+
+                                    <div className="space-y-2">
+                                        <div className="flex flex-wrap items-center justify-between gap-x-2">
+                                            <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Frontend Developer</h3>
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">2021 - 2023</span>
+                                        </div>
+                                        <div className="text-base font-semibold text-muted-foreground">Creative Agency</div>
+                                        <p className="text-sm leading-relaxed text-muted-foreground/80 mt-2">
+                                            Developed pixel-perfect user interfaces for global brands. Collaborated with designers to implement complex animations using Framer Motion and GSAP. Optimized accessibility and SEO for client websites.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Experience Item 3 */}
+                                <div className="relative group">
+                                    <div className="absolute -left-[43px] top-1.5 h-6 w-6 rounded-full border-4 border-background bg-muted-foreground/30 transition-all duration-300 group-hover:bg-primary group-hover:scale-125" />
+
+                                    <div className="space-y-2">
+                                        <div className="flex flex-wrap items-center justify-between gap-x-2">
+                                            <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Junior Web Developer</h3>
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">2020 - 2021</span>
+                                        </div>
+                                        <div className="text-base font-semibold text-muted-foreground">StartUp Hub</div>
+                                        <p className="text-sm leading-relaxed text-muted-foreground/80 mt-2">
+                                            Built and maintained 15+ client websites using WordPress and custom PHP. Learned the fundamentals of full-stack development and database management.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {/* Stats / Skills Column */}
