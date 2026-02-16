@@ -88,11 +88,11 @@ export default function AboutPage() {
                                     <div className="space-y-2">
                                         <div className="flex flex-wrap items-center justify-between gap-x-2">
                                             <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Frontend Developer</h3>
-                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">2021 - 2023</span>
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">Feb 2025 - Apr 2025</span>
                                         </div>
-                                        <div className="text-base font-semibold text-muted-foreground">Creative Agency</div>
+                                        <div className="text-base font-semibold text-muted-foreground">Whatspodcasting · Plluggg</div>
                                         <p className="text-sm leading-relaxed text-muted-foreground/80 mt-2">
-                                            Developed pixel-perfect user interfaces for global brands. Collaborated with designers to implement complex animations using Framer Motion and GSAP. Optimized accessibility and SEO for client websites.
+                                            I worked on the frontend of their website, making it fast and easy to use.
                                         </p>
                                     </div>
                                 </div>
@@ -103,12 +103,76 @@ export default function AboutPage() {
 
                                     <div className="space-y-2">
                                         <div className="flex flex-wrap items-center justify-between gap-x-2">
-                                            <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Junior Web Developer</h3>
-                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">2020 - 2021</span>
+                                            <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Frontend Engineer</h3>
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">Feb 2025 - Mar 2025</span>
                                         </div>
-                                        <div className="text-base font-semibold text-muted-foreground">StartUp Hub</div>
+                                        <div className="text-base font-semibold text-muted-foreground">The New Story Foundation</div>
                                         <p className="text-sm leading-relaxed text-muted-foreground/80 mt-2">
-                                            Built and maintained 15+ client websites using WordPress and custom PHP. Learned the fundamentals of full-stack development and database management.
+                                            I built an NGO website from scratch. I created a dynamic site to show their humanitarian work to the world.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Experience Item 4 */}
+                                <div className="relative group">
+                                    <div className="absolute -left-[43px] top-1.5 h-6 w-6 rounded-full border-4 border-background bg-muted-foreground/30 transition-all duration-300 group-hover:bg-primary group-hover:scale-125" />
+
+                                    <div className="space-y-2">
+                                        <div className="flex flex-wrap items-center justify-between gap-x-2">
+                                            <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Frontend Developer</h3>
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">May 2024 - Feb 2025</span>
+                                        </div>
+                                        <div className="text-base font-semibold text-muted-foreground">Cargomax Services Ltd</div>
+                                        <p className="text-sm leading-relaxed text-muted-foreground/80 mt-2">
+                                            I built the user interface for managing orders and products using Next.js. I made the site responsive and easy for customers to use.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Experience Item 5 */}
+                                <div className="relative group">
+                                    <div className="absolute -left-[43px] top-1.5 h-6 w-6 rounded-full border-4 border-background bg-muted-foreground/30 transition-all duration-300 group-hover:bg-primary group-hover:scale-125" />
+
+                                    <div className="space-y-2">
+                                        <div className="flex flex-wrap items-center justify-between gap-x-2">
+                                            <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Frontend Developer</h3>
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">May 2024 - Dec 2024</span>
+                                        </div>
+                                        <div className="text-base font-semibold text-muted-foreground">Tripflex</div>
+                                        <p className="text-sm leading-relaxed text-muted-foreground/80 mt-2">
+                                            I built a website for booking car tours. I also made an admin dashboard for managing drivers, payments, and settings.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Experience Item 6 */}
+                                <div className="relative group">
+                                    <div className="absolute -left-[43px] top-1.5 h-6 w-6 rounded-full border-4 border-background bg-muted-foreground/30 transition-all duration-300 group-hover:bg-primary group-hover:scale-125" />
+
+                                    <div className="space-y-2">
+                                        <div className="flex flex-wrap items-center justify-between gap-x-2">
+                                            <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Full Stack Developer</h3>
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">SEPT 2022 - AUG 2024</span>
+                                        </div>
+                                        <div className="text-base font-semibold text-muted-foreground">SQI COLLEGE OF ICT</div>
+                                        <p className="text-sm leading-relaxed text-muted-foreground/80 mt-2">
+                                            I studied full-stack development and learned how to use many different tools like React, Node.js, and SQL. I practiced building both the front and back parts of websites.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Experience Item 7 */}
+                                <div className="relative group">
+                                    <div className="absolute -left-[43px] top-1.5 h-6 w-6 rounded-full border-4 border-background bg-muted-foreground/30 transition-all duration-300 group-hover:bg-primary group-hover:scale-125" />
+
+                                    <div className="space-y-2">
+                                        <div className="flex flex-wrap items-center justify-between gap-x-2">
+                                            <h3 className="font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">Frontend Developer</h3>
+                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border">Jun 2023 - Oct 2023</span>
+                                        </div>
+                                        <div className="text-base font-semibold text-muted-foreground">Alusoft Technologies Ltd</div>
+                                        <p className="text-sm leading-relaxed text-muted-foreground/80 mt-2">
+                                            I taught other people how to build websites. I explained HTML, CSS, and JavaScript and helped them with their first projects.
                                         </p>
                                     </div>
                                 </div>
