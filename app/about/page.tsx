@@ -86,8 +86,8 @@ const values = [
 
 const stats = [
     { value: "3+", label: "Years of Experience" },
-    { value: "20+", label: "Projects Shipped" },
-    { value: "10+", label: "Companies & Clients" },
+    { value: "10+", label: "Projects Shipped" },
+    { value: "5+", label: "Companies & Clients" },
     { value: "12+", label: "Technologies" },
 ]
 
