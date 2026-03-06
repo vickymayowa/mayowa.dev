@@ -123,71 +123,75 @@
             ]
         },
         {
-            "id": "3",
+            "id": "4",
             "role": "Frontend Developer",
             "company": "Cargomax Services Ltd",
             "date": "May 2024 - Feb 2025",
+            "current": false,
             "description": "Developed the user-side interface to manage orders and products using Next.js and Tailwind CSS. Created responsive designs and interactive features to enhance usability. Delivered clean, efficient code to ensure optimal performance and scalability.",
             "highlights": [],
             "created_at": "2025-11-05 10:00:09.792735",
             "location": "Littleton Road, Salford, Manchester · Remote",
             "skills": [
-                "Reactjs",
-                "NextJS",
-                "Typescript",
-                "Tailwind Css"
-            ]
-        },
-        {
-            "id": "4",
-            "role": "Frontend Developer",
-            "company": "Tripflex",
-            "date": "May 2024 - Dec 2024",
-            "description": "Developed a seamless car tour booking platform for city tours, akin to ride-hailing services like Uber.\n\nBuilt an intuitive user interface to simplify navigation, destination selection, and booking management.\n\nDesigned and implemented the admin dashboard, including key features such as the Transactions page, Payments, Settings, Driver Verification, and Driver Management.\n\nImplemented responsive designs, ensuring consistent user experiences across devices.",
-            "highlights": [],
-            "created_at": "2025-11-05 10:00:09.792735",
-            "location": "Abuja, Federal Capital Territory, Nigeria · Remote",
-            "skills": [
-                "Reactjs",
-                "NextJS",
-                "Typescript",
-                "Tailwind Css"
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Tailwind CSS"
             ]
         },
         {
             "id": "5",
             "role": "Frontend Developer",
+            "company": "Tripflex",
+            "date": "May 2024 - Dec 2024",
+            "current": false,
+            "description": "Developed a seamless car tour booking platform for city tours, akin to ride-hailing services like Uber. Built an intuitive user interface to simplify navigation, destination selection, and booking management. Designed and implemented the admin dashboard, including Transactions, Payments, Settings, Driver Verification, and Driver Management. Implemented responsive designs ensuring consistent experiences across devices.",
+            "highlights": [],
+            "created_at": "2025-11-05 10:00:09.792735",
+            "location": "Abuja, Federal Capital Territory, Nigeria · Remote",
+            "skills": [
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Tailwind CSS"
+            ]
+        },
+        {
+            "id": "6",
+            "role": "Frontend Developer (Instructor)",
             "company": "Alusoft Technologies Ltd",
             "date": "Jun 2023 - Oct 2023",
-            "description": "Taught foundational web development technologies, including HTML, CSS, and JavaScript, to aspiring frontend developers.\n\nDesigned and delivered interactive lessons, ensuring students grasped key concepts through hands-on projects and real-world examples.\n\nProvided mentorship and guidance to students, helping them build strong technical skills and confidence in web development.",
+            "current": false,
+            "description": "Taught foundational web development technologies, including HTML, CSS, and JavaScript, to aspiring frontend developers. Designed and delivered interactive lessons, ensuring students grasped key concepts through hands-on projects and real-world examples. Provided mentorship and guidance to students, helping them build strong technical skills and confidence in web development.",
             "highlights": [],
             "created_at": "2025-11-05 09:57:44.992886",
             "location": "Elem Building, Opposite IDC Primary School, Olopomeji, Akobo, Ibadan, Oyo State, Nigeria.",
             "skills": [
                 "HTML",
                 "CSS",
-                "JAVASCRIPT"
+                "JavaScript"
             ]
         },
         {
-            "id": "6",
+            "id": "7",
             "role": "Full Stack Developer",
-            "company": "SQI COLLEGE OF ICT",
-            "date": "SEPT 2022 - AUG 2024",
-            "description": "I enrolled in a tech school to advance my skills as a Full-Stack Web Developer. During my studies, I gained hands-on experience with diverse tech stacks, including Angular, MongoDB, Node.js, Express.js, React, Vue.js, SQL, and PHP. Alongside technical skills, I developed strong communication abilities, learning to present and pitch ideas effectively. This experience has equipped me with a well-rounded foundation for success in the tech industry.",
+            "company": "SQI College of ICT",
+            "date": "Sept 2022 - Aug 2024",
+            "current": false,
+            "description": "Enrolled in a tech school to advance skills as a Full-Stack Web Developer. Gained hands-on experience with Angular, MongoDB, Node.js, Express.js, React, Vue.js, SQL, and PHP. Developed strong communication abilities, learning to present and pitch ideas effectively.",
             "highlights": [],
             "created_at": "2025-11-05 09:59:09.953045",
             "location": "Old Ilorin Road, Opposite Yoaco Filling Station, Yoaco, Ogbomoso.",
             "skills": [
                 "React",
-                "Nodejs",
-                "Php",
-                "Nextjs",
-                "SQl",
-                "Mongodb",
+                "Node.js",
+                "PHP",
+                "Next.js",
+                "SQL",
+                "MongoDB",
                 "Laravel",
-                "Vue",
-                "Communcation Skills"
+                "Vue.js",
+                "Communication Skills"
             ]
         }
     ],
