@@ -74,101 +74,123 @@
     ],
     "experience": [
         {
-            "id": "5",
+            "id": "1",
+            "role": "Full-Stack Engineer",
+            "company": "MoonJoin Technologies",
+            "date": "2023 - Present",
+            "current": true,
+            "description": "Engineered the vendor cart management system, enabling real-time edits, automated refunds, and item substitutions. Integrated the 9PSB Payment Gateway to generate dedicated virtual accounts for user wallet funding. Built secure withdrawal workflows allowing vendors and delivery partners to transfer earnings directly to verified bank accounts.",
+            "highlights": [],
+            "created_at": "2025-11-05 10:00:09.792735",
+            "location": "Remote",
+            "skills": [
+                "Next.js",
+                "Node.js",
+                "PostgreSQL",
+                "Laravel"
+            ]
+        },
+        {
+            "id": "2",
             "role": "Frontend Developer",
             "company": "Whatspodcasting · Plluggg",
             "date": "Feb 2025 - Apr 2025",
-            "description": "I worked on the frontend of their website, making it fast and easy to use.",
+            "current": false,
+            "description": "Led frontend development delivering a fast, performant and highly accessible podcast platform UI.",
             "highlights": [],
             "created_at": "2025-11-05 10:00:09.792735",
             "location": "Abuja, Nigeria · Remote",
             "skills": [
-                "NextJS",
-                "Prisma",
-                "Typescript",
-                "Tailwind Css"
-            ]
-        },
-        {
-            "id": "5",
-            "role": "Frontend Engineer",
-            "company": "The New Story Foundation",
-            "date": "Feb 2025 - Mar 2025",
-            "description": "I built an NGO website from scratch. I created a dynamic site to show their humanitarian work to the world.",
-            "highlights": [],
-            "created_at": "2025-11-05 10:00:09.792735",
-            "location": "Akure, Nigeria · Remote",
-            "skills": [
-                "Reactjs",
-                "Typescript",
-                "Tailwind Css"
+                "Next.js",
+                "TypeScript",
+                "Tailwind CSS"
             ]
         },
         {
             "id": "3",
-            "role": "Frontend Developer",
-            "company": "Cargomax Services Ltd",
-            "date": "May 2024 - Feb 2025",
-            "description": "I built the user interface for managing orders and products using Next.js. I made the site responsive and easy for customers to use.",
+            "role": "Frontend Engineer",
+            "company": "The New Story Foundation",
+            "date": "Feb 2025 - Mar 2025",
+            "current": false,
+            "description": "Built an NGO website from scratch using React.js, creating interactive and dynamic user interfaces that showcased their humanitarian work to the world.",
             "highlights": [],
             "created_at": "2025-11-05 10:00:09.792735",
-            "location": "Manchester, UK · Remote",
+            "location": "Akure, Nigeria · Remote",
             "skills": [
-                "Reactjs",
-                "NextJS",
-                "Typescript",
-                "Tailwind Css"
+                "React",
+                "TypeScript",
+                "Tailwind CSS"
             ]
         },
         {
             "id": "4",
             "role": "Frontend Developer",
-            "company": "Tripflex",
-            "date": "May 2024 - Dec 2024",
-            "description": "I built a website for booking car tours. I also made an admin dashboard for managing drivers, payments, and settings.",
+            "company": "Cargomax Services Ltd",
+            "date": "May 2024 - Feb 2025",
+            "current": false,
+            "description": "Built the user interface for managing orders and products using Next.js. Made the site responsive and easy for customers to use.",
             "highlights": [],
             "created_at": "2025-11-05 10:00:09.792735",
-            "location": "Abuja, Nigeria · Remote",
+            "location": "Manchester, UK · Remote",
             "skills": [
-                "Reactjs",
-                "NextJS",
-                "Typescript",
-                "Tailwind Css"
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Tailwind CSS"
             ]
         },
         {
             "id": "5",
             "role": "Frontend Developer",
-            "company": "Alusoft Technologies Ltd",
-            "date": "Jun 2023 - Oct 2023",
-            "description": "I taught other people how to build websites. I explained HTML, CSS, and JavaScript and helped them with their first projects.",
+            "company": "Tripflex",
+            "date": "May 2024 - Dec 2024",
+            "current": false,
+            "description": "Built a website for booking car tours and an admin dashboard for managing drivers, payments, and settings.",
             "highlights": [],
-            "created_at": "2025-11-05 09:57:44.992886",
-            "location": "Ibadan, Nigeria.",
+            "created_at": "2025-11-05 10:00:09.792735",
+            "location": "Abuja, Nigeria · Remote",
             "skills": [
-                "HTML",
-                "CSS",
-                "JAVASCRIPT"
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Tailwind CSS"
             ]
         },
         {
             "id": "6",
+            "role": "Frontend Developer (Instructor)",
+            "company": "Alusoft Technologies Ltd",
+            "date": "Jun 2023 - Oct 2023",
+            "current": false,
+            "description": "Taught other developers how to build websites. Explained HTML, CSS, and JavaScript and helped them with their first projects.",
+            "highlights": [],
+            "created_at": "2025-11-05 09:57:44.992886",
+            "location": "Ibadan, Nigeria",
+            "skills": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+            ]
+        },
+        {
+            "id": "7",
             "role": "Full Stack Developer",
-            "company": "SQI COLLEGE OF ICT",
-            "date": "SEPT 2022 - AUG 2024",
-            "description": "I studied full-stack development and learned how to use many different tools like React, Node.js, and SQL. I practiced building both the front and back parts of websites.",
+            "company": "SQI College of ICT",
+            "date": "Sept 2022 - Aug 2024",
+            "current": false,
+            "description": "Studied full-stack development and gained hands-on experience with React, Node.js, SQL, PHP, Vue.js, Laravel, and MongoDB. Practiced building both frontend and backend systems.",
             "highlights": [],
             "created_at": "2025-11-05 09:59:09.953045",
-            "location": "Ogbomoso, Nigeria.",
+            "location": "Ogbomoso, Nigeria",
             "skills": [
                 "React",
-                "Nodejs",
-                "Php",
-                "Nextjs",
-                "SQl",
-                "Mongodb",
+                "Node.js",
+                "PHP",
+                "Next.js",
+                "SQL",
+                "MongoDB",
                 "Laravel",
-                "Vue",
+                "Vue.js",
                 "Communication Skills"
             ]
         }
