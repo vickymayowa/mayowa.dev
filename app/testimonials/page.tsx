@@ -45,7 +45,7 @@ export default function TestimonialsPage() {
                     </div>
 
                     <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight mb-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
-                        What Clients Are <span className="text-gradient italic">Saying</span>
+                        What Clients Say About <span className="text-gradient italic">Me</span>
                     </h1>
 
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
