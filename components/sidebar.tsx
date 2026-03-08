@@ -13,7 +13,8 @@ import {
   X,
   Sparkles,
   LayoutGrid,
-  User
+  User,
+  MessageSquare
 } from "lucide-react"
 
 const navItems = [
@@ -23,6 +24,7 @@ const navItems = [
   { href: "/projects", label: "Projects", icon: Briefcase },
   { href: "/experience", label: "Skills", icon: Brain },
   { href: "/blog", label: "Articles", icon: BookOpen },
+  { href: "/testimonials", label: "Testimonials", icon: MessageSquare },
   { href: "/contact", label: "Contact", icon: Mail },
 ]
 
