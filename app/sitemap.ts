@@ -1,56 +1,46 @@
-import { MetadataRoute } from "next"
+import type { MetadataRoute } from "next"
+import { getBlogs, getProjects } from "@/lib/data"
+import { projectSlug } from "@/lib/slug"
+import { absoluteUrl } from "@/lib/seo/site"
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://mayowa.dev" // Adjust this to your actual production domain
+const staticRoutes: Array<{
+  path: string
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]
+  priority: number
+}> = [
+  { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/about", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/experience", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/projects", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/services", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/testimonials", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/contact", changeFrequency: "yearly", priority: 0.7 },
+]
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/experience`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/testimonials`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-  ]
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [blogs, projects] = await Promise.all([getBlogs(), getProjects()])
+
+  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
+    url: absoluteUrl(route.path),
+    lastModified: new Date(),
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
+  }))
+
+  const blogEntries: MetadataRoute.Sitemap = blogs.map((blog) => ({
+    url: absoluteUrl(`/blog/${blog.id}`),
+    lastModified: new Date(blog.updated_at ?? blog.date),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }))
+
+  const projectEntries: MetadataRoute.Sitemap = projects.map((project) => ({
+    url: absoluteUrl(`/projects/${projectSlug(project.title)}`),
+    lastModified: new Date(project.created_at),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }))
+
+  return [...staticEntries, ...blogEntries, ...projectEntries]
 }

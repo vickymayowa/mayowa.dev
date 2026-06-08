@@ -3,6 +3,8 @@
 import type React from "react"
 import { useState } from "react"
 import { Mail, Phone, MapPin, Send, Sparkles, CheckCircle2, AlertCircle } from "lucide-react"
+import JsonLdScript from "@/components/json-ld"
+import { breadcrumbSchema } from "@/lib/seo/json-ld"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -38,7 +40,7 @@ export default function ContactPage() {
       } else {
         setError("Something went wrong. Please try reaching out directly via email.")
       }
-    } catch (err) {
+    } catch {
       setError("An unexpected error occurred. Please check your connection.")
     } finally {
       setIsLoading(false)
@@ -68,22 +70,28 @@ export default function ContactPage() {
 
   return (
     <div className="section-container min-h-screen">
-      <div className="mb-20">
+      <JsonLdScript
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
+
+      <header className="mb-20">
         <div className="inline-flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-[0.2em] mb-4">
-          <Sparkles size={12} />
+          <Sparkles size={12} aria-hidden="true" />
           Collaborate
         </div>
         <h1 className="mb-6 leading-tight">Get In <span className="text-primary italic">Touch</span></h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          If you want to build or maintain a website or web application, I'm here to help. Send me a message and I'll get back to you.
+          If you want to build or maintain a website or web application, I&apos;m here to help. Send me a message and I&apos;ll get back to you.
         </p>
-      </div>
+      </header>
 
       <div className="grid lg:grid-cols-12 gap-16">
-        {/* Contact info */}
         <div className="lg:col-span-5 space-y-10">
           <div className="space-y-6">
-            <h3 className="text-xl font-bold tracking-tight">Direct Channels</h3>
+            <h2 className="text-xl font-bold tracking-tight">Direct Channels</h2>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Preferred method of contact is email, but feel free to reach out via any of the channels below.
             </p>
@@ -95,9 +103,10 @@ export default function ContactPage() {
                 href={option.href}
                 key={option.label}
                 className="group flex items-center gap-5 p-6 bg-card border border-border/50 rounded-3xl transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5"
+                aria-label={`${option.label}: ${option.value}`}
               >
                 <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                  <option.icon className="text-primary" size={22} />
+                  <option.icon className="text-primary" size={22} aria-hidden="true" />
                 </div>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-1">{option.label}</p>
@@ -108,9 +117,9 @@ export default function ContactPage() {
           </div>
 
           <div className="p-8 rounded-[2rem] bg-muted/30 border border-border/50">
-            <h4 className="text-sm font-bold mb-4">Availability</h4>
+            <h3 className="text-sm font-bold mb-4">Availability</h3>
             <div className="flex items-center gap-3">
-              <div className="relative flex h-3 w-3">
+              <div className="relative flex h-3 w-3" aria-hidden="true">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
               </div>
@@ -119,7 +128,6 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Contact Form */}
         <div className="lg:col-span-7">
           <div className="bg-card border border-border/50 rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
@@ -127,13 +135,14 @@ export default function ContactPage() {
             {submitted ? (
               <div className="py-20 text-center animate-in fade-in scale-in duration-500">
                 <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-8">
-                  <CheckCircle2 size={40} className="text-emerald-500" />
+                  <CheckCircle2 size={40} className="text-emerald-500" aria-hidden="true" />
                 </div>
                 <h2 className="text-3xl font-bold mb-4">Message Sent!</h2>
                 <p className="text-muted-foreground text-lg mb-8">
-                  Thank you for reaching out. I'll get back to you shortly.
+                  Thank you for reaching out. I&apos;ll get back to you shortly.
                 </p>
                 <button
+                  type="button"
                   onClick={() => setSubmitted(false)}
                   className="btn-outline-premium mx-auto"
                 >
@@ -142,16 +151,16 @@ export default function ContactPage() {
               </div>
             ) : (
               <>
-                <h3 className="text-xl font-bold mb-8 tracking-tight">Send a Message</h3>
+                <h2 className="text-xl font-bold mb-8 tracking-tight">Send a Message</h2>
 
                 {error && (
-                  <div className="mb-8 p-4 bg-destructive/5 border border-destructive/20 rounded-2xl flex items-center gap-3 text-destructive animate-in slide-in-from-top-2">
-                    <AlertCircle size={18} />
+                  <div className="mb-8 p-4 bg-destructive/5 border border-destructive/20 rounded-2xl flex items-center gap-3 text-destructive animate-in slide-in-from-top-2" role="alert">
+                    <AlertCircle size={18} aria-hidden="true" />
                     <p className="text-xs font-semibold uppercase tracking-wider">{error}</p>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form onSubmit={handleSubmit} className="space-y-8" aria-label="Contact form">
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground ml-1">
@@ -164,6 +173,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
+                        autoComplete="name"
                         className="w-full px-6 py-4 bg-muted/30 border border-border/50 rounded-2xl focus:outline-none focus:border-primary/40 focus:bg-background transition-all font-medium"
                         placeholder="John Doe"
                       />
@@ -179,6 +189,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
+                        autoComplete="email"
                         className="w-full px-6 py-4 bg-muted/30 border border-border/50 rounded-2xl focus:outline-none focus:border-primary/40 focus:bg-background transition-all font-medium"
                         placeholder="john@example.com"
                       />
@@ -210,7 +221,7 @@ export default function ContactPage() {
                       "Sending..."
                     ) : (
                       <>
-                        <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" aria-hidden="true" />
                         Send Message
                       </>
                     )}

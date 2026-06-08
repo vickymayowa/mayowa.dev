@@ -28,12 +28,12 @@ interface ProjectForm {
 export default function AdminProjectsTab() {
   const [projects, setProjects] = useState<Project[]>([])
   const [isAdding, setIsAdding] = useState(false)
-  const [editingId, setEditingId] = useState<number | null>(null)
+  const [editingId, setEditingId] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [tagsInput, setTagsInput] = useState("");
   const [selectedImage, setSelectedImage] = useState<{ url: string; title: string } | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [formData, setFormData] = useState<ProjectForm>({
     title: "",
@@ -211,7 +211,7 @@ export default function AdminProjectsTab() {
     })
   }
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Delete this project?")) return;
 
     setDeletingId(id);

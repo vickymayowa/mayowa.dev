@@ -1,7 +1,4 @@
-"use client"
-
-import { Layout, Server, Layers, Zap, Palette, Code, Smartphone, Globe } from "lucide-react"
-import { Sparkles } from "lucide-react"
+import { Layout, Server, Layers, Zap, Palette, Globe, Sparkles } from "lucide-react"
 
 const services = [
     {
@@ -42,17 +39,30 @@ const services = [
     },
 ]
 
-export default function Services() {
+type ServicesProps = {
+  asPage?: boolean
+}
+
+export default function Services({ asPage = false }: ServicesProps) {
+    const Heading = asPage ? "h1" : "h2"
+    const headingId = asPage ? "services-page-heading" : "services-section-heading"
+
     return (
-        <section id="services" className="section-container border-t border-border/50 !pt-8 md:!pt-12">
+        <section
+            id="services"
+            className={`section-container border-t border-border/50 ${asPage ? "min-h-screen !pt-16" : "!pt-8 md:!pt-12"}`}
+            aria-labelledby={headingId}
+        >
             <div className="mb-12">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="max-w-2xl">
                         <div className="inline-flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-[0.2em] mb-4">
-                            <Sparkles size={12} />
+                            <Sparkles size={12} aria-hidden="true" />
                             How I can help
                         </div>
-                        <h2 className="mb-6 leading-tight">My Main <br /><span className="text-primary italic"> Services</span></h2>
+                        <Heading id={headingId} className="mb-6 leading-tight">
+                            My Main <br /><span className="text-primary italic"> Services</span>
+                        </Heading>
                         <p className="text-muted-foreground text-lg leading-relaxed">
                             I build websites and apps that work great and help your business or startup reach more people.
                         </p>
@@ -61,16 +71,13 @@ export default function Services() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {services.map((service, index) => (
-                    <div
+                {services.map((service) => (
+                    <article
                         key={service.title}
                         className="group flex flex-col p-8 rounded-[2.5rem] bg-card border border-border/50 transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5"
-                        style={{
-                            animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-                        }}
                     >
                         <div className="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center mb-8 group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-500">
-                            <service.icon className="text-primary" size={28} />
+                            <service.icon className="text-primary" size={28} aria-hidden="true" />
                         </div>
 
                         <h3 className="text-xl font-bold mb-4 tracking-tight group-hover:text-primary transition-colors duration-300">
@@ -91,22 +98,9 @@ export default function Services() {
                                 </span>
                             ))}
                         </div>
-                    </div>
+                    </article>
                 ))}
             </div>
-
-            <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
         </section>
     )
 }
