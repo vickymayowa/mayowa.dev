@@ -1,7 +1,7 @@
 "use client"
 
 import { CheckCircle2, Briefcase, Calendar, MapPin } from "lucide-react"
-import { Experience } from "@/types/experience"
+import type { Experience } from "@/lib/db"
 
 interface ExperienceTimelineProps {
   experiences: Experience[]

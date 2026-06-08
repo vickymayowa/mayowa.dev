@@ -1,12 +1,16 @@
-import { MetadataRoute } from "next"
+import type { MetadataRoute } from "next"
+import { absoluteUrl } from "@/lib/seo/site"
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/api/", "/admin/"],
-    },
-    sitemap: "https://mayowa.dev/sitemap.xml", // Adjust this to your actual production domain
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/api/", "/admin/"],
+      },
+    ],
+    sitemap: absoluteUrl("/sitemap.xml"),
+    host: absoluteUrl(),
   }
 }

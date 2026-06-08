@@ -31,35 +31,21 @@ import {
     SiGit,
     SiAmazonwebservices,
 } from "react-icons/si"
+import type { Metadata } from "next"
 import ExperiencePanel from "./experience-panel"
+import JsonLdScript from "@/components/json-ld"
+import { getExperience } from "@/lib/data"
+import { createPageMetadata } from "@/lib/seo/metadata"
+import { breadcrumbSchema, profilePageSchema } from "@/lib/seo/json-ld"
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-interface Experience {
-    id: string
-    role: string
-    company: string
-    date: string
-    current?: boolean
-    description: string
-    skills: string[]
-    location: string
-}
+export const metadata: Metadata = createPageMetadata({
+  title: "About",
+  description:
+    "Learn more about Favour Mayowa, a Core Software Engineer with 3+ years of experience specializing in highly scalable architecture and full-stack web development.",
+  path: "/about",
+  keywords: ["about Favour Mayowa", "full-stack engineer biography"],
+})
 
-// ─── Data fetcher ─────────────────────────────────────────────────────────────
-async function getExperience(): Promise<Experience[]> {
-    try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"}/api/experience`, {
-            cache: "no-store",
-        })
-        if (!res.ok) return []
-        const json = await res.json()
-        return json.data ?? []
-    } catch {
-        return []
-    }
-}
-
-// ─── Static display data ───────────────────────────────────────────────────────
 const techStack = [
     { name: "TypeScript", icon: SiTypescript, color: "text-blue-500", bg: "bg-blue-500/10" },
     { name: "React", icon: SiReact, color: "text-sky-400", bg: "bg-sky-400/10" },
@@ -99,31 +85,27 @@ const skills = [
     { label: "DevOps & Cloud", pct: 65, color: "bg-orange-400" },
 ]
 
-import type { Metadata } from "next"
-
-export const metadata: Metadata = {
-  title: "About",
-  description: "Learn more about Favour Mayowa, a Core Software Engineer with 3+ years of experience specializing in highly scalable architecture and full-stack web development.",
-}
-
-// ─── Page ──────────────────────────────────────────────────────────────────────
 export default async function AboutPage() {
     const experiences = await getExperience()
 
     return (
         <div className="min-h-screen pb-32 overflow-x-hidden">
+            <JsonLdScript
+                data={[
+                    profilePageSchema(),
+                    breadcrumbSchema([
+                        { name: "Home", path: "/" },
+                        { name: "About", path: "/about" },
+                    ]),
+                ]}
+            />
 
-            {/* ── Hero ─────────────────────────────────────────────────────────── */}
             <section className="relative min-h-[55vh] flex items-center justify-center overflow-hidden">
-                {/* Gradient orbs */}
                 <div className="absolute top-[-10%] left-[20%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
                 <div className="absolute bottom-[0%] right-[10%] w-[400px] h-[400px] rounded-full bg-indigo-500/8 blur-[100px] pointer-events-none" />
-
-                {/* Grid overlay */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,#000_60%,transparent_100%)] opacity-[0.07]" />
 
                 <div className="relative z-10 container px-6 text-center max-w-4xl mx-auto pt-16">
-                    {/* Eyebrow */}
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/8 border border-primary/15 text-primary text-xs font-bold tracking-widest uppercase mb-6 animate-in fade-in slide-in-from-bottom-2 duration-700">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
@@ -142,7 +124,6 @@ export default async function AboutPage() {
                         3+ years turning complex ideas into clean, working software.
                     </p>
 
-                    {/* Meta pills */}
                     <div className="flex flex-wrap justify-center gap-3 mt-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
                         {[
                             { icon: MapPin, text: "Nigeria" },
@@ -159,22 +140,20 @@ export default async function AboutPage() {
                         ))}
                     </div>
 
-                    {/* Social CTAs */}
                     <div className="flex flex-wrap justify-center gap-3 mt-6 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
-                        <Link href="https://github.com/vickymayowa" target="_blank" className="btn-outline-premium text-sm py-2 px-4">
+                        <Link href="https://github.com/vickymayowa" target="_blank" rel="noopener noreferrer" className="btn-outline-premium text-sm py-2 px-4" aria-label="GitHub profile">
                             <Github size={15} /> GitHub
                         </Link>
-                        <Link href="https://www.linkedin.com/in/favour-adebanjo/" target="_blank" className="btn-outline-premium text-sm py-2 px-4">
+                        <Link href="https://www.linkedin.com/in/favour-adebanjo/" target="_blank" rel="noopener noreferrer" className="btn-outline-premium text-sm py-2 px-4" aria-label="LinkedIn profile">
                             <Linkedin size={15} /> LinkedIn
                         </Link>
-                        <Link href="mailto:techiedevmayowa@gmail.com" className="btn-premium text-sm py-2 px-4">
+                        <Link href="mailto:techiedevmayowa@gmail.com" className="btn-premium text-sm py-2 px-4" aria-label="Send email">
                             <Mail size={15} /> Email Me
                         </Link>
                     </div>
                 </div>
             </section>
 
-            {/* ── Stats Bar ────────────────────────────────────────────────────── */}
             <div className="container px-6 mx-auto max-w-5xl mt-4">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {stats.map((stat) => (
@@ -188,10 +167,7 @@ export default async function AboutPage() {
                 </div>
             </div>
 
-            {/* ── Bio + Values ─────────────────────────────────────────────────── */}
             <div className="container px-6 mx-auto max-w-5xl mt-8 space-y-6">
-
-                {/* Bio Card */}
                 <div className="card-premium relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-primary/5 blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <div className="relative z-10 grid md:grid-cols-[1fr_auto] gap-8 items-center">
@@ -201,28 +177,27 @@ export default async function AboutPage() {
                                 <span className="text-xs font-bold uppercase tracking-widest text-primary">About Me</span>
                             </div>
                             <h2 className="text-2xl md:text-3xl font-bold leading-tight">
-                                I'm Favour Mayowa — a Full-Stack Engineer with a builder's mindset.
+                                I&apos;m Favour Mayowa — a Full-Stack Engineer with a builder&apos;s mindset.
                             </h2>
                             <div className="space-y-3 text-muted-foreground leading-relaxed">
                                 <p>
-                                    My journey started with curiosity and a laptop. Over 3+ years, I've shipped everything from
+                                    My journey started with curiosity and a laptop. Over 3+ years, I&apos;ve shipped everything from
                                     fintech platforms and NGO websites to booking systems and real-time dashboards — used by people across the globe.
                                 </p>
                                 <p>
                                     I specialize in the modern JavaScript ecosystem:{" "}
-                                    <span className="text-foreground font-semibold">React, Next.js, Node.js, TypeScript</span> — and I'm
+                                    <span className="text-foreground font-semibold">React, Next.js, Node.js, TypeScript</span> — and I&apos;m
                                     deeply comfortable on the backend too, working with{" "}
                                     <span className="text-foreground font-semibold">Laravel, PostgreSQL, and MongoDB</span>.
                                 </p>
                                 <p>
-                                    I don't just code —{" "}
+                                    I don&apos;t just code —{" "}
                                     <span className="text-foreground font-semibold">I architect experiences</span>. I care about
                                     performance, scalability, and making things that work beautifully and make a real impact.
                                 </p>
                             </div>
                         </div>
 
-                        {/* Decorative quote */}
                         <div className="hidden md:flex flex-col items-center justify-center min-w-[180px] text-center p-6 rounded-2xl bg-primary/5 border border-primary/10">
                             <span className="text-5xl text-primary/20 font-serif leading-none mb-2">&ldquo;</span>
                             <p className="text-sm italic text-foreground/70 leading-relaxed">
@@ -233,7 +208,6 @@ export default async function AboutPage() {
                     </div>
                 </div>
 
-                {/* Values Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {values.map(({ icon: Icon, title, desc }) => (
                         <div key={title} className="card-premium group flex gap-4 items-start">
@@ -254,11 +228,8 @@ export default async function AboutPage() {
                 </div>
             </div>
 
-            {/* ── Skills + Tech Stack ───────────────────────────────────────────── */}
             <div className="container px-6 mx-auto max-w-5xl mt-8">
                 <div className="grid md:grid-cols-2 gap-6">
-
-                    {/* Skill Bars */}
                     <div className="card-premium space-y-5">
                         <div className="flex items-center gap-2 mb-2">
                             <Layers size={16} className="text-primary" />
@@ -281,7 +252,6 @@ export default async function AboutPage() {
                         ))}
                     </div>
 
-                    {/* Tech Stack Tiles */}
                     <div className="card-premium">
                         <div className="flex items-center gap-2 mb-2">
                             <Code2 size={16} className="text-primary" />
@@ -294,7 +264,7 @@ export default async function AboutPage() {
                                     key={name}
                                     className={`flex flex-col items-center gap-1.5 p-3 rounded-xl ${bg} border border-border/50 hover:border-primary/30 hover:scale-105 transition-all duration-200 cursor-default`}
                                 >
-                                    <Icon className={`text-2xl ${color}`} />
+                                    <Icon className={`text-2xl ${color}`} aria-hidden="true" />
                                     <span className="text-[10px] font-semibold text-muted-foreground text-center leading-tight">
                                         {name}
                                     </span>
@@ -305,7 +275,6 @@ export default async function AboutPage() {
                 </div>
             </div>
 
-            {/* ── Experience Timeline (from API) ────────────────────────────────── */}
             <div className="container px-6 mx-auto max-w-5xl mt-8">
                 <div className="card-premium">
                     <div className="flex items-center gap-2 mb-2">
@@ -323,7 +292,6 @@ export default async function AboutPage() {
                 </div>
             </div>
 
-            {/* ── CTA ───────────────────────────────────────────────────────────── */}
             <div className="container px-6 mx-auto max-w-5xl mt-8">
                 <div className="relative overflow-hidden rounded-2xl bg-primary/5 border border-primary/15 p-8 md:p-12 text-center">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-primary/10 blur-[80px] pointer-events-none" />
@@ -348,7 +316,9 @@ export default async function AboutPage() {
                             <Link
                                 href="https://www.linkedin.com/in/favour-adebanjo/"
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="btn-outline-premium"
+                                aria-label="View LinkedIn profile"
                             >
                                 <Linkedin size={15} />
                                 LinkedIn Profile
@@ -358,7 +328,6 @@ export default async function AboutPage() {
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
