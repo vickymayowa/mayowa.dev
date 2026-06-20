@@ -31,47 +31,6 @@
             "updated_at": "2025-11-05 09:20:50.809711"
         }
     ],
-    "blogs": [
-        {
-            "id": "1",
-            "title": "Building Scalable Full-Stack Applications with MERN",
-            "excerpt": "Learn how to architect and build scalable full-stack applications using MongoDB, Express, React, and Node.js. We'll cover best practices, performance optimization, and deployment strategies.",
-            "date": "2024-10-15",
-            "author": "Favour Mayowa",
-            "category": "Full-Stack",
-            "readtime": "8 min read",
-            "image": "/mern-stack-development.jpg",
-            "content": "Full article content here...",
-            "created_at": "2025-11-04 22:19:03.453998",
-            "updated_at": "2025-11-04 22:19:03.453998"
-        },
-        {
-            "id": "2",
-            "title": "Next.js 15: New Features and Performance Improvements",
-            "excerpt": "Explore the latest features in Next.js 15 including improved server components, enhanced caching, and performance optimizations. Perfect for building modern web applications.",
-            "date": "2024-10-10",
-            "author": "Favour Mayowa",
-            "category": "Next.js",
-            "readtime": "6 min read",
-            "image": "/nextjs-15-features.jpg",
-            "content": "Full article content here...",
-            "created_at": "2025-11-04 22:19:03.453998",
-            "updated_at": "2025-11-04 22:19:03.453998"
-        },
-        {
-            "id": "3",
-            "title": "TypeScript Best Practices for Large-Scale Projects",
-            "excerpt": "Master TypeScript with advanced patterns and best practices for building maintainable, type-safe applications. Includes real-world examples and common pitfalls to avoid.",
-            "date": "2024-10-05",
-            "author": "Favour Mayowa",
-            "category": "TypeScript",
-            "readtime": "10 min read",
-            "image": "/typescript-best-practices.jpg",
-            "content": "Full article content here...",
-            "created_at": "2025-11-04 22:19:03.453998",
-            "updated_at": "2025-11-04 22:19:03.453998"
-        }
-    ],
     "experience": [
         {
             "id": "1",

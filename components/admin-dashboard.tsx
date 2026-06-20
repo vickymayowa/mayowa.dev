@@ -1,17 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import { LogOut, Plus, Edit2, MessageSquare, BookOpen } from "lucide-react"
+import { LogOut, Plus, Edit2, MessageSquare } from "lucide-react"
 import AdminProjectsTab from "./admin-projects-tab"
 import AdminExperienceTab from "./admin-experience-tab"
 import AdminMessagesTab from "./admin-messages-tab"
-import AdminBlogsTab from "./admin-blogs-tab"
 
 interface AdminDashboardProps {
   onLogout: () => void
 }
 
-type TabType = "projects" | "experience" | "messages" | "blogs"
+type TabType = "projects" | "experience" | "messages"
 
 export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<TabType>("projects")
@@ -19,7 +18,6 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const tabs = [
     { id: "projects", label: "Projects", icon: Plus },
     { id: "experience", label: "Experience", icon: Edit2 },
-    { id: "blogs", label: "Blogs", icon: BookOpen },
     { id: "messages", label: "Messages", icon: MessageSquare },
   ]
 
@@ -39,7 +37,6 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         </button>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-2 mb-8 border-b border-border overflow-x-auto">
         {tabs.map((tab) => {
           const Icon = tab.icon
@@ -60,11 +57,9 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         })}
       </div>
 
-      {/* Tab Content */}
       <div>
         {activeTab === "projects" && <AdminProjectsTab />}
         {activeTab === "experience" && <AdminExperienceTab />}
-        {activeTab === "blogs" && <AdminBlogsTab />}
         {activeTab === "messages" && <AdminMessagesTab />}
       </div>
     </div>

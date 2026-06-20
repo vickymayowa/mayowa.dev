@@ -1,4 +1,4 @@
-import type { Blog, Project } from "@/lib/db"
+import type { Project } from "@/lib/db"
 import { absoluteUrl, siteConfig } from "./site"
 import { projectSlug } from "@/lib/slug"
 
@@ -88,34 +88,6 @@ export function breadcrumbSchema(
       name: item.name,
       item: absoluteUrl(item.path),
     })),
-  }
-}
-
-export function blogPostingSchema(blog: Blog): JsonLd {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: blog.title,
-    description: blog.excerpt,
-    image: blog.image.startsWith("http") ? blog.image : absoluteUrl(blog.image),
-    datePublished: blog.date,
-    dateModified: blog.updated_at ?? blog.date,
-    author: {
-      "@type": "Person",
-      name: blog.author,
-      url: siteConfig.url,
-    },
-    publisher: {
-      "@type": "Person",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": absoluteUrl(`/blog/${blog.id}`),
-    },
-    articleSection: blog.category,
-    wordCount: blog.content.split(/\s+/).length,
   }
 }
 

@@ -1,4 +1,4 @@
-import { readDB, type Blog, type Experience, type Project } from "@/lib/db"
+import { readDB, type Experience, type Project } from "@/lib/db"
 import { projectSlug } from "@/lib/slug"
 
 export async function getProjects(): Promise<Project[]> {
@@ -16,18 +16,6 @@ export async function getProjectBySlug(slug: string): Promise<Project | undefine
 export async function getProjectById(id: string): Promise<Project | undefined> {
   const projects = await getProjects()
   return projects.find((project) => project.id === id)
-}
-
-export async function getBlogs(): Promise<Blog[]> {
-  const db = await readDB()
-  return [...db.blogs].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  )
-}
-
-export async function getBlogById(id: string): Promise<Blog | undefined> {
-  const blogs = await getBlogs()
-  return blogs.find((blog) => blog.id === id)
 }
 
 export async function getExperience(): Promise<Experience[]> {

@@ -19,20 +19,6 @@ export interface AdminCredential {
     updated_at: string
 }
 
-export interface Blog {
-    id: string
-    title: string
-    excerpt: string
-    date: string
-    author: string
-    category: string
-    readtime: string
-    image: string
-    content: string
-    created_at: string
-    updated_at: string
-}
-
 export interface Experience {
     id: string
     role: string
@@ -60,7 +46,6 @@ export interface Project {
 export interface Database {
     contacts: Contact[]
     admin_credentials: AdminCredential[]
-    blogs: Blog[]
     experience: Experience[]
     projects: Project[]
 }
