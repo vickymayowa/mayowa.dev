@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
-import Sidebar from "@/components/sidebar"
+import TopNav from "@/components/top-nav"
 import ClientEnhancements from "@/components/client-enhancements"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
@@ -57,9 +57,9 @@ export default function RootLayout({
         <JsonLdScript data={[personSchema(), websiteSchema(), organizationSchema()]} />
         <ThemeProvider>
           <ClientEnhancements />
-          <div className="flex h-screen overflow-hidden bg-background">
-            <Sidebar />
-            <main id="main-content" className="flex-1 overflow-y-auto relative scroll-smooth">
+          <div className="min-h-screen bg-background">
+            <TopNav />
+            <main id="main-content" className="relative scroll-smooth">
               {children}
             </main>
             <Toaster />

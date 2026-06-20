@@ -169,7 +169,7 @@ export default function AdminExperienceTab() {
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                   className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
-                  placeholder="2022 - Present"
+                  placeholder="2022 - May 2024"
                 />
               </div>
               <div>
