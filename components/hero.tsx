@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
+import { SiX } from "react-icons/si"
 import Link from "next/link"
 import {
   SiTypescript,
@@ -14,6 +15,7 @@ import {
 } from "react-icons/si"
 import CVSection from "./cv-section"
 import { useState, useEffect } from "react"
+import { siteConfig } from "@/lib/seo/site"
 
 export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0)
@@ -101,11 +103,14 @@ export default function Hero() {
           </div>
 
           <nav className="pt-8 flex gap-5 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500" aria-label="Social profiles">
-            <Link href="https://github.com/vickymayowa" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="GitHub profile">
+            <Link href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="GitHub profile">
               <Github size={20} aria-hidden="true" />
             </Link>
-            <Link href="https://www.linkedin.com/in/favour-adebanjo/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn profile">
+            <Link href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn profile">
               <Linkedin size={20} aria-hidden="true" />
+            </Link>
+            <Link href={siteConfig.social.twitter} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="X profile">
+              <SiX size={18} aria-hidden="true" />
             </Link>
             <Link href="mailto:techiedevmayowa@gmail.com" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Send email">
               <Mail size={20} aria-hidden="true" />

@@ -13,7 +13,7 @@ export const siteConfig = {
   social: {
     github: "https://github.com/vickymayowa",
     linkedin: "https://www.linkedin.com/in/favour-adebanjo/",
-    twitter: "https://twitter.com/vickymayowa",
+    twitter: "https://x.com/iamcodenior",
   },
   keywords: [
     "Core Software Engineer",

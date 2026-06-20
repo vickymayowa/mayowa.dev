@@ -30,6 +30,7 @@ import {
     SiLaravel,
     SiGit,
     SiAmazonwebservices,
+    SiX,
 } from "react-icons/si"
 import type { Metadata } from "next"
 import ExperiencePanel from "./experience-panel"
@@ -37,6 +38,7 @@ import JsonLdScript from "@/components/json-ld"
 import { getExperience } from "@/lib/data"
 import { createPageMetadata } from "@/lib/seo/metadata"
 import { breadcrumbSchema, profilePageSchema } from "@/lib/seo/json-ld"
+import { siteConfig } from "@/lib/seo/site"
 
 export const metadata: Metadata = createPageMetadata({
   title: "About",
@@ -141,11 +143,14 @@ export default async function AboutPage() {
                     </div>
 
                     <div className="flex flex-wrap justify-center gap-3 mt-6 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
-                        <Link href="https://github.com/vickymayowa" target="_blank" rel="noopener noreferrer" className="btn-outline-premium text-sm py-2 px-4" aria-label="GitHub profile">
+                        <Link href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" className="btn-outline-premium text-sm py-2 px-4" aria-label="GitHub profile">
                             <Github size={15} /> GitHub
                         </Link>
-                        <Link href="https://www.linkedin.com/in/favour-adebanjo/" target="_blank" rel="noopener noreferrer" className="btn-outline-premium text-sm py-2 px-4" aria-label="LinkedIn profile">
+                        <Link href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" className="btn-outline-premium text-sm py-2 px-4" aria-label="LinkedIn profile">
                             <Linkedin size={15} /> LinkedIn
+                        </Link>
+                        <Link href={siteConfig.social.twitter} target="_blank" rel="noopener noreferrer" className="btn-outline-premium text-sm py-2 px-4" aria-label="X profile">
+                            <SiX size={14} /> X
                         </Link>
                         <Link href="mailto:techiedevmayowa@gmail.com" className="btn-premium text-sm py-2 px-4" aria-label="Send email">
                             <Mail size={15} /> Email Me
@@ -314,7 +319,7 @@ export default async function AboutPage() {
                                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                             </Link>
                             <Link
-                                href="https://www.linkedin.com/in/favour-adebanjo/"
+                                href={siteConfig.social.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn-outline-premium"

@@ -14,22 +14,6 @@ const testimonials = [
         rating: 5,
         delay: "delay-100",
     },
-    {
-        id: "francis-adeniran",
-        name: "Francis Adeniran",
-        role: "CEO, MoonJoin Technologies",
-        content: "Working with Favour was a game changer for us. He not only wrote clean and maintainable code but also advised us on architectural decisions that saved us weeks of technical debt. Highly recommended!",
-        rating: 5,
-        delay: "delay-200",
-    },
-    {
-        id: "emeka-okafor",
-        name: "Emeka Okafor",
-        role: "Engineering Lead, BuildRight",
-        content: "One of the best full-stack developers I've worked with. Favour's ability to seamlessly switch between crafting fluid frontend animations and designing robust database schemas is truly impressive.",
-        rating: 5,
-        delay: "delay-300",
-    }
 ]
 
 export const metadata: Metadata = createPageMetadata({

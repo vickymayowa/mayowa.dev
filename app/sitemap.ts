@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { getBlogs, getProjects } from "@/lib/data"
+import { getProjects } from "@/lib/data"
 import { projectSlug } from "@/lib/slug"
 import { absoluteUrl } from "@/lib/seo/site"
 
@@ -14,25 +14,17 @@ const staticRoutes: Array<{
   { path: "/projects", changeFrequency: "weekly", priority: 0.9 },
   { path: "/services", changeFrequency: "monthly", priority: 0.8 },
   { path: "/testimonials", changeFrequency: "monthly", priority: 0.6 },
-  { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.7 },
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [blogs, projects] = await Promise.all([getBlogs(), getProjects()])
+  const projects = await getProjects()
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: absoluteUrl(route.path),
     lastModified: new Date(),
     changeFrequency: route.changeFrequency,
     priority: route.priority,
-  }))
-
-  const blogEntries: MetadataRoute.Sitemap = blogs.map((blog) => ({
-    url: absoluteUrl(`/blog/${blog.id}`),
-    lastModified: new Date(blog.updated_at ?? blog.date),
-    changeFrequency: "monthly",
-    priority: 0.7,
   }))
 
   const projectEntries: MetadataRoute.Sitemap = projects.map((project) => ({
@@ -42,5 +34,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
-  return [...staticEntries, ...blogEntries, ...projectEntries]
+  return [...staticEntries, ...projectEntries]
 }
