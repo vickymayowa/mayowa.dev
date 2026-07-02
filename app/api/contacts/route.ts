@@ -2,7 +2,11 @@ import { type NextRequest, NextResponse } from "next/server"
 import { readDB, writeDB, generateId, getCurrentTimestamp } from "@/lib/db"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return null
+  return new Resend(apiKey)
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,7 +31,9 @@ export async function POST(request: NextRequest) {
     await writeDB(db)
 
     try {
-      const emailHtml = `
+      const resend = getResend()
+      if (resend) {
+        const emailHtml = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,6 +79,7 @@ export async function POST(request: NextRequest) {
         subject: `New message from ${name}`,
         html: emailHtml,
       })
+      }
     } catch (emailError) {
       console.error("Email send error:", emailError)
     }

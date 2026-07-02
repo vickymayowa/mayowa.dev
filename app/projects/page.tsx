@@ -2,7 +2,7 @@ import { Filter, Sparkles } from "lucide-react"
 import ProjectsGrid from "@/components/projects-grid"
 import JsonLdScript from "@/components/json-ld"
 import { getProjects } from "@/lib/data"
-import { breadcrumbSchema } from "@/lib/seo/json-ld"
+import { breadcrumbSchema, projectSchema } from "@/lib/seo/json-ld"
 
 export default async function ProjectsPage() {
   const projects = await getProjects()
@@ -10,10 +10,13 @@ export default async function ProjectsPage() {
   return (
     <div className="section-container min-h-screen">
       <JsonLdScript
-        data={breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Projects", path: "/projects" },
-        ])}
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Projects", path: "/projects" },
+          ]),
+          ...projects.map((project) => projectSchema(project)),
+        ]}
       />
 
       <header className="mb-20">
@@ -21,9 +24,9 @@ export default async function ProjectsPage() {
           <Sparkles size={12} aria-hidden="true" />
           Portfolio
         </div>
-        <h1 className="mb-6 leading-tight">My Projects</h1>
+        <h1 className="mb-6 leading-tight">Full-Stack Web Development Projects</h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          Here are some of the websites and web applications I have built. I focus on making things that work well and are easy to use.
+          Featured projects spanning SaaS dashboards, webhook systems, inventory management, VPS deployment automation, and UI/UX design systems — built with React, Vue, Node.js, TypeScript, and production hosting infrastructure.
         </p>
       </header>
 

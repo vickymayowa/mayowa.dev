@@ -2,11 +2,11 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, ExternalLink, Github } from "lucide-react"
+import { ArrowLeft, ExternalLink, Github, CheckCircle2, Cloud } from "lucide-react"
 import JsonLdScript from "@/components/json-ld"
 import { getProjectBySlug, getProjects } from "@/lib/data"
 import { createPageMetadata } from "@/lib/seo/metadata"
-import { breadcrumbSchema, creativeWorkSchema } from "@/lib/seo/json-ld"
+import { breadcrumbSchema, projectSchema } from "@/lib/seo/json-ld"
 import { projectSlug } from "@/lib/slug"
 
 type ProjectPageProps = {
@@ -31,9 +31,14 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     })
   }
 
+  const description =
+    project.description.length > 160
+      ? `${project.description.slice(0, 157)}...`
+      : project.description
+
   return createPageMetadata({
     title: project.title,
-    description: project.description,
+    description,
     path: `/projects/${slug}`,
     keywords: [...project.tags, "portfolio project", "case study"],
     ogImage: project.image.startsWith("http") ? project.image : undefined,
@@ -54,7 +59,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     <article className="section-container min-h-screen max-w-5xl">
       <JsonLdScript
         data={[
-          creativeWorkSchema(project),
+          projectSchema(project),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Projects", path: "/projects" },
@@ -116,7 +121,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         </div>
       </header>
 
-      <div className="relative aspect-[16/10] rounded-3xl overflow-hidden bg-muted border border-border/50">
+      <div className="relative aspect-[16/10] rounded-3xl overflow-hidden bg-muted border border-border/50 mb-12">
         <Image
           src={imageSrc}
           alt={`Screenshot of ${project.title}`}
@@ -125,6 +130,32 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           sizes="(max-width: 768px) 100vw, 1024px"
           className="object-cover"
         />
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        {project.features && project.features.length > 0 && (
+          <section aria-labelledby="project-features-heading">
+            <h2 id="project-features-heading" className="text-xl font-bold mb-4">Key Features</h2>
+            <ul className="space-y-3">
+              {project.features.map((feature) => (
+                <li key={feature} className="flex items-start gap-3 text-muted-foreground">
+                  <CheckCircle2 size={18} className="text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {project.deployment && (
+          <section aria-labelledby="project-deployment-heading">
+            <h2 id="project-deployment-heading" className="text-xl font-bold mb-4 flex items-center gap-2">
+              <Cloud size={20} className="text-primary" aria-hidden="true" />
+              Hosting &amp; Deployment
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">{project.deployment}</p>
+          </section>
+        )}
       </div>
     </article>
   )

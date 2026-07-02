@@ -1,8 +1,32 @@
 import type { Project } from "@/lib/db"
+import { services, type Service } from "@/lib/services"
 import { absoluteUrl, siteConfig } from "./site"
 import { projectSlug } from "@/lib/slug"
 
 export type JsonLd = Record<string, unknown>
+
+const knowsAbout = [
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Vue.js",
+  "Node.js",
+  "Express.js",
+  "PostgreSQL",
+  "MongoDB",
+  "Supabase",
+  "TailwindCSS",
+  "ShadCN UI",
+  "Docker",
+  "Vercel",
+  "VPS Hosting",
+  "Web Hosting",
+  "UI/UX Design",
+  "Full-Stack Development",
+  "SaaS Development",
+  "API Development",
+  "Web Performance Optimization",
+]
 
 export function personSchema(): JsonLd {
   return {
@@ -12,20 +36,18 @@ export function personSchema(): JsonLd {
     url: siteConfig.url,
     email: siteConfig.email,
     jobTitle: siteConfig.jobTitle,
+    description: siteConfig.description,
     address: {
       "@type": "PostalAddress",
       addressRegion: siteConfig.location,
       addressCountry: "NG",
     },
-    sameAs: [siteConfig.social.github, siteConfig.social.linkedin, siteConfig.social.twitter],
-    knowsAbout: [
-      "TypeScript",
-      "React",
-      "Next.js",
-      "Node.js",
-      "Full-Stack Development",
-      "Web Performance",
+    sameAs: [
+      siteConfig.social.github,
+      siteConfig.social.linkedin,
+      siteConfig.social.twitter,
     ],
+    knowsAbout,
   }
 }
 
@@ -33,7 +55,7 @@ export function websiteSchema(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: `${siteConfig.shortTitle} Portfolio`,
+    name: `${siteConfig.shortTitle} — Full-Stack Developer Portfolio`,
     url: siteConfig.url,
     description: siteConfig.description,
     inLanguage: "en-US",
@@ -57,8 +79,8 @@ export function organizationSchema(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: `${siteConfig.name} — Software Engineering`,
-    url: siteConfig.url,
+    name: `${siteConfig.name} — Web Development Services`,
+    url: absoluteUrl("/services"),
     description: siteConfig.description,
     email: siteConfig.email,
     telephone: siteConfig.phone,
@@ -68,11 +90,44 @@ export function organizationSchema(): JsonLd {
     },
     areaServed: "Worldwide",
     serviceType: [
-      "Frontend Development",
-      "Backend Engineering",
-      "Full-Stack Development",
-      "Web Performance Optimization",
+      "Web Development",
+      "UI/UX Design",
+      "API Development",
+      "SaaS Development",
+      "Web Hosting Setup",
+      "VPS Hosting Configuration",
+      "Website Performance Optimization",
     ],
+  }
+}
+
+export function serviceSchema(service: Service): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: service.description,
+    url: absoluteUrl(`/services#${service.slug}`),
+    provider: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    areaServed: "Worldwide",
+    serviceType: service.title,
+  }
+}
+
+export function servicesListSchema(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Web Development Services",
+    itemListElement: services.map((service, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: serviceSchema(service),
+    })),
   }
 }
 
@@ -91,24 +146,39 @@ export function breadcrumbSchema(
   }
 }
 
-export function creativeWorkSchema(project: Project): JsonLd {
+export function projectSchema(project: Project): JsonLd {
   const slug = projectSlug(project.title)
+  const image = project.image?.startsWith("http")
+    ? project.image
+    : project.image
+      ? absoluteUrl(project.image)
+      : absoluteUrl("/opengraph-image")
 
   return {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
+    "@type": "SoftwareApplication",
     name: project.title,
     description: project.description,
-    image: project.image.startsWith("http") ? project.image : absoluteUrl(project.image),
+    image,
     url: absoluteUrl(`/projects/${slug}`),
-    creator: {
+    applicationCategory: "WebApplication",
+    operatingSystem: "Web Browser",
+    author: {
       "@type": "Person",
       name: siteConfig.name,
       url: siteConfig.url,
     },
     keywords: project.tags.join(", "),
     ...(project.live_url && { sameAs: project.live_url }),
+    ...(project.github_link && {
+      codeRepository: project.github_link,
+    }),
   }
+}
+
+/** @deprecated Use projectSchema — kept for backward compatibility */
+export function creativeWorkSchema(project: Project): JsonLd {
+  return projectSchema(project)
 }
 
 export function profilePageSchema(): JsonLd {

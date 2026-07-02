@@ -2,9 +2,12 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Mail, Phone, MapPin, Send, Sparkles, CheckCircle2, AlertCircle } from "lucide-react"
+import Link from "next/link"
+import { Mail, Phone, MapPin, Send, Sparkles, CheckCircle2, AlertCircle, Github, Linkedin } from "lucide-react"
+import { SiX } from "react-icons/si"
 import JsonLdScript from "@/components/json-ld"
 import { breadcrumbSchema } from "@/lib/seo/json-ld"
+import { siteConfig } from "@/lib/seo/site"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -51,21 +54,27 @@ export default function ContactPage() {
     {
       icon: Mail,
       label: "Email",
-      value: "techiedevmayowa@gmail.com",
-      href: "mailto:techiedevmayowa@gmail.com"
+      value: siteConfig.email,
+      href: `mailto:${siteConfig.email}`,
     },
     {
       icon: Phone,
       label: "Phone",
       value: "+234 (916) 763-8933",
-      href: "tel:+2349167638933"
+      href: `tel:${siteConfig.phone}`,
     },
     {
       icon: MapPin,
       label: "Location",
-      value: "Oyo State, Nigeria",
-      href: "#"
-    }
+      value: siteConfig.location,
+      href: "#",
+    },
+  ]
+
+  const socialLinks = [
+    { icon: Github, label: "GitHub", href: siteConfig.social.github },
+    { icon: Linkedin, label: "LinkedIn", href: siteConfig.social.linkedin },
+    { icon: SiX, label: "X (Twitter)", href: siteConfig.social.twitter, isReactIcon: true },
   ]
 
   return (
@@ -82,9 +91,11 @@ export default function ContactPage() {
           <Sparkles size={12} aria-hidden="true" />
           Collaborate
         </div>
-        <h1 className="mb-6 leading-tight">Get In <span className="text-primary italic">Touch</span></h1>
+        <h1 className="mb-6 leading-tight">
+          Let&apos;s build your <span className="text-primary italic">web project</span>
+        </h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          If you want to build or maintain a website or web application, I&apos;m here to help. Send me a message and I&apos;ll get back to you.
+          Need a full-stack developer for web development, UI/UX design, API integration, SaaS builds, or VPS hosting setup? Send a message and I&apos;ll respond within 24 hours.
         </p>
       </header>
 
@@ -93,7 +104,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             <h2 className="text-xl font-bold tracking-tight">Direct Channels</h2>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Preferred method of contact is email, but feel free to reach out via any of the channels below.
+              Preferred contact method is email. You can also connect via GitHub or LinkedIn for project discussions.
             </p>
           </div>
 
@@ -116,21 +127,39 @@ export default function ContactPage() {
             ))}
           </div>
 
+          <div>
+            <h2 className="text-xl font-bold tracking-tight mb-4">Social Profiles</h2>
+            <nav aria-label="Social media links" className="flex flex-wrap gap-3">
+              {socialLinks.map((social) => (
+                <Link
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-card border border-border/50 text-sm font-medium text-muted-foreground hover:text-primary hover:border-primary/30 transition-all"
+                >
+                  <social.icon size={16} aria-hidden="true" />
+                  {social.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
           <div className="p-8 rounded-[2rem] bg-muted/30 border border-border/50">
             <h3 className="text-sm font-bold mb-4">Availability</h3>
             <div className="flex items-center gap-3">
               <div className="relative flex h-3 w-3" aria-hidden="true">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
               </div>
-              <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Open for significant opportunities</p>
+              <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Open for web development &amp; hosting projects</p>
             </div>
           </div>
         </div>
 
         <div className="lg:col-span-7">
           <div className="bg-card border border-border/50 rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" aria-hidden="true" />
 
             {submitted ? (
               <div className="py-20 text-center animate-in fade-in scale-in duration-500">
@@ -208,7 +237,7 @@ export default function ContactPage() {
                       required
                       rows={6}
                       className="w-full px-6 py-4 bg-muted/30 border border-border/50 rounded-2xl focus:outline-none focus:border-primary/40 focus:bg-background transition-all font-medium resize-none"
-                      placeholder="Tell me what you need help with..."
+                      placeholder="Tell me about your web development, UI/UX, or hosting project..."
                     />
                   </div>
 

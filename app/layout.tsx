@@ -4,6 +4,7 @@ import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import TopNav from "@/components/top-nav"
+import SiteFooter from "@/components/site-footer"
 import ClientEnhancements from "@/components/client-enhancements"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
@@ -62,6 +63,7 @@ export default function RootLayout({
             <main id="main-content" className="relative scroll-smooth">
               {children}
             </main>
+            <SiteFooter />
             <Toaster />
             <SpeedInsights />
             <Analytics />
