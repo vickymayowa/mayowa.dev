@@ -5,7 +5,7 @@ import { getProjects } from "@/lib/data"
 
 export default async function FeaturedProjects() {
   const projects = await getProjects()
-  const featuredProjects = projects.slice(0, 3)
+  const featuredProjects = projects.slice(0, 5)
 
   return (
     <section className="section-container" aria-labelledby="featured-projects-heading">
@@ -19,7 +19,7 @@ export default async function FeaturedProjects() {
             Selected Projects
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            I build and maintain websites and web applications. Here are some of my favorite projects.
+            Full-stack web applications, SaaS dashboards, and hosting-ready systems — built with React, Next.js, Vue, Node.js, and TypeScript.
           </p>
         </div>
         <Link href="/projects" className="btn-outline-premium group shrink-0">

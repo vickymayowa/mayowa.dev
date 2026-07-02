@@ -14,36 +14,25 @@ import {
   SiVuedotjs,
 } from "react-icons/si"
 import CVSection from "./cv-section"
-import { useState, useEffect } from "react"
 import { siteConfig } from "@/lib/seo/site"
 
+const featuredTechs = [
+  { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
+  { name: "React", icon: SiReact, color: "text-sky-400" },
+  { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
+  { name: "Vue.js", icon: SiVuedotjs, color: "text-emerald-400" },
+  { name: "Node.js", icon: SiNodedotjs, color: "text-emerald-500" },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "text-indigo-400" },
+  { name: "MongoDB", icon: SiMongodb, color: "text-blue-600" },
+  { name: "TailwindCSS", icon: SiTailwindcss, color: "text-sky-400" },
+]
+
 export default function Hero() {
-  const [wordIndex, setWordIndex] = useState(0)
-  const words = ["Great", "Fast", "Secure", "Modern", "Scalable"]
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % words.length)
-    }, 1500)
-    return () => clearInterval(interval)
-  }, [words.length])
-
-  const featuredTechs = [
-    { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
-    { name: "React", icon: SiReact, color: "text-sky-400" },
-    { name: "Next.js", icon: SiNextdotjs, color: "text-foreground" },
-    { name: "Node.js", icon: SiNodedotjs, color: "text-emerald-500" },
-    { name: "PostgreSQL", icon: SiPostgresql, color: "text-indigo-400" },
-    { name: "Mongodb", icon: SiMongodb, color: "text-blue-600" },
-  ]
-
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background px-6">
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_-20%,var(--color-primary)_0%,transparent_50%)] opacity-[0.03]" />
-        <div
-          className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.1]"
-        />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.1]" />
 
         <div className="absolute top-[10%] left-[5%] md:left-[10%] p-4 animate-float opacity-20 dark:opacity-10 rotate-12 hidden md:block">
           <SiNextdotjs size={80} className="text-foreground" />
@@ -63,35 +52,39 @@ export default function Hero() {
         <div className="space-y-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-semibold tracking-wide uppercase animate-in fade-in slide-in-from-bottom-2 duration-700">
             <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
             </span>
-            Available for new opportunities
+            Available for web development &amp; hosting projects
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-5xl md:text-8xl font-bold leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 italic">
-              Building <span key={wordIndex} className="text-primary not-italic inline-block min-w-[2ch] animate-in fade-in zoom-in duration-300">
-                {words[wordIndex]}
-              </span> <br />
-              Websites & Web Apps.
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
+              {siteConfig.tagline}
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-              I&apos;m <span className="text-foreground font-semibold">Favour Mayowa</span>, a Full-Stack Developer. I build and maintain fast, reliable websites and web applications. I turn hard problems into simple solutions.
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+              I&apos;m <span className="text-foreground font-semibold">{siteConfig.name}</span>, a{" "}
+              <span className="text-foreground font-medium">Full-Stack Software Developer &amp; Web Development Specialist</span>{" "}
+              focused on scalable web applications, SaaS platforms, dashboards, backend systems, APIs, UI/UX design systems, and hosting-ready infrastructure — using{" "}
+              <span className="text-foreground font-medium">TypeScript, React, Next.js, Vue.js, Node.js, PostgreSQL, MongoDB, Supabase, Docker, and Vercel</span>.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-4 items-center pt-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-            <Link href="/projects" className="btn-premium group">
-              Explore Projects
+            <Link href="/contact" className="btn-premium group">
+              Hire Me
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+            </Link>
+            <Link href="/projects" className="btn-outline-premium group">
+              View Projects
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </Link>
             <CVSection />
           </div>
 
           <div className="pt-12 border-t border-border/50 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
-            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-6">Expertise in</p>
+            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-6">Core technologies</p>
             <div className="flex flex-wrap gap-x-8 gap-y-6">
               {featuredTechs.map((tech) => (
                 <div key={tech.name} className="flex items-center gap-2.5 group cursor-default">
@@ -112,7 +105,7 @@ export default function Hero() {
             <Link href={siteConfig.social.twitter} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="X profile">
               <SiX size={18} aria-hidden="true" />
             </Link>
-            <Link href="mailto:techiedevmayowa@gmail.com" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Send email">
+            <Link href={`mailto:${siteConfig.email}`} className="text-muted-foreground hover:text-primary transition-colors" aria-label="Send email">
               <Mail size={20} aria-hidden="true" />
             </Link>
           </nav>

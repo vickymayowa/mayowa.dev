@@ -156,6 +156,101 @@
     ],
     "projects": [
         {
+            "id": "22",
+            "title": "Webhook Management System",
+            "description": "A full-stack webhook management platform for registering, testing, and monitoring HTTP webhooks. Built with Next.js, Node.js, Express, PostgreSQL, and TypeScript — featuring event logs, retry logic, signature verification, and a real-time dashboard.",
+            "image": "",
+            "tags": ["Next.js", "Node.js", "Express.js", "PostgreSQL", "TypeScript", "Webhooks"],
+            "demo": null,
+            "created_at": "2026-07-01 10:00:00.000000",
+            "github_link": "https://github.com/vickymayowa",
+            "live_url": "https://github.com/vickymayowa",
+            "features": [
+                "Webhook endpoint registration and secret management",
+                "Event delivery logs with retry and dead-letter queues",
+                "HMAC signature verification for secure payloads",
+                "Real-time dashboard with delivery status monitoring",
+                "REST API for programmatic webhook configuration"
+            ],
+            "deployment": "Deployed on Vercel with a Node.js API backend on a VPS, PostgreSQL database, and Docker containers for local development parity."
+        },
+        {
+            "id": "23",
+            "title": "SaaS Analytics Dashboard",
+            "description": "A production-grade SaaS analytics dashboard for tracking user engagement, revenue metrics, and product KPIs. Built with React, Next.js, TypeScript, TailwindCSS, ShadCN UI, and Supabase with role-based access control.",
+            "image": "https://zuyzoxkdnyentxxydkvp.supabase.co/storage/v1/object/public/project-images/project-1763581006810-1763581020437.png",
+            "tags": ["React", "Next.js", "TypeScript", "Supabase", "SaaS", "ShadCN UI"],
+            "demo": null,
+            "created_at": "2026-07-01 09:00:00.000000",
+            "github_link": "https://github.com/vickymayowa/broker-web",
+            "live_url": "https://github.com/vickymayowa/broker-web",
+            "features": [
+                "Real-time analytics charts and KPI widgets",
+                "Multi-tenant data isolation with role-based access",
+                "Subscription and revenue tracking modules",
+                "Exportable reports and date-range filtering",
+                "Responsive UI/UX optimized for desktop and mobile"
+            ],
+            "deployment": "Hosted on Vercel with Supabase for authentication, PostgreSQL database, and edge-optimized static assets."
+        },
+        {
+            "id": "24",
+            "title": "Inventory Management System",
+            "description": "A full-stack inventory management system with product catalog, stock tracking, sales analytics, and multi-branch monitoring. Built with Next.js, TypeScript, NestJS, PostgreSQL, Prisma, and ShadCN UI for retail and POS workflows.",
+            "image": "",
+            "tags": ["Next.js", "NestJS", "PostgreSQL", "Prisma", "TypeScript", "Inventory"],
+            "demo": null,
+            "created_at": "2026-07-01 08:00:00.000000",
+            "github_link": "https://github.com/codenoirtech/inverta-frontend",
+            "live_url": "https://github.com/codenoirtech/api-inverta",
+            "features": [
+                "Product catalog with SKU and barcode management",
+                "Real-time stock levels and low-inventory alerts",
+                "Sales analytics and branch performance dashboards",
+                "REST API with WebSocket updates for POS sync",
+                "Admin panel with role-based permissions"
+            ],
+            "deployment": "Frontend on Vercel, NestJS API on VPS with Docker, PostgreSQL with Prisma ORM, and Redis for caching."
+        },
+        {
+            "id": "25",
+            "title": "VPS Deployment Automation Tool",
+            "description": "A CLI and automation toolkit for scaffolding and deploying full-stack applications to VPS servers. Generates Docker configs, Nginx reverse proxy templates, CI/CD pipelines, and production-ready Node.js APIs with Express, MongoDB, and TypeScript.",
+            "image": "",
+            "tags": ["Node.js", "Docker", "VPS", "Express.js", "TypeScript", "DevOps"],
+            "demo": null,
+            "created_at": "2026-07-01 07:00:00.000000",
+            "github_link": "https://github.com/codenoirtech/stack-cli",
+            "live_url": "https://github.com/codenoirtech/stack-cli",
+            "features": [
+                "One-command project scaffolding for Node.js APIs",
+                "Docker and docker-compose configuration generation",
+                "Nginx reverse proxy and SSL setup templates",
+                "GitHub Actions CI/CD pipeline boilerplate",
+                "Auth, logging, and environment management modules"
+            ],
+            "deployment": "Target deployment on Linux VPS with Docker containers, Nginx, PM2 process management, and automated database migrations."
+        },
+        {
+            "id": "26",
+            "title": "UI/UX Design System Library",
+            "description": "A reusable UI/UX design system library built with React, TypeScript, TailwindCSS, and ShadCN UI. Provides accessible components, design tokens, typography scales, and documentation for consistent web application interfaces.",
+            "image": "",
+            "tags": ["React", "TypeScript", "TailwindCSS", "ShadCN UI", "UI/UX", "Design System"],
+            "demo": null,
+            "created_at": "2026-07-01 06:00:00.000000",
+            "github_link": "https://github.com/vickymayowa",
+            "live_url": "https://github.com/vickymayowa",
+            "features": [
+                "Accessible component library with WCAG-minded patterns",
+                "Design tokens for colors, spacing, and typography",
+                "Dark and light mode theming support",
+                "Form, navigation, and data display components",
+                "Storybook-ready documentation structure"
+            ],
+            "deployment": "Published as an npm package with Vercel-hosted documentation site and GitHub Actions for automated releases."
+        },
+        {
             "id": "10",
             "title": "FinFlow Web",
             "description": "A modern fintech web application built with Next.js 16, Supabase, TailwindCSS, and ShadCN UI, Typescript. Inspired by Cowrywise, FinFlow helps users automate their savings, invest in diverse portfolios, and achieve their financial goals.",

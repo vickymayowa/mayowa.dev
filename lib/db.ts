@@ -41,6 +41,8 @@ export interface Project {
     created_at: string
     github_link: string
     live_url: string
+    features?: string[]
+    deployment?: string
 }
 
 export interface Database {

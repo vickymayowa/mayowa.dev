@@ -2,11 +2,16 @@ import type { Metadata } from "next"
 import { createPageMetadata } from "@/lib/seo/metadata"
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Projects",
+  title: "Projects — React, Vue & Node.js Portfolio",
   description:
-    "Portfolio of websites and web applications built by Favour Mayowa using modern web technologies.",
+    "Full-stack web development projects: SaaS dashboards, webhook systems, inventory apps, VPS deployment tools, and UI/UX design systems by Favour Mayowa.",
   path: "/projects",
-  keywords: ["portfolio projects", "Next.js projects", "full-stack applications"],
+  keywords: [
+    "react developer portfolio",
+    "full stack projects",
+    "SaaS dashboard",
+    "web development portfolio",
+  ],
 })
 
 export default function ProjectsLayout({
