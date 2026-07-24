@@ -8,6 +8,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mayowa.dev",
   locale: "en_US",
   email: "techiedevmayowa@gmail.com",
+  supportEmail: "icodenoir@gmail.com",
   phone: "+2349167638933",
   location: "Oyo State, Nigeria",
   jobTitle: "Full-Stack Software Developer & Web Development Specialist",
