@@ -85,7 +85,7 @@ export default function TechStack() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
         {techCategories.map((category) => (
           <article
             key={category.title}
